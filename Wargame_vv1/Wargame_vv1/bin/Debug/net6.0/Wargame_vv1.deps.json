@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Wargame_vv1/1.0.0": {
+        "runtime": {
+          "Wargame_vv1.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Wargame_vv1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

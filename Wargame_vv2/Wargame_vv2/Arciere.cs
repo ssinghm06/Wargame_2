@@ -10,7 +10,7 @@ namespace Wargame_vv2
     {
         private int dannoFerito;
 
-        public Arciere() : base(400, 80, 100)
+        public Arciere() : base(400, 80, 100, 400)
         {
             dannoFerito = 50;
         }
@@ -31,11 +31,6 @@ namespace Wargame_vv2
                 p.PuntiVita = p.PuntiVita - potenzaAttaccoBase;
             }
             p.Ferito = true;
-
-            if (p.PuntiVita <= 0)
-            {
-                p.Morto = true;
-            }
 
             PuntiAzione -= 5;
         }
@@ -58,12 +53,12 @@ namespace Wargame_vv2
             }
             p.Ferito = true;
 
-            if (p.PuntiVita <= 0)
-            {
-                p.Morto = true;
-            }
-
             PuntiAzione -= 10;
+        }
+
+        public override string ToString()
+        {
+            return $"Arciere";
         }
     }
 }

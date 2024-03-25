@@ -11,7 +11,7 @@ namespace Wargame_vv2
         private int potenzaAttaccoRiserva;
         private bool attaccoriserva;
 
-        public Mago() : base(1200, 200, 500)
+        public Mago() : base(1200, 200, 500, 1200)
         {
             potenzaAttaccoRiserva = 50;
             attaccoriserva = false;
@@ -37,48 +37,13 @@ namespace Wargame_vv2
             }
 
             p.PuntiVita = p.PuntiVita + potenzaAttaccoPesante;
+
             puntiAzione -= 25;
         }
 
-        public void ControlloAttaccoRiserva(Squadra s)
+        public override string ToString()
         {
-            int i = 0;
-            foreach (Personaggio p in s.Squad)
-            {
-                if (p.Morto == true && !(p is Mago))
-                    i += 1;
-            }
-
-            if (i == 3)
-            {
-                attaccoriserva = true;
-            }
-        }
-
-        public void AttaccoRiserva(Personaggio p)
-        {
-            if (puntiAzione < 5)
-            {
-                throw new Exception("Punti azione insufficienti!");
-            }
-
-            if (p.Difesa)
-            {
-                p.PuntiVita = p.PuntiVita - (potenzaAttaccoRiserva / 2);
-                p.Difesa = false;
-            }
-
-            else
-            {
-                p.PuntiVita = p.PuntiVita - potenzaAttaccoRiserva;
-            }
-
-            if (p.PuntiVita <= 0)
-            {
-                p.Morto = true;
-            }
-
-            puntiAzione -= 5;
+            return $"Mago";
         }
     }
 }

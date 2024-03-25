@@ -10,7 +10,7 @@ namespace Wargame_vv2
     {
         private bool danniDoppi;
 
-        public Cavaliere() : base(950, 70, 125)
+        public Cavaliere() : base(950, 700, 1250, 950)
         {
 
         }
@@ -54,11 +54,6 @@ namespace Wargame_vv2
                 p.PuntiVita = p.PuntiVita - (potenzaAttaccoBase);
             }
 
-            if (p.PuntiVita <= 0)
-            {
-                p.Morto = true;
-            }
-
             PuntiAzione -= 12;
         }
 
@@ -99,12 +94,12 @@ namespace Wargame_vv2
                 p.PuntiVita = p.PuntiVita - (potenzaAttaccoPesante);
             }
 
-            if (p.PuntiVita <= 0)
-            {
-                p.Morto = true;
-            }
-
             PuntiAzione -= 22;
+        }
+
+        public override string ToString()
+        {
+            return $"Cavaliere";
         }
     }
 }

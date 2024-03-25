@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame_Riserva\\Wargame_vv2\\Wargame_vv2\\Wargame_vv2.csproj",
+      "projectUniqueName": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Wargame_vv2.csproj",
       "projectName": "Wargame_vv2",
-      "projectPath": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame_Riserva\\Wargame_vv2\\Wargame_vv2\\Wargame_vv2.csproj",
+      "projectPath": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Wargame_vv2.csproj",
       "packagesPath": "C:\\Users\\manmo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame_Riserva\\Wargame_vv2\\Wargame_vv2\\obj\\",
+      "outputPath": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\manmo\\AppData\\Roaming\\NuGet\\NuGet.Config",

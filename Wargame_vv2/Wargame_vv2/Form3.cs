@@ -19,21 +19,45 @@ namespace Wargame_vv2
         private Personaggio personaggioAvversarioScelto;
 
         private bool attaccoMago = false;
+        private bool turno = true;
 
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
             InitializeComponent();
 
-            this.squadraSelezionata = squadraGiocatore;
+            squadraSelezionata = squadraGiocatore;
             this.squadraAvversaria = squadraAvversaria;
         }
 
         private void AbilitaPulsantiAvversari()
         {
-            Guerriero2.Enabled = true;
-            Cavaliere2.Enabled = true;
-            Arciere2.Enabled = true;
-            Mago2.Enabled = true;
+            foreach (Personaggio p in squadraAvversaria.Squad)
+            {
+                if (!p.Morto)
+                {
+                    AbilitaPulsantePersonaggioAvversario(p);
+                }
+            }
+        }
+
+        private void AbilitaPulsantePersonaggioAvversario(Personaggio personaggio)
+        {
+            if (personaggio is Guerriero)
+            {
+                Guerriero2.Enabled = true;
+            }
+            else if (personaggio is Cavaliere)
+            {
+                Cavaliere2.Enabled = true;
+            }
+            else if (personaggio is Arciere)
+            {
+                Arciere2.Enabled = true;
+            }
+            else if (personaggio is Mago)
+            {
+                Mago2.Enabled = true;
+            }
         }
 
         private void DisabilitaPulsantiAvversari()
@@ -46,10 +70,33 @@ namespace Wargame_vv2
 
         private void AbilitaPulsantiGiocatore()
         {
-            Guerriero1.Enabled = true;
-            Cavaliere1.Enabled = true;
-            Arciere1.Enabled = true;
-            Mago1.Enabled = true;
+            foreach (Personaggio p in squadraSelezionata.Squad)
+            {
+                if (!p.Morto)
+                {
+                    AbilitaPulsantePersonaggioGiocatore(p);
+                }
+            }
+        }
+
+        private void AbilitaPulsantePersonaggioGiocatore(Personaggio personaggio)
+        {
+            if (personaggio is Guerriero)
+            {
+                Guerriero1.Enabled = true;
+            }
+            else if (personaggio is Cavaliere)
+            {
+                Cavaliere1.Enabled = true;
+            }
+            else if (personaggio is Arciere)
+            {
+                Arciere1.Enabled = true;
+            }
+            else if (personaggio is Mago)
+            {
+                Mago1.Enabled = true;
+            }
         }
 
         private void DisabilitaPulsantiGiocatore()
@@ -79,6 +126,258 @@ namespace Wargame_vv2
             DisabilitaPulsantiAvversari();
             Difesa.Enabled = false;
         }
+
+        private void AlgoritmoBaseBot()
+        {
+            Random random = new Random();
+            int azione = random.Next(0, 3);
+            int personaggioBotIndex = random.Next(0, squadraAvversaria.Squad.Count);
+            int personaggioGiocatoreIndex = random.Next(0, squadraSelezionata.Squad.Count);
+
+            Personaggio personaggioBot = squadraAvversaria.Squad[personaggioBotIndex];
+            Personaggio personaggioGiocatore = squadraSelezionata.Squad[personaggioGiocatoreIndex];
+
+            if (!personaggioBot.Morto)
+            {
+                if (personaggioBot is Mago)
+                {
+                    if (azione == 0)
+                    {
+                        int alleatoIndex = random.Next(0, squadraAvversaria.Squad.Count);
+                        Personaggio alleato = squadraAvversaria.Squad[alleatoIndex];
+
+                        if (!alleato.Morto)
+                        {
+                            ((Mago)personaggioBot).AttaccoBase(alleato);
+                            MessageBox.Show($"Cura minore eseguita da: {personaggioBot.ToString()} su: {alleato.ToString()}");
+                            VerificaMorti();
+                            AggiornaStat();
+                        }
+                        else
+                        {
+                            AlgoritmoBaseBot();
+                        }
+                    }
+                    else if (azione == 1)
+                    {
+                        int alleatoIndex = random.Next(0, squadraAvversaria.Squad.Count);
+                        Personaggio alleato = squadraAvversaria.Squad[alleatoIndex];
+
+                        if (!alleato.Morto)
+                        {
+                            ((Mago)personaggioBot).AttaccoPesante(alleato);
+                            MessageBox.Show($"Cura maggiore eseguita da: {personaggioBot.ToString()} su: {alleato.ToString()}");
+                            VerificaMorti();
+                            AggiornaStat();
+                        }
+                        else
+                        {
+                            AlgoritmoBaseBot();
+                        }
+                    }
+                    else
+                    {
+                        personaggioBot.AttivaDifesa();
+                        MessageBox.Show($"Difesa eseguita da: {personaggioBot.ToString()}");
+                        VerificaMorti();
+                        AggiornaStat();
+                    }
+                }
+                else
+                {
+                    if (azione == 0)
+                    {
+                        personaggioBot.AttaccoBase(personaggioGiocatore);
+                        MessageBox.Show($"Attacco base eseguito da: {personaggioBot.ToString()} a: {personaggioGiocatore.ToString()}");
+                        VerificaMorti();
+                        AggiornaStat();
+                    }
+                    else if (azione == 1)
+                    {
+                        personaggioBot.AttaccoPesante(personaggioGiocatore);
+                        MessageBox.Show($"Attacco pesante eseguito da: {personaggioBot.ToString()} a: {personaggioGiocatore.ToString()}");
+                        VerificaMorti();
+                        AggiornaStat();
+                    }
+                    else
+                    {
+                        personaggioBot.AttivaDifesa();
+                        MessageBox.Show($"Difesa eseguita da: {personaggioBot.ToString()}");
+                        VerificaMorti();
+                        AggiornaStat();
+                    }
+                }
+            }
+            else
+            {
+                AlgoritmoBaseBot();
+            }
+        }
+
+        private void VerificaMorti()
+        {
+            foreach (Personaggio p in squadraAvversaria.Squad)
+            {
+                if (p.Morto)
+                {
+                    if (p is Guerriero)
+                    {
+                        Guerriero2.Enabled = false;
+                    }
+                    else if (p is Cavaliere)
+                    {
+                        Cavaliere2.Enabled = false;
+                    }
+                    else if (p is Arciere)
+                    {
+                        Arciere2.Enabled = false;
+                    }
+                    else if (p is Mago)
+                    {
+                        Mago2.Enabled = false;
+                    }
+                }
+                else
+                {
+                    if (p is Guerriero)
+                    {
+                        Guerriero2.Enabled = true;
+                    }
+                    else if (p is Cavaliere)
+                    {
+                        Cavaliere2.Enabled = true;
+                    }
+                    else if (p is Arciere)
+                    {
+                        Arciere2.Enabled = true;
+                    }
+                    else if (p is Mago)
+                    {
+                        Mago2.Enabled = true;
+                    }
+                }
+            }
+
+            foreach (Personaggio p in squadraSelezionata.Squad)
+            {
+                if (p.Morto)
+                {
+                    if (p is Guerriero)
+                    {
+                        Guerriero1.Enabled = false;
+                    }
+                    else if (p is Cavaliere)
+                    {
+                        Cavaliere1.Enabled = false;
+                    }
+                    else if (p is Arciere)
+                    {
+                        Arciere1.Enabled = false;
+                    }
+                    else if (p is Mago)
+                    {
+                        Mago1.Enabled = false;
+                    }
+                }
+                else
+                {
+                    if (p is Guerriero)
+                    {
+                        Guerriero1.Enabled = true;
+                    }
+                    else if (p is Cavaliere)
+                    {
+                        Cavaliere1.Enabled = true;
+                    }
+                    else if (p is Arciere)
+                    {
+                        Arciere1.Enabled = true;
+                    }
+                    else if (p is Mago)
+                    {
+                        Mago1.Enabled = true;
+                    }
+                }
+            }
+        }
+
+        private void IsEndGame()
+        {
+            if (squadraSelezionata.Squad.All(p => p.Morto))
+            {
+                foreach (Personaggio p in squadraAvversaria.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
+                MessageBox.Show("Il bot ha vinto");
+            }
+            else if (squadraAvversaria.Squad.All(p => p.Morto))
+            {
+                foreach (Personaggio p in squadraSelezionata.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
+                MessageBox.Show("Il giocatore ha vinto!");
+                this.Close();
+            }
+
+            else if (squadraSelezionata.Squad.Count(p => !p.Morto) == 1 && squadraSelezionata.Squad.Any(p => p is Mago && !p.Morto))
+            {
+                foreach (Personaggio p in squadraAvversaria.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
+                MessageBox.Show("Il bot ha vinto");
+            }
+            else if (squadraAvversaria.Squad.Count(p => !p.Morto) == 1 && squadraAvversaria.Squad.Any(p => p is Mago && !p.Morto))
+            {
+                foreach (Personaggio p in squadraSelezionata.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
+                MessageBox.Show("Il giocatore ha vinto!");
+                this.Close();
+            }
+        }
+
+        private void VerificaFerito()
+        {
+            foreach (Personaggio p in squadraAvversaria.Squad)
+            {
+                if (p.Ferito)
+                {
+                    p.PuntiVita -= 50;
+                    p.Ferito = false;
+                }
+            }
+
+            foreach (Personaggio p in squadraSelezionata.Squad)
+            {
+                if (p.Ferito)
+                {
+                    p.PuntiVita -= 50;
+                    p.Ferito = false;
+                }
+            }
+        }
+
+        private void CaricaPuntiAzione()
+        {
+            foreach (Personaggio p in squadraAvversaria.Squad)
+            {
+                p.PuntiAzione += 5;
+            }
+            foreach (Personaggio p in squadraSelezionata.Squad)
+            {
+                p.PuntiAzione += 5;
+            }
+
+        }
+    
 
         private void AggiornaStatGuerrierioGiocatore()
         {
@@ -160,6 +459,7 @@ namespace Wargame_vv2
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
+                personaggioScelto = squadraSelezionata.Squad[0];
             }
             else
             {
@@ -175,6 +475,7 @@ namespace Wargame_vv2
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
+                personaggioScelto = squadraSelezionata.Squad[1];
             }
             else
             {
@@ -190,6 +491,7 @@ namespace Wargame_vv2
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
+                personaggioScelto = squadraSelezionata.Squad[2];
             }
             else
             {
@@ -205,6 +507,7 @@ namespace Wargame_vv2
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
+                personaggioScelto = squadraSelezionata.Squad[3];
             }
             else
             {
@@ -244,73 +547,143 @@ namespace Wargame_vv2
 
         private void AttaccoBase_Click(object sender, EventArgs e)
         {
-            if (attaccoMago)
+            try
             {
-                if (personaggioScelto != null)
+                if (attaccoMago)
                 {
-                    personaggioScelto.AttaccoBase(personaggioScelto);
-                    MessageBox.Show("Cura minore eseguita!");
-                    AggiornaStat();
-                    DisabilitaPulsantiAvversari();
-                    AbilitaPulsantiGiocatore();
-                    DisabilitaPulsantiAttacco();
-                    Difesa.Enabled = false;
-                    attaccoMago = false;
+                    if (personaggioScelto != null)
+                    {
+                        squadraSelezionata.Squad[3].AttaccoBase(personaggioScelto);
+                        MessageBox.Show("Cura minore eseguita!");
+                        AggiornaStat();
+                        AbilitaPulsantiGiocatore();
+                        DisabilitaPulsantiAttacco();
+                        Difesa.Enabled = false;
+                        attaccoMago = false;
+                        turno = false;
+                        AlgoritmoBaseBot();
+                        VerificaMorti();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
+                        DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                    }
+                }
+                else
+                {
+                    if (personaggioScelto != null && personaggioAvversarioScelto != null)
+                    {
+                        personaggioScelto.AttaccoBase(personaggioAvversarioScelto);
+                        MessageBox.Show("Attacco base eseguito!");
+                        AggiornaStat();
+                        AbilitaPulsantiGiocatore();
+                        DisabilitaPulsantiAttacco();
+                        Difesa.Enabled = false;
+                        turno = false;
+                        AlgoritmoBaseBot();
+                        VerificaMorti();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
+                        DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                    }
                 }
             }
-            else
+
+            catch (Exception ex)
             {
-                if (personaggioScelto != null && personaggioAvversarioScelto != null)
+                if (turno == false)
                 {
-                    personaggioScelto.AttaccoBase(personaggioAvversarioScelto);
-                    MessageBox.Show("Attacco base eseguito!");
-                    AggiornaStat();
-                    DisabilitaPulsantiAvversari();
-                    AbilitaPulsantiGiocatore();
-                    DisabilitaPulsantiAttacco();
-                    Difesa.Enabled = false;
+                    MessageBox.Show($"Errore: {ex.Message}");
                 }
+                AbilitaPulsantiGiocatore();
+                DisabilitaPulsantiAvversari();
+                DisabilitaPulsantiAttacco();
             }
         }
 
         private void AttaccoPesante_Click(object sender, EventArgs e)
         {
-            if (attaccoMago)
+            try
             {
-                if (personaggioScelto != null)
+                if (attaccoMago)
                 {
-                    personaggioScelto.AttaccoPesante(personaggioScelto);
-                    MessageBox.Show("Cura maggiore eseguita!");
-                    AggiornaStat();
-                    DisabilitaPulsantiAvversari();
-                    AbilitaPulsantiGiocatore();
-                    DisabilitaPulsantiAttacco();
-                    Difesa.Enabled = false;
-                    attaccoMago = false;
+                    if (personaggioScelto != null)
+                    {
+                        squadraSelezionata.Squad[3].AttaccoPesante(personaggioScelto);
+                        MessageBox.Show("Cura maggiore eseguita!");
+                        AggiornaStat();
+                        AbilitaPulsantiGiocatore();
+                        DisabilitaPulsantiAttacco();
+                        Difesa.Enabled = false;
+                        attaccoMago = false;
+                        turno = false;
+                        AlgoritmoBaseBot();
+                        VerificaMorti();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
+                        DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                    }
+                }
+                else
+                {
+                    if (personaggioScelto != null && personaggioAvversarioScelto != null)
+                    {
+                        personaggioScelto.AttaccoPesante(personaggioAvversarioScelto);
+                        MessageBox.Show("Attacco pesante eseguito!");
+                        AggiornaStat();
+                        AbilitaPulsantiGiocatore();
+                        DisabilitaPulsantiAttacco();
+                        Difesa.Enabled = false;
+                        turno = false;
+                        AlgoritmoBaseBot();
+                        VerificaMorti();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
+                        DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (personaggioScelto != null && personaggioAvversarioScelto != null)
+                if (turno == false)
                 {
-                    personaggioScelto.AttaccoPesante(personaggioAvversarioScelto);
-                    MessageBox.Show("Attacco pesante eseguito!");
-                    AggiornaStat();
-                    DisabilitaPulsantiAvversari();
-                    AbilitaPulsantiGiocatore();
-                    DisabilitaPulsantiAttacco();
-                    Difesa.Enabled = false;
+                    MessageBox.Show($"Errore: {ex.Message}");
                 }
+                AbilitaPulsantiGiocatore();
+                DisabilitaPulsantiAvversari();
+                DisabilitaPulsantiAttacco();
             }
         }
 
         private void Difesa_Click(object sender, EventArgs e)
         {
-            if (personaggioScelto != null)
+            try
             {
-                personaggioScelto.AttivaDifesa();
-                MessageBox.Show("Difesa attivata");
-                DopoDifesa();
+                if (personaggioScelto != null)
+                {
+                    personaggioScelto.AttivaDifesa();
+                    MessageBox.Show("Difesa attivata");
+                    DopoDifesa();
+                    turno = false;
+                    AlgoritmoBaseBot();
+                    VerificaMorti();    
+                    CaricaPuntiAzione();
+                    VerificaFerito();
+                    DisabilitaPulsantiAvversari();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (turno == false)
+                {
+                    MessageBox.Show($"Errore: {ex.Message}");
+                }
+                AbilitaPulsantiGiocatore();
+                DisabilitaPulsantiAvversari();
+                DisabilitaPulsantiAttacco();
             }
         }
     }

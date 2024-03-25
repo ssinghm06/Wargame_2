@@ -8,7 +8,7 @@ namespace Wargame_vv2
 {
     public class Guerriero : Personaggio
     {
-        public Guerriero() : base(700, 100, 300)
+        public Guerriero() : base(700, 1000, 3000, 700)
         {
 
         }
@@ -29,11 +29,6 @@ namespace Wargame_vv2
             else
             {
                 p.PuntiVita = p.PuntiVita - potenzaAttaccoBase;
-            }
-
-            if (p.PuntiVita <= 0)
-            {
-                p.Morto = true;
             }
 
             PuntiAzione -= 10;
@@ -57,12 +52,12 @@ namespace Wargame_vv2
                 p.PuntiVita = p.PuntiVita - potenzaAttaccoPesante;
             }
 
-            if (p.PuntiVita <= 0)
-            {
-                p.Morto = true;
-            }
-
             PuntiAzione -= 25;
+        }
+
+        public override string ToString()
+        {
+            return $"Guerriero";
         }
     }
 }

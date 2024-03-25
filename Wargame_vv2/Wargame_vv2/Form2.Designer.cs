@@ -84,7 +84,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Showcard Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(392, 396);
+            label2.Location = new Point(402, 395);
             label2.Name = "label2";
             label2.Size = new Size(59, 37);
             label2.TabIndex = 8;
@@ -92,7 +92,7 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.Location = new Point(287, 346);
+            pictureBox4.Location = new Point(300, 369);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(99, 87);
             pictureBox4.TabIndex = 9;
@@ -112,14 +112,14 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Control;
-            panel1.Location = new Point(206, 447);
+            panel1.Location = new Point(219, 447);
             panel1.Name = "panel1";
             panel1.Size = new Size(341, 40);
             panel1.TabIndex = 11;
             // 
             // panel2
             // 
-            panel2.Location = new Point(206, 447);
+            panel2.Location = new Point(219, 447);
             panel2.Name = "panel2";
             panel2.Size = new Size(10, 40);
             panel2.TabIndex = 12;

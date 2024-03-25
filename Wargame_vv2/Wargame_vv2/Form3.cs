@@ -12,6 +12,8 @@ namespace Wargame_vv2
 {
     public partial class Form3 : Form
     {
+        Form1 form1 = new Form1();
+
         private Squadra squadraSelezionata;
         private Squadra squadraAvversaria;
 
@@ -24,7 +26,9 @@ namespace Wargame_vv2
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
             InitializeComponent();
-
+            Guerriero1.BackgroundImageLayout = ImageLayout.Zoom;
+            Guerriero1.BackgroundImage = form1.CaricaImmagine("CartaGuerriero.png");
+            
             squadraSelezionata = squadraGiocatore;
             this.squadraAvversaria = squadraAvversaria;
         }
@@ -196,7 +200,7 @@ namespace Wargame_vv2
                     {
                         personaggioBot.AttaccoPesante(personaggioGiocatore);
                         MessageBox.Show($"Attacco pesante eseguito da: {personaggioBot.ToString()} a: {personaggioGiocatore.ToString()}");
-                        VerificaMorti();
+                        VerificaMorti();    
                         AggiornaStat();
                     }
                     else

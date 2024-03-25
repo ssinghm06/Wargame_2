@@ -14,7 +14,7 @@ namespace Wargame_vv2
     {
         private int progresso = 0;
 
-        Form1 form1 = new Form1();   
+        Form1 form1 = new Form1();
 
         public Form2()
         {
@@ -31,6 +31,7 @@ namespace Wargame_vv2
             pictureBox1.BackColor = Color.BurlyWood;
             pictureBox2.BackColor = Color.BurlyWood;
             pictureBox3.BackColor = Color.BurlyWood;
+            pictureBox4.BackColor = Color.Transparent;
 
             label1.BackColor = Color.BurlyWood;
             label1.ForeColor = Color.DarkSlateGray;
@@ -39,6 +40,8 @@ namespace Wargame_vv2
             pictureBox2.Image = form1.CaricaImmagine("war.png");
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.Image = form1.CaricaImmagine("flag.png");
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.Image = form1.CaricaImmagine("random.gif");
 
             label3.BackColor = Color.Transparent;
             label2.BackColor = Color.Transparent;
@@ -88,13 +91,15 @@ namespace Wargame_vv2
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             timer1.Stop();
-            DialogResult risposta = MessageBox.Show("Sei sicuro di voler uscire!", "Exit", MessageBoxButtons.YesNo);
+            
+            form1.customMessageBox = form1.CustomMessageBox();
+
+            DialogResult risposta = form1.customMessageBox.ShowDialog();
 
             if (risposta == DialogResult.Yes)
             {
                 Application.Exit();
             }
-
             else
             {
                 timer1.Start();

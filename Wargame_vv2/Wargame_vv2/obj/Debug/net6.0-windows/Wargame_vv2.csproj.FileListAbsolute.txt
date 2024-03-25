@@ -35,3 +35,5 @@ C:\Users\manmo\OneDrive\Desktop\Wargame_Riserva\Wargame_vv2\Wargame_vv2\obj\Debu
 C:\Users\manmo\OneDrive\Desktop\Wargame_Riserva\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.pdb
 C:\Users\manmo\OneDrive\Desktop\Wargame_Riserva\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.genruntimeconfig.cache
 C:\Users\manmo\OneDrive\Desktop\Wargame_Riserva\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\ref\Wargame_vv2.dll
+C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.Properties.Resources.resources
+C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.MessageCustomYesNo.resources

@@ -475,7 +475,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1208, 715);
+            ClientSize = new Size(1198, 800);
             Controls.Add(label26);
             Controls.Add(label27);
             Controls.Add(label28);
@@ -519,7 +519,9 @@
             Controls.Add(Arciere1);
             Controls.Add(Cavaliere1);
             Controls.Add(Guerriero1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Form3";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form3";
             Load += Form3_Load;
             ResumeLayout(false);

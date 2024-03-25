@@ -13,6 +13,7 @@ namespace Wargame_vv2
         // mi serve per togliere la casella evidenziata --> unica soluzione che mi e venuta in mente
         List<Image> immaginiMosse;
 
+        public MessageCustomYesNo customMessageBox = new MessageCustomYesNo();
 
         public Squadra SquadraSelezionata
         {
@@ -171,7 +172,9 @@ namespace Wargame_vv2
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            DialogResult risposta = MessageBox.Show("Sei sicuro di voler uscire!", "Exit", MessageBoxButtons.YesNo);
+            customMessageBox = CustomMessageBox();
+
+            DialogResult risposta = customMessageBox.ShowDialog();
 
             if (risposta == DialogResult.Yes)
             {
@@ -232,6 +235,7 @@ namespace Wargame_vv2
                     {
                         Form3 form3  = new Form3(SquadraSelezionata, squadraCliccata);
                         form3.Show();
+                        this.Hide();
 
                         //MessageBox.Show("ciao");
 
@@ -343,6 +347,16 @@ namespace Wargame_vv2
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public MessageCustomYesNo CustomMessageBox()
+        {
+            customMessageBox.Message = "wanna quit?";
+            customMessageBox.YesImage = CaricaImmagine("yes.png");
+            customMessageBox.NoImage = CaricaImmagine("no.png");
+            customMessageBox.closeImage = CaricaImmagine("delete-cross.png");
+
+            return customMessageBox;
         }
     }
 }

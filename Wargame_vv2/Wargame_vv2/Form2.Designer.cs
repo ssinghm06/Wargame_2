@@ -124,6 +124,10 @@
             panel2.Size = new Size(10, 40);
             panel2.TabIndex = 12;
             // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);

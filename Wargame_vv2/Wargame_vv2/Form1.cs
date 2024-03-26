@@ -1,3 +1,4 @@
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
 
@@ -14,6 +15,9 @@ namespace Wargame_vv2
         List<Image> immaginiMosse;
 
         public MessageCustomYesNo customMessageBox = new MessageCustomYesNo();
+
+        private int turno = 0;
+        private bool turnoGiocatore = true;
 
         public Squadra SquadraSelezionata
         {
@@ -183,99 +187,206 @@ namespace Wargame_vv2
         }
 
         // creo un metodo per gestire il click su una casella
-        private void Casella_Click(object sender, EventArgs e)
+        private async void Casella_Click(object sender, EventArgs e)
         {
-            PictureBox casellaCliccata = (PictureBox)sender;
-
-            // ottengo le informazioni sulla squadra associata
-            Squadra squadraCliccata = (Squadra)casellaCliccata.Tag;
-
-            if (squadraCliccata != null && squadraCliccata.Tipo == Squadra.Type.Viking)
+            if (turno == 0)
             {
-                // ci sono tre casistiche 'speciali'
+                PictureBox casellaCliccata = (PictureBox)sender;
 
-                // se non ho ancora selezionato una squadra
-                // allora la seleziono e la evidenzio
-                if (SquadraSelezionata == null)
+                // ottengo le informazioni sulla squadra associata
+                Squadra squadraCliccata = (Squadra)casellaCliccata.Tag;
+
+                if (squadraCliccata != null && squadraCliccata.Tipo == Squadra.Type.Viking)
                 {
-                    SquadraSelezionata = squadraCliccata;
-                    EvidenziaMossaValida(squadraCliccata);
-                }
+                    // ci sono tre casistiche 'speciali'
 
-                // se seleziono la squadra stessa per la seconda volta (ci riclicco)
-                // allora la deseleziono e resetto l'evidenzia
-                else if (SquadraSelezionata == squadraCliccata)
-                {
-                    ResettaEvidenzia();
-                    SquadraSelezionata = null;
-                }
+                    // se non ho ancora selezionato una squadra
+                    // allora la seleziono e la evidenzio
+                    if (SquadraSelezionata == null)
+                    {
+                        SquadraSelezionata = squadraCliccata;
+                        EvidenziaMossaValida(squadraCliccata);
+                    }
 
-                // se seleziono una squadra diversa da quella precedentemente selezionata
-                // allora deseleziono quella vecchia e poi seleziono la nuova e la evidenzio
+                    // se seleziono la squadra stessa per la seconda volta (ci riclicco)
+                    // allora la deseleziono e resetto l'evidenzia
+                    else if (SquadraSelezionata == squadraCliccata)
+                    {
+                        ResettaEvidenzia();
+                        SquadraSelezionata = null;
+                    }
+
+                    // se seleziono una squadra diversa da quella precedentemente selezionata
+                    // allora deseleziono quella vecchia e poi seleziono la nuova e la evidenzio
+                    else
+                    {
+                        ResettaEvidenzia();
+                        SquadraSelezionata = squadraCliccata;
+                        EvidenziaMossaValida(squadraCliccata);
+                    }
+                }
                 else
                 {
+                    if (IsMossaValida(casellaCliccata) && squadraSelezionata != null)
+                    {
+                        (int x, int y) = CoordinateCasellaCliccata(casellaCliccata);
+
+                        caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Tag = null;
+                        caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = null;
+
+                        SquadraSelezionata.Muovi(x, y);
+                        turnoGiocatore = false;
+
+                        // per Invadi
+                        if (SquadraSelezionata.ModCombattimento)
+                        {
+                            Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
+                            form3.Show();
+                            this.Hide();
+
+                            //MessageBox.Show("ciao");
+
+                            // errore GREVE --> serve solo per test
+                            SquadraSelezionata.ModCombattimento = false;
+                        }
+
+                        casellaCliccata.Tag = SquadraSelezionata;
+                        caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = CaricaImmagine(SquadraSelezionata);
+
+                        squadraSelezionata = null;
+                    }
+
                     ResettaEvidenzia();
-                    SquadraSelezionata = squadraCliccata;
-                    EvidenziaMossaValida(squadraCliccata);
+                    SquadraSelezionata = null;
+                    
+                    if (turnoGiocatore != true)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            //prima versione --> *la cambiero in futuro
+                            string tipoSquadra;
+                            if (turno == 0)
+                            {
+                                tipoSquadra = Squadra.Type.Shogun.ToString();
+                            }
+                            else if (turno == 1)
+                            {
+                                tipoSquadra = Squadra.Type.Gladiator.ToString();
+                            }
+                            else if (turno == 2)
+                            {
+                                tipoSquadra = Squadra.Type.Knight.ToString();
+                            }
+                            else
+                            {
+                                tipoSquadra = "VIKING";
+                            }
+
+                            label2.Text = tipoSquadra + "'S TURN!";
+                            label2.ForeColor = Color.Red;
+
+                            await Task.Delay(2000);
+                            GestisciTurnoBot();
+                        }
+
+                        turnoGiocatore = true;
+                    }
                 }
+            }
+        }
+
+        //algoritmo base bot --> migliorabile
+        private void GestisciTurnoBot()
+        {
+            turno++;
+
+            Squadra.Type tipoSquadra;
+
+            if (turno == 1)
+            {
+                tipoSquadra = Squadra.Type.Shogun;
+            }
+            else if (turno == 2)
+            {
+                tipoSquadra = Squadra.Type.Gladiator;
             }
             else
             {
-                if (IsMossaValida(casellaCliccata))
-                {
-                    (int x, int y) = CoordinateCasellaCliccata(casellaCliccata);
+                tipoSquadra = Squadra.Type.Knight;
+            }
 
-                    caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Tag = null;
-                    caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = null;
+            //MessageBox.Show(tipoSquadra.ToString());
 
-                    SquadraSelezionata.Muovi(x, y);
+            List<Squadra> squadreDelTipo = squadre.Where(s => s.Tipo == tipoSquadra).ToList();
 
-                    // per Invadi
-                    if (SquadraSelezionata.ModCombattimento)
-                    {
-                        Form3 form3  = new Form3(SquadraSelezionata, squadraCliccata);
-                        form3.Show();
-                        this.Hide();
+            //se non ci sono squadre del tipo --> esci dal metodo
+            if (squadreDelTipo.Count == 0)
+            {
+                return;
+            }
 
-                        //MessageBox.Show("ciao");
+            //sceglie casualmente una delle squadre
+            Random r = new Random();
+            Squadra squadraScelta = squadreDelTipo[r.Next(squadreDelTipo.Count)];
 
-                        // errore GREVE --> serve solo per test
-                        SquadraSelezionata.ModCombattimento = false;
-                    }
+            List<(int, int)> mosseValide = squadraScelta.MossaValida(tabellone);
+            (int x, int y) mossaScelta = mosseValide[r.Next(mosseValide.Count)];
 
-                    casellaCliccata.Tag = SquadraSelezionata;
-                    caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = CaricaImmagine(SquadraSelezionata);
-                }
+            immaginiMosse.Add(caselle[mossaScelta.x, mossaScelta.y].Image);
 
-                ResettaEvidenzia();
-                SquadraSelezionata = null;
+            PictureBox casellaScelta = caselle[mossaScelta.x, mossaScelta.y];
+
+            //MessageBox.Show($"{mossaScelta.x}, {mossaScelta.y}");
+
+            if (IsMossaValida(casellaScelta))
+            {
+                (int x, int y) = CoordinateCasellaCliccata(casellaScelta);
+
+                caselle[squadraScelta.X, squadraScelta.Y].Tag = null;
+                caselle[squadraScelta.X, squadraScelta.Y].Image = null;
+
+                squadraScelta.Muovi(x, y);
+
+                casellaScelta.Tag = squadraScelta;
+                casellaScelta.Image = CaricaImmagine(squadraScelta);
+            }
+
+            if (turno > 2)
+            {
+                turno = 0;
+
+                label2.Text = "VIKING'S TURN!";
+                label2.ForeColor = Color.MediumBlue;
             }
         }
 
         private void EvidenziaMossaValida(Squadra s)
         {
-            // resetto le zone evidenziate
-            ResettaEvidenzia();
-
-            // in questa lista di tuple vado a salvare tutte le mosse valide
-            List<(int, int)> mosseValide = s.MossaValida(tabellone);
-
-            for (int i = 0; i < mosseValide.Count; i++)
+            if (turnoGiocatore)
             {
-                // tiro fuori la x e la y
-                int newX = mosseValide[i].Item1;
-                int newY = mosseValide[i].Item2;
+                // resetto le zone evidenziate
+                ResettaEvidenzia();
 
-                Squadra squadraInCasella = tabellone.GetSquadra(newX, newY);
-                if (squadraInCasella != null && squadraInCasella.Tipo != s.Tipo)
-                    caselle[newX, newY].Image = SovrapponiImmagini("yellow.png", CaricaImmagine(squadraInCasella));
-                else
-                    caselle[newX, newY].Image = CaricaImmagine("yellow.png");
+                // in questa lista di tuple vado a salvare tutte le mosse valide
+                List<(int, int)> mosseValide = s.MossaValida(tabellone);
 
-                immaginiMosse.Add(caselle[newX, newY].Image);
+                for (int i = 0; i < mosseValide.Count; i++)
+                {
+                    // tiro fuori la x e la y
+                    int newX = mosseValide[i].Item1;
+                    int newY = mosseValide[i].Item2;
 
-                //caselle[newX, newY].Image = CaricaImmagine("yellow.png");
-                //immaginiMosse.Add(caselle[newX, newY].Image);
+                    Squadra squadraInCasella = tabellone.GetSquadra(newX, newY);
+                    if (squadraInCasella != null && squadraInCasella.Tipo != s.Tipo)
+                        caselle[newX, newY].Image = SovrapponiImmagini("yellow.png", CaricaImmagine(squadraInCasella));
+                    else
+                        caselle[newX, newY].Image = CaricaImmagine("yellow.png");
+
+                    immaginiMosse.Add(caselle[newX, newY].Image);
+
+                    //caselle[newX, newY].Image = CaricaImmagine("yellow.png");
+                    //immaginiMosse.Add(caselle[newX, newY].Image);
+                }
             }
         }
 

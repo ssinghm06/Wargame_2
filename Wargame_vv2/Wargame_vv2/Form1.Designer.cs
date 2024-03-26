@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             label1 = new Label();
             pictureBox3 = new PictureBox();
             label2 = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -86,11 +88,12 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.ForeColor = Color.MediumBlue;
             label2.Location = new Point(255, 58);
             label2.Name = "label2";
             label2.Size = new Size(228, 35);
             label2.TabIndex = 5;
-            label2.Text = "Mauro's Turn!";
+            label2.Text = "Viking's Turn!";
             // 
             // Form1
             // 
@@ -122,5 +125,6 @@
         private Label label1;
         private PictureBox pictureBox3;
         private Label label2;
+        private System.Windows.Forms.Timer timer1;
     }
 }

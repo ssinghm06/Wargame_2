@@ -53,11 +53,39 @@ namespace Wargame_vv2
             panel2.Width = 0;
 
             timer1.Interval = 1000;
-            timer1.Tick += Timer_Tick;
+            timer1.Tick += timer1_Tick;
             timer1.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+
+            form1.customMessageBox = form1.CustomMessageBox();
+
+            DialogResult risposta = form1.customMessageBox.ShowDialog();
+
+            if (risposta == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                timer1.Start();
+            }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
         {
             Random r = new Random();
             progresso += r.Next(1, 21);
@@ -81,34 +109,6 @@ namespace Wargame_vv2
                 Form1 Gioco = new Form1();
                 Gioco.Show();
             }
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            timer1.Stop();
-            
-            form1.customMessageBox = form1.CustomMessageBox();
-
-            DialogResult risposta = form1.customMessageBox.ShowDialog();
-
-            if (risposta == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else
-            {
-                timer1.Start();
-            }
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

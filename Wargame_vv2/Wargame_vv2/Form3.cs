@@ -26,11 +26,77 @@ namespace Wargame_vv2
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
             InitializeComponent();
-            Guerriero1.BackgroundImageLayout = ImageLayout.Zoom;
-            Guerriero1.BackgroundImage = form1.CaricaImmagine("CartaGuerriero.png");
-            
+            Guerriero1.BackgroundImage = form1.CaricaImmagine("guerriero.png");
+            Cavaliere1.BackgroundImage = form1.CaricaImmagine("cavaliere.png");
+            Arciere1.BackgroundImage = form1.CaricaImmagine("arciere.png");
+            Mago1.BackgroundImage = form1.CaricaImmagine("mago.png");
+            Guerriero2.BackgroundImage = form1.CaricaImmagine("guerriero.png");
+            Cavaliere2.BackgroundImage = form1.CaricaImmagine("cavaliere.png");
+            Arciere2.BackgroundImage = form1.CaricaImmagine("arciere.png");
+            Mago2.BackgroundImage = form1.CaricaImmagine("mago.png");
+            AttaccoBase.BackgroundImage = form1.CaricaImmagine("baseAttack.png");
+            AttaccoPesante.BackgroundImage = form1.CaricaImmagine("heavyAttack.png");
+            Difesa.BackgroundImage = form1.CaricaImmagine("defense.png");
+
             squadraSelezionata = squadraGiocatore;
             this.squadraAvversaria = squadraAvversaria;
+            Guerriero1.BackgroundImageLayout = ImageLayout.Stretch;
+            Guerriero1.FlatStyle = FlatStyle.Flat;
+            Guerriero1.FlatAppearance.BorderSize = 0;
+            Guerriero2.BackgroundImageLayout = ImageLayout.Stretch;
+            Guerriero2.FlatStyle = FlatStyle.Flat;
+            Guerriero2.FlatAppearance.BorderSize = 0;
+            Cavaliere1.BackgroundImageLayout = ImageLayout.Stretch;
+            Cavaliere1.FlatStyle = FlatStyle.Flat;
+            Cavaliere1.FlatAppearance.BorderSize = 0;
+            Cavaliere2.BackgroundImageLayout = ImageLayout.Stretch;
+            Cavaliere2.FlatStyle = FlatStyle.Flat;
+            Cavaliere2.FlatAppearance.BorderSize = 0;
+            Arciere1.BackgroundImageLayout = ImageLayout.Stretch;
+            Arciere1.FlatStyle = FlatStyle.Flat;
+            Arciere1.FlatAppearance.BorderSize = 0;
+            Arciere2.BackgroundImageLayout = ImageLayout.Stretch;
+            Arciere2.FlatStyle = FlatStyle.Flat;
+            Arciere2.FlatAppearance.BorderSize = 0;
+            Mago1.BackgroundImageLayout = ImageLayout.Stretch;
+            Mago1.FlatStyle = FlatStyle.Flat;
+            Mago1.FlatAppearance.BorderSize = 0;
+            Mago2.BackgroundImageLayout = ImageLayout.Stretch;
+            Mago2.FlatStyle = FlatStyle.Flat;
+            Mago2.FlatAppearance.BorderSize = 0;
+            AttaccoBase.BackgroundImageLayout = ImageLayout.Stretch;
+            AttaccoBase.FlatStyle = FlatStyle.Flat;
+            AttaccoBase.FlatAppearance.BorderSize = 0;
+            AttaccoPesante.BackgroundImageLayout = ImageLayout.Stretch;
+            AttaccoPesante.FlatStyle = FlatStyle.Flat;
+            AttaccoPesante.FlatAppearance.BorderSize = 0;
+            Difesa.BackgroundImageLayout = ImageLayout.Stretch;
+            Difesa.FlatStyle = FlatStyle.Flat;
+            Difesa.FlatAppearance.BorderSize = 0;
+
+            AttaccoBase.FlatAppearance.BorderColor = Color.Black;
+            AttaccoBase.FlatAppearance.BorderSize = 5;
+            AttaccoPesante.FlatAppearance.BorderColor = Color.Black;
+            AttaccoPesante.FlatAppearance.BorderSize = 5;
+            Difesa.FlatAppearance.BorderColor = Color.Black;
+            Difesa.FlatAppearance.BorderSize = 5;
+            Guerriero1.FlatAppearance.BorderColor = Color.Black;
+            Guerriero1.FlatAppearance.BorderSize = 5;
+            Guerriero2.FlatAppearance.BorderColor = Color.Black;
+            Guerriero2.FlatAppearance.BorderSize = 5;
+            Cavaliere1.FlatAppearance.BorderColor = Color.Black;
+            Cavaliere1.FlatAppearance.BorderSize = 5;
+            Cavaliere2.FlatAppearance.BorderColor = Color.Black;
+            Cavaliere2.FlatAppearance.BorderSize = 5;
+            Arciere1.FlatAppearance.BorderColor = Color.Black;
+            Arciere1.FlatAppearance.BorderSize = 5;
+            Arciere2.FlatAppearance.BorderColor = Color.Black;
+            Arciere2.FlatAppearance.BorderSize = 5;
+            Mago1.FlatAppearance.BorderColor = Color.Black;
+            Mago1.FlatAppearance.BorderSize = 5;
+            Mago2.FlatAppearance.BorderColor = Color.Black;
+            Mago2.FlatAppearance.BorderSize = 5;
+
         }
 
         private void AbilitaPulsantiAvversari()
@@ -40,6 +106,7 @@ namespace Wargame_vv2
                 if (!p.Morto)
                 {
                     AbilitaPulsantePersonaggioAvversario(p);
+
                 }
             }
         }
@@ -49,27 +116,98 @@ namespace Wargame_vv2
             if (personaggio is Guerriero)
             {
                 Guerriero2.Enabled = true;
+                panel8.BackColor = Color.Red;
+                label33.BackColor = Color.IndianRed;
+                label32.BackColor = Color.IndianRed;
+                label15.BackColor = Color.IndianRed;
+                label43.BackColor = Color.IndianRed;
+                label14.BackColor = Color.IndianRed;
+                Guerriero2.BackColor = Color.FromArgb(255, 128, 128);
             }
             else if (personaggio is Cavaliere)
             {
                 Cavaliere2.Enabled = true;
+                panel7.BackColor = Color.Red;
+                label31.BackColor = Color.IndianRed;
+                label30.BackColor = Color.IndianRed;
+                label13.BackColor = Color.IndianRed;
+                label42.BackColor = Color.IndianRed;
+                label12.BackColor = Color.IndianRed;
+                Cavaliere2.BackColor = Color.FromArgb(255, 128, 128);
             }
             else if (personaggio is Arciere)
             {
                 Arciere2.Enabled = true;
+                panel6.BackColor = Color.Red;
+                label29.BackColor = Color.IndianRed;
+                label28.BackColor = Color.IndianRed;
+                label11.BackColor = Color.IndianRed;
+                label41.BackColor = Color.IndianRed;
+                label10.BackColor = Color.IndianRed;
+                Arciere2.BackColor = Color.FromArgb(255, 128, 128);
             }
             else if (personaggio is Mago)
             {
                 Mago2.Enabled = true;
+                panel5.BackColor = Color.Red;
+                label27.BackColor = Color.IndianRed;
+                label26.BackColor = Color.IndianRed;
+                label7.BackColor = Color.IndianRed;
+                label38.BackColor = Color.IndianRed;
+                label6.BackColor = Color.IndianRed;
+                Mago2.BackColor = Color.FromArgb(255, 128, 128);
             }
         }
 
         private void DisabilitaPulsantiAvversari()
         {
-            Guerriero2.Enabled = false;
-            Cavaliere2.Enabled = false;
-            Arciere2.Enabled = false;
-            Mago2.Enabled = false;
+            foreach (Personaggio p in squadraAvversaria.Squad)
+            {
+                if (p is Guerriero)
+                {
+                    Guerriero2.Enabled = false;
+                    panel8.BackColor = Color.FromArgb(255, 128, 128);
+                    label33.BackColor = Color.RosyBrown;
+                    label32.BackColor = Color.RosyBrown;
+                    label15.BackColor = Color.RosyBrown;
+                    label43.BackColor = Color.RosyBrown;
+                    label14.BackColor = Color.RosyBrown;
+                    Guerriero2.BackColor = Color.FromArgb(255, 192, 192);
+                }
+                else if (p is Cavaliere)
+                {
+                    Cavaliere2.Enabled = false;
+                    panel7.BackColor = Color.FromArgb(255, 128, 128);
+                    label31.BackColor = Color.RosyBrown;
+                    label30.BackColor = Color.RosyBrown;
+                    label13.BackColor = Color.RosyBrown;
+                    label42.BackColor = Color.RosyBrown;
+                    label12.BackColor = Color.RosyBrown;
+                    Cavaliere2.BackColor = Color.FromArgb(255, 192, 192);
+                }
+                else if (p is Arciere)
+                {
+                    Arciere2.Enabled = false;
+                    panel6.BackColor = Color.FromArgb(255, 128, 128);
+                    label29.BackColor = Color.RosyBrown;
+                    label28.BackColor = Color.RosyBrown;
+                    label11.BackColor = Color.RosyBrown;
+                    label41.BackColor = Color.RosyBrown;
+                    label10.BackColor = Color.RosyBrown;
+                    Arciere2.BackColor = Color.FromArgb(255, 192, 192);
+                }
+                else if (p is Mago)
+                {
+                    Mago2.Enabled = false;
+                    panel5.BackColor = Color.FromArgb(255, 128, 128);
+                    label27.BackColor = Color.RosyBrown;
+                    label26.BackColor = Color.RosyBrown;
+                    label7.BackColor = Color.RosyBrown;
+                    label38.BackColor = Color.RosyBrown;
+                    label6.BackColor = Color.RosyBrown;
+                    Mago2.BackColor = Color.FromArgb(255, 192, 192);
+                }
+            }
         }
 
         private void AbilitaPulsantiGiocatore()
@@ -88,39 +226,127 @@ namespace Wargame_vv2
             if (personaggio is Guerriero)
             {
                 Guerriero1.Enabled = true;
+                panel1.BackColor = Color.FromArgb(128, 255, 255);
+                label2.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label3.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label18.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label19.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label34.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                Guerriero1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
             }
             else if (personaggio is Cavaliere)
             {
                 Cavaliere1.Enabled = true;
+                panel2.BackColor = Color.FromArgb(128, 255, 255);
+                label5.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label4.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label21.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label20.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label35.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                Cavaliere1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
             }
             else if (personaggio is Arciere)
             {
                 Arciere1.Enabled = true;
+                panel3.BackColor = Color.FromArgb(128, 255, 255);
+                label23.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label22.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label8.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label9.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label36.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                Arciere1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
+
             }
             else if (personaggio is Mago)
             {
                 Mago1.Enabled = true;
+                panel4.BackColor = Color.FromArgb(128, 255, 255);
+                label25.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label24.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label39.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label40.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                label37.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                Mago1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
             }
         }
 
         private void DisabilitaPulsantiGiocatore()
         {
-            Guerriero1.Enabled = false;
-            Cavaliere1.Enabled = false;
-            Arciere1.Enabled = false;
-            Mago1.Enabled = false;
+            foreach (Personaggio p in squadraSelezionata.Squad)
+            {
+                if (p is Guerriero)
+                {
+                    Guerriero1.Enabled = false;
+                    panel1.BackColor = Color.FromArgb(192, 255, 255);
+                    label2.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label3.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label18.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label19.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label34.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    Guerriero1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
+                }
+                else if (p is Cavaliere)
+                {
+                    Cavaliere1.Enabled = false;
+                    panel2.BackColor = Color.FromArgb(192, 255, 255);
+                    label5.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label4.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label21.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label20.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label35.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    Cavaliere1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
+                }
+                else if (p is Arciere)
+                {
+                    Arciere1.Enabled = false;
+                    panel3.BackColor = Color.FromArgb(192, 255, 255);
+                    label23.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label22.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label8.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label9.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label36.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    Arciere1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
+                }
+                else if (p is Mago)
+                {
+                    Mago1.Enabled = false;
+                    panel4.BackColor = Color.FromArgb(192, 255, 255);
+                    label25.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label24.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label39.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label40.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    label37.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                    Mago1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
+                }
+            }
         }
 
         private void AbilitaPulsantiAttacco()
         {
+            AttaccoBase.BackColor = Color.Yellow;
+            AttaccoPesante.BackColor = Color.Yellow;
             AttaccoBase.Enabled = true;
             AttaccoPesante.Enabled = true;
         }
 
         private void DisabilitaPulsantiAttacco()
         {
+            AttaccoBase.BackColor = Color.FromArgb(255, 255, 192);
+            AttaccoPesante.BackColor = Color.FromArgb(255, 255, 192);
             AttaccoBase.Enabled = false;
             AttaccoPesante.Enabled = false;
+        }
+
+        private void AttivaDifesaeGrafica()
+        {
+            Difesa.Enabled = true;
+            Difesa.BackColor = Color.Yellow;
+        }
+
+        private void DisattivaDifesaeGrafica()
+        {
+            Difesa.Enabled = false;
+            Difesa.BackColor = Color.FromArgb(255, 255, 192);
         }
 
         private void DopoDifesa()
@@ -128,11 +354,12 @@ namespace Wargame_vv2
             DisabilitaPulsantiAttacco();
             AbilitaPulsantiGiocatore();
             DisabilitaPulsantiAvversari();
-            Difesa.Enabled = false;
+            DisattivaDifesaeGrafica();
         }
 
         private void AlgoritmoBaseBot()
         {
+            IsEndGame();
             Random random = new Random();
             int azione = random.Next(0, 3);
             int personaggioBotIndex = random.Next(0, squadraAvversaria.Squad.Count);
@@ -200,7 +427,7 @@ namespace Wargame_vv2
                     {
                         personaggioBot.AttaccoPesante(personaggioGiocatore);
                         MessageBox.Show($"Attacco pesante eseguito da: {personaggioBot.ToString()} a: {personaggioGiocatore.ToString()}");
-                        VerificaMorti();    
+                        VerificaMorti();
                         AggiornaStat();
                     }
                     else
@@ -227,18 +454,22 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero2.Enabled = false;
+                          
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere2.Enabled = false;
+                        
                     }
                     else if (p is Arciere)
                     {
                         Arciere2.Enabled = false;
+                        
                     }
                     else if (p is Mago)
                     {
                         Mago2.Enabled = false;
+                        
                     }
                 }
                 else
@@ -269,18 +500,23 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero1.Enabled = false;
+                        
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere1.Enabled = false;
+                        
+
                     }
                     else if (p is Arciere)
                     {
                         Arciere1.Enabled = false;
+                        
                     }
                     else if (p is Mago)
                     {
                         Mago1.Enabled = false;
+                        
                     }
                 }
                 else
@@ -381,7 +617,7 @@ namespace Wargame_vv2
             }
 
         }
-    
+
 
         private void AggiornaStatGuerrierioGiocatore()
         {
@@ -447,14 +683,14 @@ namespace Wargame_vv2
         {
             DisabilitaPulsantiGiocatore();
             AbilitaPulsantiAttacco();
-            Difesa.Enabled = false;
+            DisattivaDifesaeGrafica();
         }
 
         private void Form3_Load(object sender, EventArgs e)
         {
             DisabilitaPulsantiAvversari();
             DisabilitaPulsantiAttacco();
-            Difesa.Enabled = false;
+            DisattivaDifesaeGrafica();
             AggiornaStat();
         }
 
@@ -470,7 +706,7 @@ namespace Wargame_vv2
                 personaggioScelto = squadraSelezionata.Squad[0];
                 DisabilitaPulsantiGiocatore();
                 AbilitaPulsantiAvversari();
-                Difesa.Enabled = true;
+                AttivaDifesaeGrafica();
             }
         }
 
@@ -486,7 +722,7 @@ namespace Wargame_vv2
                 personaggioScelto = squadraSelezionata.Squad[1];
                 DisabilitaPulsantiGiocatore();
                 AbilitaPulsantiAvversari();
-                Difesa.Enabled = true;
+                AttivaDifesaeGrafica();
             }
         }
 
@@ -502,7 +738,7 @@ namespace Wargame_vv2
                 personaggioScelto = squadraSelezionata.Squad[2];
                 DisabilitaPulsantiGiocatore();
                 AbilitaPulsantiAvversari();
-                Difesa.Enabled = true;
+                AttivaDifesaeGrafica();
             }
         }
 
@@ -516,7 +752,7 @@ namespace Wargame_vv2
             else
             {
                 personaggioScelto = squadraSelezionata.Squad[3];
-                Difesa.Enabled = true;
+                AttivaDifesaeGrafica();
                 attaccoMago = true;
             }
         }
@@ -525,28 +761,28 @@ namespace Wargame_vv2
         {
             personaggioAvversarioScelto = squadraAvversaria.Squad[0];
             AbilitaPulsantiAttacco();
-            Difesa.Enabled = false;
+            DisattivaDifesaeGrafica();
         }
 
         private void Cavaliere2_Click(object sender, EventArgs e)
         {
             personaggioAvversarioScelto = squadraAvversaria.Squad[1];
             AbilitaPulsantiAttacco();
-            Difesa.Enabled = false;
+            DisattivaDifesaeGrafica();
         }
 
         private void Arciere2_Click(object sender, EventArgs e)
         {
             personaggioAvversarioScelto = squadraAvversaria.Squad[2];
             AbilitaPulsantiAttacco();
-            Difesa.Enabled = false;
+            DisattivaDifesaeGrafica();
         }
 
         private void Mago2_Click(object sender, EventArgs e)
         {
             personaggioAvversarioScelto = squadraAvversaria.Squad[3];
             AbilitaPulsantiAttacco();
-            Difesa.Enabled = false;
+            DisattivaDifesaeGrafica();
         }
 
         private void AttaccoBase_Click(object sender, EventArgs e)
@@ -562,7 +798,7 @@ namespace Wargame_vv2
                         AggiornaStat();
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
-                        Difesa.Enabled = false;
+                        DisattivaDifesaeGrafica();
                         attaccoMago = false;
                         turno = false;
                         AlgoritmoBaseBot();
@@ -582,7 +818,7 @@ namespace Wargame_vv2
                         AggiornaStat();
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
-                        Difesa.Enabled = false;
+                        DisattivaDifesaeGrafica();
                         turno = false;
                         AlgoritmoBaseBot();
                         VerificaMorti();
@@ -619,7 +855,7 @@ namespace Wargame_vv2
                         AggiornaStat();
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
-                        Difesa.Enabled = false;
+                        DisattivaDifesaeGrafica();
                         attaccoMago = false;
                         turno = false;
                         AlgoritmoBaseBot();
@@ -639,7 +875,7 @@ namespace Wargame_vv2
                         AggiornaStat();
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
-                        Difesa.Enabled = false;
+                        DisattivaDifesaeGrafica();
                         turno = false;
                         AlgoritmoBaseBot();
                         VerificaMorti();
@@ -673,7 +909,7 @@ namespace Wargame_vv2
                     DopoDifesa();
                     turno = false;
                     AlgoritmoBaseBot();
-                    VerificaMorti();    
+                    VerificaMorti();
                     CaricaPuntiAzione();
                     VerificaFerito();
                     DisabilitaPulsantiAvversari();
@@ -689,6 +925,16 @@ namespace Wargame_vv2
                 DisabilitaPulsantiAvversari();
                 DisabilitaPulsantiAttacco();
             }
+        }
+
+        private void label18_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label36_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

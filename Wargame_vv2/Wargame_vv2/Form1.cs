@@ -285,7 +285,7 @@ namespace Wargame_vv2
                             label2.Text = tipoSquadra + "'S TURN!";
                             label2.ForeColor = Color.Red;
 
-                            await Task.Delay(2000);
+                            await Task.Delay(1500);
                             GestisciTurnoBot();
                         }
 
@@ -350,6 +350,8 @@ namespace Wargame_vv2
                 casellaScelta.Tag = squadraScelta;
                 casellaScelta.Image = CaricaImmagine(squadraScelta);
             }
+
+            //implementa l'invadi
 
             if (turno > 2)
             {

@@ -11,7 +11,7 @@ namespace Wargame_vv2
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());  // ho creato una nuova finestra 'form2.cs' dove faccio la schhermata di avvio 
+            Application.Run(new Form2());  // ho creato una nuova finestra 'form2.cs' dove faccio la schhermata di avvio 
         }
     }
 }

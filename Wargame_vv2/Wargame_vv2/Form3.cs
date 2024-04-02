@@ -23,6 +23,8 @@ namespace Wargame_vv2
         private bool attaccoMago = false;
         private bool turno = true;
 
+        private bool chiusura = false;
+
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
             InitializeComponent();
@@ -359,7 +361,6 @@ namespace Wargame_vv2
 
         private void AlgoritmoBaseBot()
         {
-            IsEndGame();
             Random random = new Random();
             int azione = random.Next(0, 3);
             int personaggioBotIndex = random.Next(0, squadraAvversaria.Squad.Count);
@@ -454,22 +455,22 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero2.Enabled = false;
-                          
+
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere2.Enabled = false;
-                        
+
                     }
                     else if (p is Arciere)
                     {
                         Arciere2.Enabled = false;
-                        
+
                     }
                     else if (p is Mago)
                     {
                         Mago2.Enabled = false;
-                        
+
                     }
                 }
                 else
@@ -500,23 +501,23 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero1.Enabled = false;
-                        
+
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere1.Enabled = false;
-                        
+
 
                     }
                     else if (p is Arciere)
                     {
                         Arciere1.Enabled = false;
-                        
+
                     }
                     else if (p is Mago)
                     {
                         Mago1.Enabled = false;
-                        
+
                     }
                 }
                 else
@@ -561,6 +562,7 @@ namespace Wargame_vv2
                 }
                 MessageBox.Show("Il giocatore ha vinto!");
                 this.Close();
+                chiusura = true;
             }
 
             else if (squadraSelezionata.Squad.Count(p => !p.Morto) == 1 && squadraSelezionata.Squad.Any(p => p is Mago && !p.Morto))
@@ -581,6 +583,7 @@ namespace Wargame_vv2
                 }
                 MessageBox.Show("Il giocatore ha vinto!");
                 this.Close();
+                chiusura = true;
             }
         }
 
@@ -801,12 +804,16 @@ namespace Wargame_vv2
                         DisattivaDifesaeGrafica();
                         attaccoMago = false;
                         turno = false;
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
-                        IsEndGame();
                     }
                 }
                 else
@@ -820,12 +827,16 @@ namespace Wargame_vv2
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
                         turno = false;
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
-                        IsEndGame();
                     }
                 }
             }
@@ -858,12 +869,16 @@ namespace Wargame_vv2
                         DisattivaDifesaeGrafica();
                         attaccoMago = false;
                         turno = false;
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
-                        IsEndGame();
                     }
                 }
                 else
@@ -877,12 +892,16 @@ namespace Wargame_vv2
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
                         turno = false;
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
-                        IsEndGame();
                     }
                 }
             }

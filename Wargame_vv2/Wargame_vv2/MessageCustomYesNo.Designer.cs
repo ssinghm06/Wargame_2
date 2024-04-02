@@ -70,7 +70,7 @@
             // 
             // noPictureBox
             // 
-            noPictureBox.Location = new Point(38, 67);
+            noPictureBox.Location = new Point(152, 67);
             noPictureBox.Name = "noPictureBox";
             noPictureBox.Size = new Size(65, 65);
             noPictureBox.TabIndex = 2;
@@ -79,7 +79,7 @@
             // 
             // yesPictureBox
             // 
-            yesPictureBox.Location = new Point(152, 67);
+            yesPictureBox.Location = new Point(38, 67);
             yesPictureBox.Name = "yesPictureBox";
             yesPictureBox.Size = new Size(65, 65);
             yesPictureBox.TabIndex = 3;

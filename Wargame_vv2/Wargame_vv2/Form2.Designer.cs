@@ -84,7 +84,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Showcard Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(402, 395);
+            label2.Location = new Point(396, 395);
             label2.Name = "label2";
             label2.Size = new Size(59, 37);
             label2.TabIndex = 8;
@@ -92,7 +92,7 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.Location = new Point(300, 369);
+            pictureBox4.Location = new Point(294, 369);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(99, 87);
             pictureBox4.TabIndex = 9;

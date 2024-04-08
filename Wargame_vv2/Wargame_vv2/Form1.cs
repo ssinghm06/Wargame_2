@@ -1,6 +1,7 @@
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 
 namespace Wargame_vv2
 {
@@ -19,6 +20,8 @@ namespace Wargame_vv2
         private int turno = 0;
         private bool turnoGiocatore = true;
 
+        private bool gioca = false;
+
         public Squadra SquadraSelezionata
         {
             get { return squadraSelezionata; }
@@ -35,6 +38,16 @@ namespace Wargame_vv2
             //this.BackgroundImage = CaricaImmagine("sfondo.png");
 
             // un po di grafica
+            button1.BackColor = Color.OldLace;
+            button2.BackColor = Color.OldLace;
+
+            button2.FlatAppearance.MouseOverBackColor = button2.BackColor;
+            button2.FlatAppearance.MouseDownBackColor = button2.BackColor;
+
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.BackColor = Color.OldLace;
+            pictureBox5.Image = CaricaImmagine("baule_chiuso.png");
+
             pictureBox1.BackColor = Color.BurlyWood;
             pictureBox2.BackColor = Color.BurlyWood;
             pictureBox3.BackColor = Color.BurlyWood;
@@ -46,6 +59,11 @@ namespace Wargame_vv2
             pictureBox2.Image = CaricaImmagine("war.png");
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.Image = CaricaImmagine("flag.png");
+
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.Image = CaricaImmagine("pergamena.png");
+
+            label3.Image = CaricaImmagine("sfondoTesto.png");
 
             tabellone = new Tabellone();
             caselle = new PictureBox[tabellone.Dimensione, tabellone.Dimensione];
@@ -160,7 +178,7 @@ namespace Wargame_vv2
                 return null;
         }
 
-        public Image CaricaImmagine(string p)
+        public static Image CaricaImmagine(string p)
         {
             try
             {
@@ -189,113 +207,115 @@ namespace Wargame_vv2
         // creo un metodo per gestire il click su una casella
         private async void Casella_Click(object sender, EventArgs e)
         {
-            if (turno == 0)
+            if (gioca)
             {
-                PictureBox casellaCliccata = (PictureBox)sender;
-
-                // ottengo le informazioni sulla squadra associata
-                Squadra squadraCliccata = (Squadra)casellaCliccata.Tag;
-
-                if (squadraCliccata != null && squadraCliccata.Tipo == Squadra.Type.Viking)
+                if (turno == 0)
                 {
-                    // ci sono tre casistiche 'speciali'
+                    PictureBox casellaCliccata = (PictureBox)sender;
 
-                    // se non ho ancora selezionato una squadra
-                    // allora la seleziono e la evidenzio
-                    if (SquadraSelezionata == null)
+                    // ottengo le informazioni sulla squadra associata
+                    Squadra squadraCliccata = (Squadra)casellaCliccata.Tag;
+
+                    if (squadraCliccata != null && squadraCliccata.Tipo == Squadra.Type.Viking)
                     {
-                        SquadraSelezionata = squadraCliccata;
-                        EvidenziaMossaValida(squadraCliccata);
-                    }
+                        // ci sono tre casistiche 'speciali'
 
-                    // se seleziono la squadra stessa per la seconda volta (ci riclicco)
-                    // allora la deseleziono e resetto l'evidenzia
-                    else if (SquadraSelezionata == squadraCliccata)
-                    {
-                        ResettaEvidenzia();
-                        SquadraSelezionata = null;
-                    }
+                        // se non ho ancora selezionato una squadra
+                        // allora la seleziono e la evidenzio
+                        if (SquadraSelezionata == null)
+                        {
+                            SquadraSelezionata = squadraCliccata;
+                            EvidenziaMossaValida(squadraCliccata);
+                        }
 
-                    // se seleziono una squadra diversa da quella precedentemente selezionata
-                    // allora deseleziono quella vecchia e poi seleziono la nuova e la evidenzio
+                        // se seleziono la squadra stessa per la seconda volta (ci riclicco)
+                        // allora la deseleziono e resetto l'evidenzia
+                        else if (SquadraSelezionata == squadraCliccata)
+                        {
+                            ResettaEvidenzia();
+                            SquadraSelezionata = null;
+                        }
+
+                        // se seleziono una squadra diversa da quella precedentemente selezionata
+                        // allora deseleziono quella vecchia e poi seleziono la nuova e la evidenzio
+                        else
+                        {
+                            ResettaEvidenzia();
+                            SquadraSelezionata = squadraCliccata;
+                            EvidenziaMossaValida(squadraCliccata);
+                        }
+                    }
                     else
                     {
+                        if (IsMossaValida(casellaCliccata) && squadraSelezionata != null)
+                        {
+                            (int x, int y) = CoordinateCasellaCliccata(casellaCliccata);
+
+                            caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Tag = null;
+                            caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = null;
+
+                            SquadraSelezionata.Muovi(x, y);
+                            turnoGiocatore = false;
+
+                            // per Invadi
+                            if (SquadraSelezionata.ModCombattimento)
+                            {
+                                Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
+                                form3.Show();
+                                this.Hide();
+
+                                //MessageBox.Show("ciao");
+
+                                SquadraSelezionata.ModCombattimento = false;
+                            }
+
+                            casellaCliccata.Tag = SquadraSelezionata;
+                            caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = CaricaImmagine(SquadraSelezionata);
+
+                            squadraSelezionata = null;
+                        }
+
                         ResettaEvidenzia();
-                        SquadraSelezionata = squadraCliccata;
-                        EvidenziaMossaValida(squadraCliccata);
-                    }
-                }
-                else
-                {
-                    if (IsMossaValida(casellaCliccata) && squadraSelezionata != null)
-                    {
-                        (int x, int y) = CoordinateCasellaCliccata(casellaCliccata);
+                        SquadraSelezionata = null;
 
-                        caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Tag = null;
-                        caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = null;
-
-                        SquadraSelezionata.Muovi(x, y);
-                        turnoGiocatore = false;
-
-                        // per Invadi
-                        if (SquadraSelezionata.ModCombattimento)
+                        if (turnoGiocatore != true)
                         {
-                            Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
-                            form3.Show();
-                            this.Hide();
+                            for (int i = 0; i < 3; i++)
+                            {
+                                // prima versione --> *la cambiero in futuro
+                                string tipoSquadra;
+                                if (turno == 0)
+                                {
+                                    tipoSquadra = Squadra.Type.Shogun.ToString();
+                                }
+                                else if (turno == 1)
+                                {
+                                    tipoSquadra = Squadra.Type.Gladiator.ToString();
+                                }
+                                else if (turno == 2)
+                                {
+                                    tipoSquadra = Squadra.Type.Knight.ToString();
+                                }
+                                else
+                                {
+                                    tipoSquadra = Squadra.Type.Viking.ToString();
+                                }
 
-                            //MessageBox.Show("ciao");
+                                label2.Text = tipoSquadra + "'S TURN!";
+                                label2.ForeColor = Color.Red;
 
-                            // errore GREVE --> serve solo per test
-                            SquadraSelezionata.ModCombattimento = false;
+                                await Task.Delay(1000);
+                                GestisciTurnoBot();
+                            }
+
+                            turnoGiocatore = true;
                         }
-
-                        casellaCliccata.Tag = SquadraSelezionata;
-                        caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = CaricaImmagine(SquadraSelezionata);
-
-                        squadraSelezionata = null;
-                    }
-
-                    ResettaEvidenzia();
-                    SquadraSelezionata = null;
-                    
-                    if (turnoGiocatore != true)
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            //prima versione --> *la cambiero in futuro
-                            string tipoSquadra;
-                            if (turno == 0)
-                            {
-                                tipoSquadra = Squadra.Type.Shogun.ToString();
-                            }
-                            else if (turno == 1)
-                            {
-                                tipoSquadra = Squadra.Type.Gladiator.ToString();
-                            }
-                            else if (turno == 2)
-                            {
-                                tipoSquadra = Squadra.Type.Knight.ToString();
-                            }
-                            else
-                            {
-                                tipoSquadra = "VIKING";
-                            }
-
-                            label2.Text = tipoSquadra + "'S TURN!";
-                            label2.ForeColor = Color.Red;
-
-                            await Task.Delay(1500);
-                            GestisciTurnoBot();
-                        }
-
-                        turnoGiocatore = true;
                     }
                 }
             }
         }
 
-        //algoritmo base bot --> migliorabile
+        // algoritmo base bot --> migliorabile
         private void GestisciTurnoBot()
         {
             turno++;
@@ -319,13 +339,13 @@ namespace Wargame_vv2
 
             List<Squadra> squadreDelTipo = squadre.Where(s => s.Tipo == tipoSquadra).ToList();
 
-            //se non ci sono squadre del tipo --> esci dal metodo
+            // se non ci sono squadre del tipo --> esci dal metodo
             if (squadreDelTipo.Count == 0)
             {
                 return;
             }
 
-            //sceglie casualmente una delle squadre
+            // sceglie casualmente una delle squadre
             Random r = new Random();
             Squadra squadraScelta = squadreDelTipo[r.Next(squadreDelTipo.Count)];
 
@@ -351,7 +371,7 @@ namespace Wargame_vv2
                 casellaScelta.Image = CaricaImmagine(squadraScelta);
             }
 
-            //implementa l'invadi
+            // implementa l'invadi
 
             if (turno > 2)
             {
@@ -470,6 +490,39 @@ namespace Wargame_vv2
             customMessageBox.closeImage = CaricaImmagine("delete-cross.png");
 
             return customMessageBox;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            IsRules();
+        }
+
+        private void IsRules()
+        {
+            Form4 regole = new Form4();
+            regole.TopMost = true;  // così la form4 rimane visibile anche quando interagisco con la form1
+            regole.Show();
+        }
+
+        private void button2_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox5.Image = CaricaImmagine("apertura_baule.gif");
+        }
+
+        private void button2_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox5.Image = CaricaImmagine("baule_chiuso.png");
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            IsRules();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            button1.Enabled = false;
+            gioca = true;
         }
     }
 }

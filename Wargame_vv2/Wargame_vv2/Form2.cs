@@ -14,7 +14,7 @@ namespace Wargame_vv2
     {
         private int progresso = 0;
 
-        Form1 form1 = new Form1();
+        Form1 Gioco = new Form1();
 
         public Form2()
         {
@@ -23,7 +23,7 @@ namespace Wargame_vv2
             this.StartPosition = FormStartPosition.CenterScreen;
 
             this.BackgroundImageLayout = ImageLayout.Stretch;
-            this.BackgroundImage = form1.CaricaImmagine("sfondo.png");
+            this.BackgroundImage = Form1.CaricaImmagine("sfondo.png");
 
             this.BackColor = Color.CadetBlue;
 
@@ -37,11 +37,11 @@ namespace Wargame_vv2
             label1.ForeColor = Color.DarkSlateGray;
 
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.Image = form1.CaricaImmagine("war.png");
+            pictureBox2.Image = Form1.CaricaImmagine("war.png");
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.Image = form1.CaricaImmagine("flag.png");
+            pictureBox3.Image = Form1.CaricaImmagine("flag.png");
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox4.Image = form1.CaricaImmagine("random.gif");
+            pictureBox4.Image = Form1.CaricaImmagine("random.gif");
 
             label3.BackColor = Color.Transparent;
             label2.BackColor = Color.Transparent;
@@ -66,9 +66,9 @@ namespace Wargame_vv2
         {
             timer1.Stop();
 
-            form1.customMessageBox = form1.CustomMessageBox();
+            Gioco.customMessageBox = Gioco.CustomMessageBox();
 
-            DialogResult risposta = form1.customMessageBox.ShowDialog();
+            DialogResult risposta = Gioco.customMessageBox.ShowDialog();
 
             if (risposta == DialogResult.Yes)
             {
@@ -104,10 +104,7 @@ namespace Wargame_vv2
             if (progresso >= 100)
             {
                 timer1.Stop();
-                this.Hide();
-
-                Form1 Gioco = new Form1();
-                Gioco.Show();
+                this.Close();
             }
         }
     }

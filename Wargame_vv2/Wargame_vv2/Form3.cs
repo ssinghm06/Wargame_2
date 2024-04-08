@@ -12,7 +12,9 @@ namespace Wargame_vv2
 {
     public partial class Form3 : Form
     {
-        Form1 form1 = new Form1();
+        // mi serve un istanza di form1 perchè senno dovrei riscrivere alcuni metodi
+        // la soluzione migliore sarebbe quella di creare una classe per la gestione del gioco
+        // Form1 form1 = new Form1();
 
         private Squadra squadraSelezionata;
         private Squadra squadraAvversaria;
@@ -28,17 +30,17 @@ namespace Wargame_vv2
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
             InitializeComponent();
-            Guerriero1.BackgroundImage = form1.CaricaImmagine("guerriero.png");
-            Cavaliere1.BackgroundImage = form1.CaricaImmagine("cavaliere.png");
-            Arciere1.BackgroundImage = form1.CaricaImmagine("arciere.png");
-            Mago1.BackgroundImage = form1.CaricaImmagine("mago.png");
-            Guerriero2.BackgroundImage = form1.CaricaImmagine("guerriero.png");
-            Cavaliere2.BackgroundImage = form1.CaricaImmagine("cavaliere.png");
-            Arciere2.BackgroundImage = form1.CaricaImmagine("arciere.png");
-            Mago2.BackgroundImage = form1.CaricaImmagine("mago.png");
-            AttaccoBase.BackgroundImage = form1.CaricaImmagine("baseAttack.png");
-            AttaccoPesante.BackgroundImage = form1.CaricaImmagine("heavyAttack.png");
-            Difesa.BackgroundImage = form1.CaricaImmagine("defense.png");
+            Guerriero1.BackgroundImage = Form1.CaricaImmagine("guerriero.png");
+            Cavaliere1.BackgroundImage = Form1.CaricaImmagine("cavaliere.png");
+            Arciere1.BackgroundImage = Form1.CaricaImmagine("arciere.png");
+            Mago1.BackgroundImage = Form1.CaricaImmagine("mago.png");
+            Guerriero2.BackgroundImage = Form1.CaricaImmagine("guerriero.png");
+            Cavaliere2.BackgroundImage = Form1.CaricaImmagine("cavaliere.png");
+            Arciere2.BackgroundImage = Form1.CaricaImmagine("arciere.png");
+            Mago2.BackgroundImage = Form1.CaricaImmagine("mago.png");
+            AttaccoBase.BackgroundImage = Form1.CaricaImmagine("baseAttack.png");
+            AttaccoPesante.BackgroundImage = Form1.CaricaImmagine("heavyAttack.png");
+            Difesa.BackgroundImage = Form1.CaricaImmagine("defense.png");
 
             squadraSelezionata = squadraGiocatore;
             this.squadraAvversaria = squadraAvversaria;
@@ -98,7 +100,6 @@ namespace Wargame_vv2
             Mago1.FlatAppearance.BorderSize = 5;
             Mago2.FlatAppearance.BorderColor = Color.Black;
             Mago2.FlatAppearance.BorderSize = 5;
-
         }
 
         private void AbilitaPulsantiAvversari()

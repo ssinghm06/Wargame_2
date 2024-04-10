@@ -38,3 +38,8 @@ C:\Users\manmo\OneDrive\Desktop\Wargame_Riserva\Wargame_vv2\Wargame_vv2\obj\Debu
 C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.Properties.Resources.resources
 C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.MessageCustomYesNo.resources
 C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.Form4.resources
+C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Interop.WMPLib.dll
+C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\AxInterop.WMPLib.dll
+C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\obj\Debug\net6.0-windows\Wargame_vv2.csproj.ResolveComReference.cache
+C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\bin\Debug\net6.0-windows\Interop.WMPLib.dll
+C:\Users\manmo\OneDrive\Desktop\Wargame\Wargame_vv2\Wargame_vv2\bin\Debug\net6.0-windows\AxInterop.WMPLib.dll

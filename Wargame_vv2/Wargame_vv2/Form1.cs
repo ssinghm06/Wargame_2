@@ -1,5 +1,7 @@
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
+using System.Media;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
@@ -19,8 +21,13 @@ namespace Wargame_vv2
 
         private int turno = 0;
         private bool turnoGiocatore = true;
-
         private bool gioca = false;
+        
+        private SoundPlayer suono;
+
+        private int cont = 3;
+        private int minutiTrascorsi = 0;
+        private int secondiTrascorsi = 0;
 
         public Squadra SquadraSelezionata
         {
@@ -94,6 +101,12 @@ namespace Wargame_vv2
             while (i < 12)  // diminuito numero da 15 a 12 --> 15 erano troppi!
                 if (Ostacolo.GeneraOstacoloCasuale(tabellone))
                     i++;
+
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.Image = CaricaImmagine("intro.png");
+
+            pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox7.Image = CaricaImmagine("clessidra.png");
 
             StampaTabellone();
         }
@@ -194,14 +207,16 @@ namespace Wargame_vv2
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            pictureBox6.Enabled = false;
+
             customMessageBox = CustomMessageBox();
 
             DialogResult risposta = customMessageBox.ShowDialog();
 
             if (risposta == DialogResult.Yes)
-            {
                 Application.Exit();
-            }
+            else
+                pictureBox6.Enabled = true;
         }
 
         // creo un metodo per gestire il click su una casella
@@ -495,6 +510,12 @@ namespace Wargame_vv2
         private void button2_Click(object sender, EventArgs e)
         {
             IsRules();
+
+            suono = CaricaSuono("apertura_baule.wav");
+            if (suono != null)
+                suono.Play();
+
+            pictureBox5.Image = CaricaImmagine("baule_aperto.png");
         }
 
         private void IsRules()
@@ -504,9 +525,21 @@ namespace Wargame_vv2
             regole.Show();
         }
 
+        public static SoundPlayer CaricaSuono(string p)
+        {
+            if (!File.Exists(p))
+            {
+                MessageBox.Show("Errore nel caricare il suono", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            SoundPlayer mySound = new SoundPlayer(p);
+            return mySound;
+        }
+
         private void button2_MouseEnter(object sender, EventArgs e)
         {
-            pictureBox5.Image = CaricaImmagine("apertura_baule.gif");
+            pictureBox5.Image = CaricaImmagine("baule_aperto.png");
         }
 
         private void button2_MouseLeave(object sender, EventArgs e)
@@ -516,13 +549,66 @@ namespace Wargame_vv2
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
-            IsRules();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
+            timer1.Start();
+
             button1.Enabled = false;
-            gioca = true;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label4.ForeColor = Color.Sienna;
+            
+            if (cont == 0)
+            {
+                pictureBox6.Visible = false;
+                pictureBox6.Enabled = false;
+
+                label4.Text = "fight!";
+
+                label2.Text = "VIKING'S TURN!";
+                label2.ForeColor = Color.MediumBlue;
+            }
+
+            if (cont > -1)
+            {
+                if (cont != 0)
+                    label4.Text = cont.ToString();
+                cont -= 1;
+            }
+
+            else
+            {
+                gioca = true;
+
+                pictureBox7.Visible = true;
+
+                secondiTrascorsi++;
+                
+                if (secondiTrascorsi == 60)
+                {
+                    minutiTrascorsi++;
+                    secondiTrascorsi = 0;
+                }
+
+                if (secondiTrascorsi <= 9 && minutiTrascorsi <= 9)
+                    label4.Text = $"0{minutiTrascorsi} : 0{secondiTrascorsi}";
+
+                if (secondiTrascorsi > 9 && minutiTrascorsi > 9)
+                    label4.Text = $"{minutiTrascorsi} : {secondiTrascorsi}";
+
+                if (secondiTrascorsi <= 9 && minutiTrascorsi > 9)
+                    label4.Text = $"{minutiTrascorsi} : 0{secondiTrascorsi}";
+
+                if (secondiTrascorsi > 9 && minutiTrascorsi <= 9)
+                    label4.Text = $"0{minutiTrascorsi} : {secondiTrascorsi}";
+            }
         }
     }
 }

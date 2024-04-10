@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,6 +13,8 @@ namespace Wargame_vv2
 {
     public partial class Form4 : Form
     {
+        private SoundPlayer suono;
+
         public Form4()
         {
             InitializeComponent();
@@ -27,6 +30,10 @@ namespace Wargame_vv2
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            suono = Form1.CaricaSuono("chiusura_baule.wav");
+            if (suono != null)
+                suono.Play();
+
             this.Close();
         }
     }

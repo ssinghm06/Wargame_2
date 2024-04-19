@@ -10,7 +10,7 @@ namespace Wargame_vv2
     {
         private int dannoFerito;
 
-        public Arciere() : base(400, 80, 100, 400)
+        public Arciere() : base(400, 1000, 100, 400)
         {
             dannoFerito = 50;
         }

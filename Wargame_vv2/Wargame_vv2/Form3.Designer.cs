@@ -941,7 +941,7 @@
             Controls.Add(AttaccoPesante);
             Controls.Add(AttaccoBase);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "Form3";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form3";

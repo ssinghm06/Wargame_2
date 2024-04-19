@@ -16,6 +16,9 @@ namespace Wargame_vv2
         // la soluzione migliore sarebbe quella di creare una classe per la gestione del gioco
         // Form1 form1 = new Form1();
 
+        private PictureBox pictureBoxSquadra1;
+        private PictureBox pictureBoxSquadra2;
+
         private Squadra squadraSelezionata;
         private Squadra squadraAvversaria;
 
@@ -27,9 +30,15 @@ namespace Wargame_vv2
 
         private bool chiusura = false;
 
-        public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
+        private bool giocatoreVinto = false;
+
+        public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria, PictureBox pictureBox1, PictureBox pictureBox2)
         {
             InitializeComponent();
+
+            pictureBoxSquadra1 = pictureBox1;
+            pictureBoxSquadra2 = pictureBox2;
+
             Guerriero1.BackgroundImage = Form1.CaricaImmagine("guerriero.png");
             Cavaliere1.BackgroundImage = Form1.CaricaImmagine("cavaliere.png");
             Arciere1.BackgroundImage = Form1.CaricaImmagine("arciere.png");
@@ -543,6 +552,14 @@ namespace Wargame_vv2
             }
         }
 
+        public PictureBox VisualizzaWinner()
+        {
+            if (giocatoreVinto)
+                return pictureBoxSquadra1;
+            else
+                return pictureBoxSquadra2;
+        }
+
         private void IsEndGame()
         {
             if (squadraSelezionata.Squad.All(p => p.Morto))
@@ -562,6 +579,7 @@ namespace Wargame_vv2
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
                 MessageBox.Show("Il giocatore ha vinto!");
+                giocatoreVinto = true;
                 this.Close();
                 chiusura = true;
             }
@@ -583,6 +601,7 @@ namespace Wargame_vv2
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
                 MessageBox.Show("Il giocatore ha vinto!");
+                giocatoreVinto = true;
                 this.Close();
                 chiusura = true;
             }
@@ -805,16 +824,16 @@ namespace Wargame_vv2
                         DisattivaDifesaeGrafica();
                         attaccoMago = false;
                         turno = false;
-                        IsEndGame();
-                        if (chiusura)
-                        {
-                            return;
-                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                     }
                 }
                 else
@@ -828,16 +847,16 @@ namespace Wargame_vv2
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
                         turno = false;
-                        IsEndGame();
-                        if (chiusura)
-                        {
-                            return;
-                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -870,16 +889,16 @@ namespace Wargame_vv2
                         DisattivaDifesaeGrafica();
                         attaccoMago = false;
                         turno = false;
-                        IsEndGame();
-                        if (chiusura)
-                        {
-                            return;
-                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                     }
                 }
                 else
@@ -893,16 +912,16 @@ namespace Wargame_vv2
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
                         turno = false;
-                        IsEndGame();
-                        if (chiusura)
-                        {
-                            return;
-                        }
                         AlgoritmoBaseBot();
                         VerificaMorti();
                         CaricaPuntiAzione();
                         VerificaFerito();
                         DisabilitaPulsantiAvversari();
+                        IsEndGame();
+                        if (chiusura)
+                        {
+                            return;
+                        }
                     }
                 }
             }

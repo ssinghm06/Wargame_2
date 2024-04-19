@@ -30,9 +30,9 @@ namespace Wargame_vv2
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            suono = Form1.CaricaSuono("chiusura_baule.wav");
-            if (suono != null)
-                suono.Play();
+            //suono = Form1.CaricaSuono("chiusura_baule.wav");
+            //if (suono != null)
+            //    suono.Play();
 
             this.Close();
         }

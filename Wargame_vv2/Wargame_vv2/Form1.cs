@@ -275,13 +275,14 @@ namespace Wargame_vv2
                             // per Invadi
                             if (SquadraSelezionata.ModCombattimento)
                             {
-                                Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
+                                Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata, caselle[SquadraSelezionata.X, SquadraSelezionata.Y], caselle[x, y]);
                                 form3.Show();
                                 this.Hide();
 
-                                //MessageBox.Show("ciao");
+                                caselle[squadraSelezionata.X, squadraSelezionata.Y] = form3.VisualizzaWinner();
 
-                                SquadraSelezionata.ModCombattimento = false;
+                                form3.FormClosed += Form3_FormClosed;
+                                //MessageBox.Show("ciao");
                             }
 
                             casellaCliccata.Tag = SquadraSelezionata;
@@ -330,6 +331,11 @@ namespace Wargame_vv2
             }
         }
 
+        private void Form3_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            this.Show();
+        }
+
         // algoritmo base bot --> migliorabile
         private void GestisciTurnoBot()
         {
@@ -367,12 +373,13 @@ namespace Wargame_vv2
             List<(int, int)> mosseValide = squadraScelta.MossaValida(tabellone);
             (int x, int y) mossaScelta = mosseValide[r.Next(mosseValide.Count)];
 
+            Squadra squadraAvversaria = tabellone.GetSquadra(mossaScelta.x, mossaScelta.y);
+
             immaginiMosse.Add(caselle[mossaScelta.x, mossaScelta.y].Image);
 
             PictureBox casellaScelta = caselle[mossaScelta.x, mossaScelta.y];
-
-            //MessageBox.Show($"{mossaScelta.x}, {mossaScelta.y}");
-
+            
+            // INVADI
             if (IsMossaValida(casellaScelta))
             {
                 (int x, int y) = CoordinateCasellaCliccata(casellaScelta);
@@ -382,11 +389,30 @@ namespace Wargame_vv2
 
                 squadraScelta.Muovi(x, y);
 
-                casellaScelta.Tag = squadraScelta;
-                casellaScelta.Image = CaricaImmagine(squadraScelta);
-            }
+                if (caselle[mossaScelta.x, mossaScelta.y].Tag != null)
+                {
+                    int win = r.Next(0, 2);
 
-            // implementa l'invadi
+                    //MessageBox.Show($"{win}");
+
+                    if (win == 0)
+                    {
+                        squadre.Remove(squadraAvversaria);
+
+                        casellaScelta.Tag = squadraScelta;
+                        casellaScelta.Image = CaricaImmagine(squadraScelta);
+                    }
+                    else
+                    {
+                        squadre.Remove(squadraScelta);
+                    }
+                }
+                else
+                {
+                    casellaScelta.Tag = squadraScelta;
+                    casellaScelta.Image = CaricaImmagine(squadraScelta);
+                }
+            }
 
             if (turno > 2)
             {
@@ -511,9 +537,9 @@ namespace Wargame_vv2
         {
             IsRules();
 
-            suono = CaricaSuono("apertura_baule.wav");
-            if (suono != null)
-                suono.Play();
+            //suono = CaricaSuono("apertura_baule.wav");
+            //if (suono != null)
+            //    suono.Play();
 
             pictureBox5.Image = CaricaImmagine("baule_aperto.png");
         }
@@ -525,17 +551,17 @@ namespace Wargame_vv2
             regole.Show();
         }
 
-        public static SoundPlayer CaricaSuono(string p)
-        {
-            if (!File.Exists(p))
-            {
-                MessageBox.Show("Errore nel caricare il suono", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
+        //public static SoundPlayer CaricaSuono(string p)
+        //{
+        //    if (!File.Exists(p))
+        //    {
+        //        MessageBox.Show("Errore nel caricare il suono", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return null;
+        //    }
 
-            SoundPlayer mySound = new SoundPlayer(p);
-            return mySound;
-        }
+        //    SoundPlayer mySound = new SoundPlayer(p);
+        //    return mySound;
+        //}
 
         private void button2_MouseEnter(object sender, EventArgs e)
         {

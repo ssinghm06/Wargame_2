@@ -12,6 +12,8 @@ namespace Wargame_vv2
         Tabellone tabellone;
         PictureBox[,] caselle;
         List<Squadra> squadre;
+        HashSet<Squadra.Type> tipiDiSquadra = new HashSet<Squadra.Type>();
+
         Squadra squadraSelezionata = null;
 
         // mi serve per togliere la casella evidenziata --> unica soluzione che mi e venuta in mente
@@ -79,22 +81,25 @@ namespace Wargame_vv2
             // creo e posiziono le squadre
             squadre = new List<Squadra>()
             {
-                new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
-                new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
-                new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
-                new Squadra(1, 1, Squadra.Type.Knight, tabellone),
-                new Squadra(2, 1, Squadra.Type.Knight, tabellone),
-                new Squadra(1, 2, Squadra.Type.Knight, tabellone),
                 new Squadra(1, 8, Squadra.Type.Viking, tabellone),
                 new Squadra(2, 8, Squadra.Type.Viking, tabellone),
                 new Squadra(1, 7, Squadra.Type.Viking, tabellone),
                 new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
                 new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(8, 7, Squadra.Type.Shogun, tabellone)
+                new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
+                new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
+                new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
+                new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
+                new Squadra(1, 1, Squadra.Type.Knight, tabellone),
+                new Squadra(2, 1, Squadra.Type.Knight, tabellone),
+                new Squadra(1, 2, Squadra.Type.Knight, tabellone)
             };
 
             foreach (Squadra s in squadre)
+            {
                 tabellone.PosizionaSquadra(s.X, s.Y, s);
+                tipiDiSquadra.Add(s.Tipo);
+            }
 
             // genero gli ostacoli
             int i = 0;
@@ -281,7 +286,7 @@ namespace Wargame_vv2
 
                                 caselle[squadraSelezionata.X, squadraSelezionata.Y] = form3.VisualizzaWinner();
 
-                                form3.FormClosed += Form3_FormClosed;
+                                //form3.FormClosed += Form3_FormClosed;
                                 //MessageBox.Show("ciao");
                             }
 
@@ -296,34 +301,16 @@ namespace Wargame_vv2
 
                         if (turnoGiocatore != true)
                         {
-                            for (int i = 0; i < 3; i++)
+                            for (int i = 0; i < tipiDiSquadra.Count - 1; i++)
                             {
-                                // prima versione --> *la cambiero in futuro
-                                string tipoSquadra;
-                                if (turno == 0)
-                                {
-                                    tipoSquadra = Squadra.Type.Shogun.ToString();
-                                }
-                                else if (turno == 1)
-                                {
-                                    tipoSquadra = Squadra.Type.Gladiator.ToString();
-                                }
-                                else if (turno == 2)
-                                {
-                                    tipoSquadra = Squadra.Type.Knight.ToString();
-                                }
-                                else
-                                {
-                                    tipoSquadra = Squadra.Type.Viking.ToString();
-                                }
-
-                                label2.Text = tipoSquadra + "'S TURN!";
-                                label2.ForeColor = Color.Red;
-
+                                Squadra.Type tipoSquadra = tipiDiSquadra.ElementAt(i+1);
                                 await Task.Delay(1000);
-                                GestisciTurnoBot();
+                                GestisciTurnoBot(tipoSquadra);
                             }
 
+                            await Task.Delay(1000);
+                            label2.Text = "VIKING'S TURN!";
+                            label2.ForeColor = Color.MediumBlue;
                             turnoGiocatore = true;
                         }
                     }
@@ -337,33 +324,39 @@ namespace Wargame_vv2
         }
 
         // algoritmo base bot --> migliorabile
-        private void GestisciTurnoBot()
+        private void GestisciTurnoBot(Squadra.Type tipoSquadra)
         {
-            turno++;
+            //turno++;
 
-            Squadra.Type tipoSquadra;
+            //Squadra.Type tipoSquadra;
 
-            if (turno == 1)
-            {
-                tipoSquadra = Squadra.Type.Shogun;
-            }
-            else if (turno == 2)
-            {
-                tipoSquadra = Squadra.Type.Gladiator;
-            }
-            else
-            {
-                tipoSquadra = Squadra.Type.Knight;
-            }
+            //if (turno == 1)
+            //{
+            //    tipoSquadra = Squadra.Type.Shogun;
+            //}
+            //else if (turno == 2)
+            //{
+            //    tipoSquadra = Squadra.Type.Gladiator;
+            //}
+            //else
+            //{
+            //    tipoSquadra = Squadra.Type.Knight;
+            //}
 
             //MessageBox.Show(tipoSquadra.ToString());
 
             List<Squadra> squadreDelTipo = squadre.Where(s => s.Tipo == tipoSquadra).ToList();
 
             // se non ci sono squadre del tipo --> esci dal metodo
-            if (squadreDelTipo.Count == 0)
+            //if (squadreDelTipo.Count == 0)
+            //{
+            //    return;
+            //}
+
+            if (turno <= 3 && squadreDelTipo.Count > 0)
             {
-                return;
+                label2.Text = tipoSquadra.ToString() + "'S TURN!";
+                label2.ForeColor = Color.Red;
             }
 
             // sceglie casualmente una delle squadre
@@ -391,20 +384,33 @@ namespace Wargame_vv2
 
                 if (caselle[mossaScelta.x, mossaScelta.y].Tag != null)
                 {
-                    int win = r.Next(0, 2);
-
-                    //MessageBox.Show($"{win}");
-
-                    if (win == 0)
+                    if (squadraAvversaria.Tipo is Squadra.Type.Viking)
                     {
-                        squadre.Remove(squadraAvversaria);
+                        Form3 form3 = new Form3(squadraAvversaria, squadraScelta, caselle[squadraAvversaria.X, squadraAvversaria.Y], caselle[squadraScelta.X, squadraScelta.Y]);
+                        form3.Show();
+                        this.Hide();
 
-                        casellaScelta.Tag = squadraScelta;
-                        casellaScelta.Image = CaricaImmagine(squadraScelta);
+                        caselle[squadraAvversaria.X, squadraAvversaria.Y] = form3.VisualizzaWinner();
+
+                        //form3.FormClosed += Form3_FormClosed;
                     }
                     else
                     {
-                        squadre.Remove(squadraScelta);
+                        int win = r.Next(0, 2);
+
+                        //MessageBox.Show($"{win}");
+
+                        if (win == 0)
+                        {
+                            squadre.Remove(squadraAvversaria);
+
+                            casellaScelta.Tag = squadraScelta;
+                            casellaScelta.Image = CaricaImmagine(squadraScelta);
+                        }
+                        else
+                        {
+                            squadre.Remove(squadraScelta);
+                        }
                     }
                 }
                 else
@@ -414,13 +420,10 @@ namespace Wargame_vv2
                 }
             }
 
-            if (turno > 2)
-            {
-                turno = 0;
-
-                label2.Text = "VIKING'S TURN!";
-                label2.ForeColor = Color.MediumBlue;
-            }
+            //if (turno > 2)
+            //{
+            //    turno = 0;
+            //}
         }
 
         private void EvidenziaMossaValida(Squadra s)

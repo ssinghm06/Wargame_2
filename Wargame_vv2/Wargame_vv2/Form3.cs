@@ -16,9 +16,6 @@ namespace Wargame_vv2
         // la soluzione migliore sarebbe quella di creare una classe per la gestione del gioco
         // Form1 form1 = new Form1();
 
-        private PictureBox pictureBoxSquadra1;
-        private PictureBox pictureBoxSquadra2;
-
         private Squadra squadraSelezionata;
         private Squadra squadraAvversaria;
 
@@ -32,12 +29,9 @@ namespace Wargame_vv2
 
         private bool giocatoreVinto = false;
 
-        public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria, PictureBox pictureBox1, PictureBox pictureBox2)
+        public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
             InitializeComponent();
-
-            pictureBoxSquadra1 = pictureBox1;
-            pictureBoxSquadra2 = pictureBox2;
 
             Guerriero1.BackgroundImage = Form1.CaricaImmagine("guerriero.png");
             Cavaliere1.BackgroundImage = Form1.CaricaImmagine("cavaliere.png");
@@ -109,6 +103,12 @@ namespace Wargame_vv2
             Mago1.FlatAppearance.BorderSize = 5;
             Mago2.FlatAppearance.BorderColor = Color.Black;
             Mago2.FlatAppearance.BorderSize = 5;
+        }
+
+        public void TriggerFormClosed()
+        {
+            FormClosedEventArgs e = new FormClosedEventArgs(CloseReason.None);
+            OnFormClosed(e);
         }
 
         private void AbilitaPulsantiAvversari()
@@ -552,12 +552,20 @@ namespace Wargame_vv2
             }
         }
 
-        public PictureBox VisualizzaWinner()
+        public Squadra Winner()
         {
             if (giocatoreVinto)
-                return pictureBoxSquadra1;
+                return squadraSelezionata;
             else
-                return pictureBoxSquadra2;
+                return squadraAvversaria;
+        }
+
+        public Squadra Loser()
+        {
+            if (giocatoreVinto)
+                return squadraAvversaria;
+            else
+                return squadraSelezionata;
         }
 
         private void IsEndGame()
@@ -570,6 +578,9 @@ namespace Wargame_vv2
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
                 MessageBox.Show("Il bot ha vinto");
+                this.Close();
+                TriggerFormClosed();
+                chiusura = true;
             }
             else if (squadraAvversaria.Squad.All(p => p.Morto))
             {
@@ -581,6 +592,7 @@ namespace Wargame_vv2
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
+                TriggerFormClosed();
                 chiusura = true;
             }
 
@@ -592,6 +604,9 @@ namespace Wargame_vv2
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
                 MessageBox.Show("Il bot ha vinto");
+                this.Close();
+                TriggerFormClosed();
+                chiusura = true;
             }
             else if (squadraAvversaria.Squad.Count(p => !p.Morto) == 1 && squadraAvversaria.Squad.Any(p => p is Mago && !p.Morto))
             {
@@ -603,6 +618,7 @@ namespace Wargame_vv2
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
+                TriggerFormClosed();
                 chiusura = true;
             }
         }

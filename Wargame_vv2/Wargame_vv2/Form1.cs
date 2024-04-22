@@ -4,6 +4,7 @@ using System.Media;
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 
 namespace Wargame_vv2
 {
@@ -24,6 +25,7 @@ namespace Wargame_vv2
         private int turno = 0;
         private bool turnoGiocatore = true;
         private bool gioca = false;
+        private bool invaso = false;
         
         private SoundPlayer suono;
 
@@ -280,38 +282,41 @@ namespace Wargame_vv2
                             // per Invadi
                             if (SquadraSelezionata.ModCombattimento)
                             {
-                                Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata, caselle[SquadraSelezionata.X, SquadraSelezionata.Y], caselle[x, y]);
+                                invaso = true;
+                                SquadraSelezionata.ModCombattimento = false;
+
+                                //TODO: deve rimuovere la squadra che ha perso
+                                squadre.Remove(squadraCliccata);
+
+                                Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
                                 form3.Show();
-                                this.Hide();
+                                //this.Hide();
 
-                                caselle[squadraSelezionata.X, squadraSelezionata.Y] = form3.VisualizzaWinner();
-
-                                //form3.FormClosed += Form3_FormClosed;
+                                form3.FormClosed += Form3_FormClosed;
                                 //MessageBox.Show("ciao");
                             }
 
+                            //TODO: deve visualizzare la squadra che ha vinto
                             casellaCliccata.Tag = SquadraSelezionata;
                             caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = CaricaImmagine(SquadraSelezionata);
 
-                            squadraSelezionata = null;
-                        }
+                            ResettaEvidenzia();
+                            SquadraSelezionata = null;
 
-                        ResettaEvidenzia();
-                        SquadraSelezionata = null;
-
-                        if (turnoGiocatore != true)
-                        {
-                            for (int i = 0; i < tipiDiSquadra.Count - 1; i++)
+                            if (turnoGiocatore != true && invaso != true)
                             {
-                                Squadra.Type tipoSquadra = tipiDiSquadra.ElementAt(i+1);
-                                await Task.Delay(1000);
-                                GestisciTurnoBot(tipoSquadra);
-                            }
+                                for (int i = 0; i < tipiDiSquadra.Count - 1; i++)
+                                {
+                                    Squadra.Type tipoSquadra = tipiDiSquadra.ElementAt(i + 1);
+                                    await Task.Delay(1000);
+                                    GestisciTurnoBot(tipoSquadra);
+                                }
 
-                            await Task.Delay(1000);
-                            label2.Text = "VIKING'S TURN!";
-                            label2.ForeColor = Color.MediumBlue;
-                            turnoGiocatore = true;
+                                await Task.Delay(1000);
+                                label2.Text = "VIKING'S TURN!";
+                                label2.ForeColor = Color.MediumBlue;
+                                turnoGiocatore = true;
+                            }
                         }
                     }
                 }
@@ -320,6 +325,8 @@ namespace Wargame_vv2
 
         private void Form3_FormClosed(object? sender, FormClosedEventArgs e)
         {
+            turnoGiocatore = true;
+            invaso = false;
             this.Show();
         }
 
@@ -386,13 +393,24 @@ namespace Wargame_vv2
                 {
                     if (squadraAvversaria.Tipo is Squadra.Type.Viking)
                     {
-                        Form3 form3 = new Form3(squadraAvversaria, squadraScelta, caselle[squadraAvversaria.X, squadraAvversaria.Y], caselle[squadraScelta.X, squadraScelta.Y]);
-                        form3.Show();
-                        this.Hide();
+                        if (squadraScelta.ModCombattimento)
+                        {
+                            squadraScelta.ModCombattimento = false;
 
-                        caselle[squadraAvversaria.X, squadraAvversaria.Y] = form3.VisualizzaWinner();
+                            //TODO: deve rimuovere la squadra che ha perso
+                            squadre.Remove(squadraAvversaria);
 
-                        //form3.FormClosed += Form3_FormClosed;
+                            Form3 form3 = new Form3(squadraAvversaria, squadraScelta);
+                            form3.Show();
+                            this.Hide();
+
+                            form3.FormClosed += Form3_FormClosed;
+                            //MessageBox.Show("ciao");
+                        }
+
+                        //TODO: deve visualizzare la squadra che ha vinto
+                        casellaScelta.Tag = squadraScelta;
+                        casellaScelta.Image = CaricaImmagine(squadraScelta);
                     }
                     else
                     {

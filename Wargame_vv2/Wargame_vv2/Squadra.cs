@@ -22,7 +22,7 @@ namespace Wargame_vv2
         private int x;
         private int y;
         private Type tipo;
-        private bool modCombattimento;  // TODO: come funziona... ?
+        private bool modCombattimento;
         private bool viva;  // TODO: da rivedere
 
         public List<Personaggio> Squad

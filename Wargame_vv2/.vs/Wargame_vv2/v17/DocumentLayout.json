@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\squadra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\squadra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,37 +26,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Squadra.cs",
+              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Squadra.cs",
+              "RelativeDocumentMoniker": "Wargame_vv2\\Squadra.cs",
+              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Squadra.cs",
+              "RelativeToolTip": "Wargame_vv2\\Squadra.cs",
+              "ViewState": "AQIAAGAAAAAAAAAAAAAIwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-22T09:46:02.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form1.cs",
               "RelativeDocumentMoniker": "Wargame_vv2\\Form1.cs",
               "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form1.cs",
               "RelativeToolTip": "Wargame_vv2\\Form1.cs",
-              "ViewState": "AQIAABcCAAAAAAAAAAAvwCgCAABqAAAA",
+              "ViewState": "AQIAADkBAAAAAAAAAAAEwE4BAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-20T16:10:18.825Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Form4.cs",
               "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form4.cs",
               "RelativeDocumentMoniker": "Wargame_vv2\\Form4.cs",
               "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form4.cs",
               "RelativeToolTip": "Wargame_vv2\\Form4.cs",
-              "ViewState": "AQIAADQAAAAAAAAAAAAswD0AAAAbAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAqwEMAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-20T15:08:44.547Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-20T15:08:44.547Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Form4.cs [Progettazione]",
               "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form4.cs",
               "RelativeDocumentMoniker": "Wargame_vv2\\Form4.cs",

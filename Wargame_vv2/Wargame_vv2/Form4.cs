@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Media;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,7 +14,6 @@ namespace Wargame_vv2
 {
     public partial class Form4 : Form
     {
-        private SoundPlayer suono;
         private bool musica = true;
 
         public Form4()
@@ -42,11 +42,10 @@ namespace Wargame_vv2
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            //suono = Form1.CaricaSuono("chiusura_baule.wav");
-            //if (suono != null)
-            //    suono.Play();
+            AudioPlayer.CaricaAudio("closeChest.wav");
+            AudioPlayer.PlayAudio();
 
-            this.Close();
+            this.Hide();
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
@@ -63,6 +62,11 @@ namespace Wargame_vv2
                 pictureBox6.Image = Form1.CaricaImmagine("on.png");
                 musica = true;
             }
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

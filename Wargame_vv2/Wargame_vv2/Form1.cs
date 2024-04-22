@@ -10,15 +10,17 @@ namespace Wargame_vv2
 {
     public partial class Form1 : Form
     {
-        Tabellone tabellone;
-        PictureBox[,] caselle;
-        List<Squadra> squadre;
-        HashSet<Squadra.Type> tipiDiSquadra = new HashSet<Squadra.Type>();
+        private Tabellone tabellone;
+        private PictureBox[,] caselle;
+        private List<Squadra> squadre;
+        private HashSet<Squadra.Type> tipiDiSquadra = new HashSet<Squadra.Type>();
 
-        Squadra squadraSelezionata = null;
+        private Form4 regole = new Form4();
+
+        private Squadra squadraSelezionata = null;
 
         // mi serve per togliere la casella evidenziata --> unica soluzione che mi e venuta in mente
-        List<Image> immaginiMosse;
+        private List<Image> immaginiMosse;
 
         public MessageCustomYesNo customMessageBox = new MessageCustomYesNo();
 
@@ -26,8 +28,6 @@ namespace Wargame_vv2
         private bool turnoGiocatore = true;
         private bool gioca = false;
         private bool invaso = false;
-        
-        private SoundPlayer suono;
 
         private int cont = 3;
         private int minutiTrascorsi = 0;
@@ -83,18 +83,31 @@ namespace Wargame_vv2
             // creo e posiziono le squadre
             squadre = new List<Squadra>()
             {
-                new Squadra(1, 8, Squadra.Type.Viking, tabellone),
-                new Squadra(2, 8, Squadra.Type.Viking, tabellone),
-                new Squadra(1, 7, Squadra.Type.Viking, tabellone),
-                new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
-                new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
-                new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
-                new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
-                new Squadra(1, 1, Squadra.Type.Knight, tabellone),
-                new Squadra(2, 1, Squadra.Type.Knight, tabellone),
-                new Squadra(1, 2, Squadra.Type.Knight, tabellone)
+                new Squadra(1, 2, Squadra.Type.Viking, tabellone),
+                new Squadra(2, 1, Squadra.Type.Viking, tabellone),
+                new Squadra(1, 4, Squadra.Type.Viking, tabellone),
+                new Squadra(1, 3, Squadra.Type.Shogun, tabellone),
+                new Squadra(3, 1, Squadra.Type.Shogun, tabellone),
+                new Squadra(2, 2, Squadra.Type.Shogun, tabellone),
+                new Squadra(3, 2, Squadra.Type.Gladiator, tabellone),
+                new Squadra(2, 3, Squadra.Type.Gladiator, tabellone),
+                new Squadra(3, 3, Squadra.Type.Gladiator, tabellone),
+                new Squadra(3, 0, Squadra.Type.Knight, tabellone),
+                new Squadra(0, 0, Squadra.Type.Knight, tabellone),
+                new Squadra(4, 0, Squadra.Type.Knight, tabellone),
+
+                //new Squadra(1, 8, Squadra.Type.Viking, tabellone),
+                //new Squadra(2, 8, Squadra.Type.Viking, tabellone),
+                //new Squadra(1, 7, Squadra.Type.Viking, tabellone),
+                //new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
+                //new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
+                //new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
+                //new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
+                //new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
+                //new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
+                //new Squadra(1, 1, Squadra.Type.Knight, tabellone),
+                //new Squadra(2, 1, Squadra.Type.Knight, tabellone),
+                //new Squadra(1, 2, Squadra.Type.Knight, tabellone)
             };
 
             foreach (Squadra s in squadre)
@@ -277,23 +290,32 @@ namespace Wargame_vv2
                             caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = null;
 
                             SquadraSelezionata.Muovi(x, y);
+                            AudioPlayer.CaricaAudio("move.wav");
+                            AudioPlayer.PlayAudio();
                             turnoGiocatore = false;
 
                             // per Invadi
                             if (SquadraSelezionata.ModCombattimento)
                             {
+                                AudioPlayer.CaricaAudio("invadi.wav");
+                                AudioPlayer.PlayAudio();
                                 invaso = true;
                                 SquadraSelezionata.ModCombattimento = false;
 
                                 //TODO: deve rimuovere la squadra che ha perso
                                 squadre.Remove(squadraCliccata);
 
+                                if (!squadre.Any(s => s.Tipo == squadraCliccata.Tipo))
+                                {
+                                    // Se sì, rimuove il tipo di squadra dalla lista tipiDiSquadra
+                                    tipiDiSquadra.Remove(squadraCliccata.Tipo);
+                                }
+
                                 Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
                                 form3.Show();
                                 //this.Hide();
 
                                 form3.FormClosed += Form3_FormClosed;
-                                //MessageBox.Show("ciao");
                             }
 
                             //TODO: deve visualizzare la squadra che ha vinto
@@ -323,11 +345,15 @@ namespace Wargame_vv2
             }
         }
 
-        private void Form3_FormClosed(object? sender, FormClosedEventArgs e)
+        private async void Form3_FormClosed(object? sender, FormClosedEventArgs e)
         {
             turnoGiocatore = true;
             invaso = false;
             this.Show();
+
+            await Task.Delay(1000);
+
+            IsEndGame();
         }
 
         // algoritmo base bot --> migliorabile
@@ -360,81 +386,95 @@ namespace Wargame_vv2
             //    return;
             //}
 
+            if (!squadre.Any(s => s.Tipo == tipoSquadra))
+            {
+                tipiDiSquadra.Remove(tipoSquadra);
+            }
+
             if (turno <= 3 && squadreDelTipo.Count > 0)
             {
                 label2.Text = tipoSquadra.ToString() + "'S TURN!";
                 label2.ForeColor = Color.Red;
-            }
 
-            // sceglie casualmente una delle squadre
-            Random r = new Random();
-            Squadra squadraScelta = squadreDelTipo[r.Next(squadreDelTipo.Count)];
+                // sceglie casualmente una delle squadre
+                Random r = new Random();
+                Squadra squadraScelta = squadreDelTipo[r.Next(squadreDelTipo.Count)];
 
-            List<(int, int)> mosseValide = squadraScelta.MossaValida(tabellone);
-            (int x, int y) mossaScelta = mosseValide[r.Next(mosseValide.Count)];
+                List<(int, int)> mosseValide = squadraScelta.MossaValida(tabellone);
+                (int x, int y) mossaScelta = mosseValide[r.Next(mosseValide.Count)];
 
-            Squadra squadraAvversaria = tabellone.GetSquadra(mossaScelta.x, mossaScelta.y);
+                Squadra squadraAvversaria = tabellone.GetSquadra(mossaScelta.x, mossaScelta.y);
 
-            immaginiMosse.Add(caselle[mossaScelta.x, mossaScelta.y].Image);
+                immaginiMosse.Add(caselle[mossaScelta.x, mossaScelta.y].Image);
 
-            PictureBox casellaScelta = caselle[mossaScelta.x, mossaScelta.y];
-            
-            // INVADI
-            if (IsMossaValida(casellaScelta))
-            {
-                (int x, int y) = CoordinateCasellaCliccata(casellaScelta);
+                PictureBox casellaScelta = caselle[mossaScelta.x, mossaScelta.y];
 
-                caselle[squadraScelta.X, squadraScelta.Y].Tag = null;
-                caselle[squadraScelta.X, squadraScelta.Y].Image = null;
-
-                squadraScelta.Muovi(x, y);
-
-                if (caselle[mossaScelta.x, mossaScelta.y].Tag != null)
+                // INVADI
+                if (IsMossaValida(casellaScelta))
                 {
-                    if (squadraAvversaria.Tipo is Squadra.Type.Viking)
+                    (int x, int y) = CoordinateCasellaCliccata(casellaScelta);
+
+                    caselle[squadraScelta.X, squadraScelta.Y].Tag = null;
+                    caselle[squadraScelta.X, squadraScelta.Y].Image = null;
+
+                    squadraScelta.Muovi(x, y);
+                    AudioPlayer.CaricaAudio("move.wav");
+                    AudioPlayer.PlayAudio();
+
+                    if (caselle[mossaScelta.x, mossaScelta.y].Tag != null)
                     {
-                        if (squadraScelta.ModCombattimento)
+                        AudioPlayer.CaricaAudio("invadi.wav");
+                        AudioPlayer.PlayAudio();
+                        if (squadraAvversaria.Tipo is Squadra.Type.Viking)
                         {
-                            squadraScelta.ModCombattimento = false;
+                            if (squadraScelta.ModCombattimento)
+                            {
+                                squadraScelta.ModCombattimento = false;
 
-                            //TODO: deve rimuovere la squadra che ha perso
-                            squadre.Remove(squadraAvversaria);
+                                //TODO: deve rimuovere la squadra che ha perso
+                                squadre.Remove(squadraAvversaria);
 
-                            Form3 form3 = new Form3(squadraAvversaria, squadraScelta);
-                            form3.Show();
-                            this.Hide();
+                                if (!squadre.Any(s => s.Tipo == squadraAvversaria.Tipo))
+                                {
+                                    tipiDiSquadra.Remove(squadraAvversaria.Tipo);
+                                }
 
-                            form3.FormClosed += Form3_FormClosed;
-                            //MessageBox.Show("ciao");
-                        }
+                                Form3 form3 = new Form3(squadraAvversaria, squadraScelta);
+                                form3.Show();
+                                this.Hide();
 
-                        //TODO: deve visualizzare la squadra che ha vinto
-                        casellaScelta.Tag = squadraScelta;
-                        casellaScelta.Image = CaricaImmagine(squadraScelta);
-                    }
-                    else
-                    {
-                        int win = r.Next(0, 2);
+                                form3.FormClosed += Form3_FormClosed;
+                                //MessageBox.Show("ciao");
+                            }
 
-                        //MessageBox.Show($"{win}");
-
-                        if (win == 0)
-                        {
-                            squadre.Remove(squadraAvversaria);
-
+                            //TODO: deve visualizzare la squadra che ha vinto
                             casellaScelta.Tag = squadraScelta;
                             casellaScelta.Image = CaricaImmagine(squadraScelta);
                         }
                         else
                         {
-                            squadre.Remove(squadraScelta);
+                            int win = r.Next(0, 2);
+
+                            //MessageBox.Show($"{win}");
+
+                            if (win == 0)
+                            {
+                                squadre.Remove(squadraAvversaria);
+
+                                casellaScelta.Tag = squadraScelta;
+                                casellaScelta.Image = CaricaImmagine(squadraScelta);
+                            }
+                            else
+                            {
+                                squadre.Remove(squadraScelta);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    casellaScelta.Tag = squadraScelta;
-                    casellaScelta.Image = CaricaImmagine(squadraScelta);
+                    else
+                    {
+                        casellaScelta.Tag = squadraScelta;
+                        casellaScelta.Image = CaricaImmagine(squadraScelta);
+                    }
                 }
             }
 
@@ -442,6 +482,21 @@ namespace Wargame_vv2
             //{
             //    turno = 0;
             //}
+        }
+
+        private void IsEndGame()
+        {
+            if (tipiDiSquadra.Count == 1)
+            {
+                if (tipiDiSquadra.Contains(Squadra.Type.Viking))
+                {
+                    MessageBox.Show("Hai vinto!");
+                }
+                else
+                {
+                    MessageBox.Show("Hai perso!");
+                }
+            }
         }
 
         private void EvidenziaMossaValida(Squadra s)
@@ -558,16 +613,14 @@ namespace Wargame_vv2
         {
             IsRules();
 
-            //suono = CaricaSuono("apertura_baule.wav");
-            //if (suono != null)
-            //    suono.Play();
+            AudioPlayer.CaricaAudio("openChest.wav");
+            AudioPlayer.PlayAudio();
 
             pictureBox5.Image = CaricaImmagine("baule_aperto.png");
         }
 
         private void IsRules()
         {
-            Form4 regole = new Form4();
             regole.TopMost = true;  // così la form4 rimane visibile anche quando interagisco con la form1
             regole.Show();
         }
@@ -611,11 +664,14 @@ namespace Wargame_vv2
         private void timer1_Tick(object sender, EventArgs e)
         {
             label4.ForeColor = Color.Sienna;
-            
+
             if (cont == 0)
             {
-                pictureBox6.Visible = false;
+                AudioPlayer.CaricaAudio("board.wav");
+                AudioPlayer.PlayAudio();
+
                 pictureBox6.Enabled = false;
+                pictureBox6.Visible = false;
 
                 label4.Text = "fight!";
 

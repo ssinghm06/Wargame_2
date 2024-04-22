@@ -876,6 +876,7 @@
             pictureBox5.Size = new Size(1291, 62);
             pictureBox5.TabIndex = 70;
             pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click;
             // 
             // label16
             // 

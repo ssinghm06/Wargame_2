@@ -23,11 +23,14 @@ namespace Wargame_vv2
         private List<Image> immaginiMosse;
 
         public MessageCustomYesNo customMessageBox = new MessageCustomYesNo();
+        private ResultBox resultBox = new ResultBox();
 
         private int turno = 0;
         private bool turnoGiocatore = true;
         private bool gioca = false;
         private bool invaso = false;
+
+        private bool win = false;
 
         private int cont = 3;
         private int minutiTrascorsi = 0;
@@ -467,6 +470,8 @@ namespace Wargame_vv2
                             else
                             {
                                 squadre.Remove(squadraScelta);
+                                casellaScelta.Tag = squadraAvversaria;
+                                casellaScelta.Image = CaricaImmagine(squadraAvversaria);
                             }
                         }
                     }
@@ -486,15 +491,38 @@ namespace Wargame_vv2
 
         private void IsEndGame()
         {
+            if (tipiDiSquadra.Contains(Squadra.Type.Viking) == false)
+            {
+                timer1.Stop();
+                win = false;
+
+                resultBox = ResultMessageBox();
+                DialogResult risposta = resultBox.ShowDialog();
+
+                if (risposta == DialogResult.Yes)
+                {
+                    //restart
+                }
+                else
+                    Application.Exit();
+            }
+
             if (tipiDiSquadra.Count == 1)
             {
                 if (tipiDiSquadra.Contains(Squadra.Type.Viking))
                 {
-                    MessageBox.Show("Hai vinto!");
-                }
-                else
-                {
-                    MessageBox.Show("Hai perso!");
+                    timer1.Stop();
+                    win = true;
+
+                    resultBox = ResultMessageBox();
+                    DialogResult risposta = resultBox.ShowDialog();
+
+                    if (risposta == DialogResult.Yes)
+                    {
+                        //restart
+                    }
+                    else
+                        Application.Exit();
                 }
             }
         }
@@ -509,22 +537,19 @@ namespace Wargame_vv2
                 // in questa lista di tuple vado a salvare tutte le mosse valide
                 List<(int, int)> mosseValide = s.MossaValida(tabellone);
 
-                for (int i = 0; i < mosseValide.Count; i++)
+                foreach ((int newX, int newY) in mosseValide)
                 {
-                    // tiro fuori la x e la y
-                    int newX = mosseValide[i].Item1;
-                    int newY = mosseValide[i].Item2;
-
                     Squadra squadraInCasella = tabellone.GetSquadra(newX, newY);
                     if (squadraInCasella != null && squadraInCasella.Tipo != s.Tipo)
+                    {
                         caselle[newX, newY].Image = SovrapponiImmagini("yellow.png", CaricaImmagine(squadraInCasella));
-                    else
+                        immaginiMosse.Add(caselle[newX, newY].Image);
+                    }
+                    else if (squadraInCasella == null)
+                    {
                         caselle[newX, newY].Image = CaricaImmagine("yellow.png");
-
-                    immaginiMosse.Add(caselle[newX, newY].Image);
-
-                    //caselle[newX, newY].Image = CaricaImmagine("yellow.png");
-                    //immaginiMosse.Add(caselle[newX, newY].Image);
+                        immaginiMosse.Add(caselle[newX, newY].Image);
+                    }
                 }
             }
         }
@@ -607,6 +632,19 @@ namespace Wargame_vv2
             customMessageBox.closeImage = CaricaImmagine("delete-cross.png");
 
             return customMessageBox;
+        }
+
+        public ResultBox ResultMessageBox()
+        {
+            if (win)
+                resultBox.Message = "YOU WON!";
+            else
+                resultBox.Message = "YOU LOST!";
+
+            resultBox.ReplayImage = CaricaImmagine("replay.png");
+            resultBox.ExitImage = CaricaImmagine("exit.png");
+
+            return resultBox;
         }
 
         private void button2_Click(object sender, EventArgs e)

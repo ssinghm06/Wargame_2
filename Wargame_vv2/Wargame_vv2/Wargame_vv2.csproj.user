@@ -16,5 +16,8 @@
     <Compile Update="MessageCustomYesNo.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ResultBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

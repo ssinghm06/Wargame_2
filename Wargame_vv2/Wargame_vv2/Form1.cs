@@ -9,6 +9,7 @@ using static System.Windows.Forms.DataFormats;
 namespace Wargame_vv2
 {
     public partial class Form1 : Form
+
     {
         private Tabellone tabellone;
         private PictureBox[,] caselle;
@@ -83,41 +84,7 @@ namespace Wargame_vv2
             caselle = new PictureBox[tabellone.Dimensione, tabellone.Dimensione];
             immaginiMosse = new List<Image>();
 
-            // creo e posiziono le squadre
-            squadre = new List<Squadra>()
-            {
-                new Squadra(1, 2, Squadra.Type.Viking, tabellone),
-                new Squadra(2, 1, Squadra.Type.Viking, tabellone),
-                new Squadra(1, 4, Squadra.Type.Viking, tabellone),
-                new Squadra(1, 3, Squadra.Type.Shogun, tabellone),
-                new Squadra(3, 1, Squadra.Type.Shogun, tabellone),
-                new Squadra(2, 2, Squadra.Type.Shogun, tabellone),
-                new Squadra(3, 2, Squadra.Type.Gladiator, tabellone),
-                new Squadra(2, 3, Squadra.Type.Gladiator, tabellone),
-                new Squadra(3, 3, Squadra.Type.Gladiator, tabellone),
-                new Squadra(3, 0, Squadra.Type.Knight, tabellone),
-                new Squadra(0, 0, Squadra.Type.Knight, tabellone),
-                new Squadra(4, 0, Squadra.Type.Knight, tabellone),
-
-                //new Squadra(1, 8, Squadra.Type.Viking, tabellone),
-                //new Squadra(2, 8, Squadra.Type.Viking, tabellone),
-                //new Squadra(1, 7, Squadra.Type.Viking, tabellone),
-                //new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
-                //new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
-                //new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
-                //new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
-                //new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
-                //new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
-                //new Squadra(1, 1, Squadra.Type.Knight, tabellone),
-                //new Squadra(2, 1, Squadra.Type.Knight, tabellone),
-                //new Squadra(1, 2, Squadra.Type.Knight, tabellone)
-            };
-
-            foreach (Squadra s in squadre)
-            {
-                tabellone.PosizionaSquadra(s.X, s.Y, s);
-                tipiDiSquadra.Add(s.Tipo);
-            }
+            GenerazioneSquadre();
 
             // genero gli ostacoli
             int i = 0;
@@ -297,7 +264,7 @@ namespace Wargame_vv2
                             AudioPlayer.PlayAudio();
                             turnoGiocatore = false;
 
-                            // per Invadi
+                            // per h
                             if (SquadraSelezionata.ModCombattimento)
                             {
                                 AudioPlayer.CaricaAudio("invadi.wav");
@@ -470,6 +437,7 @@ namespace Wargame_vv2
                             else
                             {
                                 squadre.Remove(squadraScelta);
+
                                 casellaScelta.Tag = squadraAvversaria;
                                 casellaScelta.Image = CaricaImmagine(squadraAvversaria);
                             }
@@ -502,6 +470,7 @@ namespace Wargame_vv2
                 if (risposta == DialogResult.Yes)
                 {
                     //restart
+                    ResetGame();
                 }
                 else
                     Application.Exit();
@@ -520,10 +489,60 @@ namespace Wargame_vv2
                     if (risposta == DialogResult.Yes)
                     {
                         //restart
+                        ResetGame();
                     }
                     else
                         Application.Exit();
                 }
+            }
+        }
+
+        private void ResetGame()
+        {
+            foreach (Squadra s in squadre)
+                tabellone.RimuoviSquadra(s.X, s.Y);
+
+
+
+            win = false;
+            turnoGiocatore = true;
+            gioca = false;
+            invaso = false;
+            squadraSelezionata = null;
+
+            squadre.Clear();
+            tipiDiSquadra.Clear();
+            immaginiMosse.Clear();
+            panel1.Controls.Clear();
+
+            panel1.BackColor = Color.Transparent;
+
+            GenerazioneSquadre();
+            StampaTabellone();
+        }
+
+        private void GenerazioneSquadre()
+        {
+            squadre = new List<Squadra>()
+            {
+                new Squadra(1, 8, Squadra.Type.Viking, tabellone),
+                new Squadra(2, 8, Squadra.Type.Viking, tabellone),
+                new Squadra(3, 8, Squadra.Type.Viking, tabellone),
+                new Squadra(4, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(5, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(6, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(7, 8, Squadra.Type.Gladiator, tabellone),
+                new Squadra(7, 7, Squadra.Type.Gladiator, tabellone),
+                new Squadra(8, 8, Squadra.Type.Gladiator, tabellone),
+                new Squadra(7, 6, Squadra.Type.Knight, tabellone),
+                new Squadra(6, 7, Squadra.Type.Knight, tabellone),
+                new Squadra(6, 6, Squadra.Type.Knight, tabellone)
+            };
+
+            foreach (Squadra s in squadre)
+            {
+                tabellone.PosizionaSquadra(s.X, s.Y, s);
+                tipiDiSquadra.Add(s.Tipo);
             }
         }
 

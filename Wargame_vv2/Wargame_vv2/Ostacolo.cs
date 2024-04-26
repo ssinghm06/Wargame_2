@@ -16,7 +16,6 @@ namespace Wargame_vv2
         }
 
         private TipoOstacolo tipo;
-
         public TipoOstacolo Tipo
         {
             get { return tipo; } 

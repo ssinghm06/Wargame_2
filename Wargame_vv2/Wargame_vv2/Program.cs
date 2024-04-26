@@ -12,7 +12,7 @@ namespace Wargame_vv2
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            //Application.Run(new Form2());  // ho creato una nuova finestra 'form2.cs' dove faccio la schermata di avvio 
+            Application.Run(new Form2());  // ho creato una nuova finestra 'form2.cs' dove faccio la schermata di avvio 
             Application.Run(new Form1());
         }
     }

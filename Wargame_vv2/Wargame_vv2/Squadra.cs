@@ -23,7 +23,6 @@ namespace Wargame_vv2
         private int y;
         private Type tipo;
         private bool modCombattimento;
-        private bool viva;  // TODO: da rivedere
 
         public List<Personaggio> Squad
         {
@@ -64,7 +63,6 @@ namespace Wargame_vv2
             Tipo = ti;
             tabellone = t;
             ModCombattimento = false;
-            viva = true;
         }
 
         public void CreaSquadra()

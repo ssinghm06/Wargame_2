@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\tabellone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\tabellone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\squadra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\squadra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\ostacolo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\ostacolo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -28,7 +36,7 @@
               "RelativeDocumentMoniker": "Wargame_vv2\\Form1.cs",
               "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form1.cs",
               "RelativeToolTip": "Wargame_vv2\\Form1.cs",
-              "ViewState": "AQIAAAECAAAAAAAAAAAiwAsCAAApAAAA",
+              "ViewState": "AQIAAPoBAAAAAAAAAAAnwCoCAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-25T18:17:43.174Z",
               "IsPinned": true,
@@ -37,14 +45,41 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Tabellone.cs",
+              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Tabellone.cs",
+              "RelativeDocumentMoniker": "Wargame_vv2\\Tabellone.cs",
+              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Tabellone.cs",
+              "RelativeToolTip": "Wargame_vv2\\Tabellone.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAAC8AAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T13:56:19.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Squadra.cs",
+              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Squadra.cs",
+              "RelativeDocumentMoniker": "Wargame_vv2\\Squadra.cs",
+              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Squadra.cs",
+              "RelativeToolTip": "Wargame_vv2\\Squadra.cs",
+              "ViewState": "AQIAAFsAAAAAAAAAAAASwEAAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T13:55:00.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Ostacolo.cs",
               "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Ostacolo.cs",
               "RelativeDocumentMoniker": "Wargame_vv2\\Ostacolo.cs",
               "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Ostacolo.cs",
               "RelativeToolTip": "Wargame_vv2\\Ostacolo.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAA1wAkAAAAFAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T07:29:17.002Z"
+              "WhenOpened": "2024-04-26T13:42:21.008Z",
+              "EditorCaption": ""
             }
           ]
         }

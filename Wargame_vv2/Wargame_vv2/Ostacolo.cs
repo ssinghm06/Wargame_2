@@ -22,12 +22,15 @@ namespace Wargame_vv2
             set { tipo = value; }
         }
 
+        public int X { get; set; }
+        public int Y { get; set; }
+
         public Ostacolo(TipoOstacolo tipo)
         {
             Tipo = tipo;
         }
 
-        public static bool GeneraOstacoloCasuale(Tabellone t)
+        public static Ostacolo GeneraOstacoloCasuale(Tabellone t)
         {
             Random r = new Random();
 
@@ -36,18 +39,21 @@ namespace Wargame_vv2
             TipoOstacolo tipoOstacolo = (TipoOstacolo)r.Next(0, 3);
 
             Ostacolo ostacolo = new Ostacolo(tipoOstacolo);
+            ostacolo.X = randomX;
+            ostacolo.Y = randomY;
 
             // controlla se ci sono ostacoli nelle posizioni vicine
             if (CheckVicino(t, randomX, randomY))
-                return false;
+                return null;
 
             // controlla che non ci siano squadre o ostacoli in questa posizione
             if (t.GetSquadra(randomX, randomY) != null || t.GetOstacolo(randomX, randomY) != null)
-                return false;
+                return null;
 
             t.PosizionaOstacolo(randomX, randomY, ostacolo);
-            return true;
+            return ostacolo;
         }
+
 
         private static bool CheckVicino(Tabellone t, int x, int y)
         {

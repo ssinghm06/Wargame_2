@@ -14,6 +14,7 @@ namespace Wargame_vv2
         private Tabellone tabellone;
         private PictureBox[,] caselle;
         private List<Squadra> squadre;
+        private List<Ostacolo> ostacoli = new List<Ostacolo>();
         private HashSet<Squadra.Type> tipiDiSquadra = new HashSet<Squadra.Type>();
 
         private Form4 regole = new Form4();
@@ -85,12 +86,7 @@ namespace Wargame_vv2
             immaginiMosse = new List<Image>();
 
             GenerazioneSquadre();
-
-            // genero gli ostacoli
-            int i = 0;
-            while (i < 12)  // diminuito numero da 15 a 12 --> 15 erano troppi!
-                if (Ostacolo.GeneraOstacoloCasuale(tabellone))
-                    i++;
+            GenerazioneOstacoli();
 
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.Image = CaricaImmagine("intro.png");
@@ -99,6 +95,20 @@ namespace Wargame_vv2
             pictureBox7.Image = CaricaImmagine("clessidra.png");
 
             StampaTabellone();
+        }
+
+        private void GenerazioneOstacoli()
+        {
+            int i = 0;
+            while (i < 12)  // diminuito numero da 15 a 12 --> 15 erano troppi!
+            {
+                Ostacolo nuovoOstacolo = Ostacolo.GeneraOstacoloCasuale(tabellone);
+                if (nuovoOstacolo != null)
+                {
+                    ostacoli.Add(nuovoOstacolo);
+                    i++;
+                }
+            }
         }
 
         private void StampaTabellone()
@@ -264,7 +274,6 @@ namespace Wargame_vv2
                             AudioPlayer.PlayAudio();
                             turnoGiocatore = false;
 
-                            // per h
                             if (SquadraSelezionata.ModCombattimento)
                             {
                                 AudioPlayer.CaricaAudio("invadi.wav");
@@ -283,7 +292,7 @@ namespace Wargame_vv2
 
                                 Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
                                 form3.Show();
-                                //this.Hide();
+                                this.Hide();
 
                                 form3.FormClosed += Form3_FormClosed;
                             }
@@ -463,12 +472,15 @@ namespace Wargame_vv2
             {
                 timer1.Stop();
                 win = false;
+                AudioPlayer.CaricaAudio("loss.wav");
+                AudioPlayer.PlayAudio();
 
                 resultBox = ResultMessageBox();
                 DialogResult risposta = resultBox.ShowDialog();
 
                 if (risposta == DialogResult.Yes)
                 {
+                    ResetTimer();
                     //restart
                     ResetGame();
                 }
@@ -482,12 +494,15 @@ namespace Wargame_vv2
                 {
                     timer1.Stop();
                     win = true;
+                    AudioPlayer.CaricaAudio("win.wav");
+                    AudioPlayer.PlayAudio();
 
                     resultBox = ResultMessageBox();
                     DialogResult risposta = resultBox.ShowDialog();
 
                     if (risposta == DialogResult.Yes)
                     {
+                        ResetTimer();
                         //restart
                         ResetGame();
                     }
@@ -502,7 +517,8 @@ namespace Wargame_vv2
             foreach (Squadra s in squadre)
                 tabellone.RimuoviSquadra(s.X, s.Y);
 
-
+            foreach (Ostacolo o in ostacoli)
+                tabellone.RimuoviOstacolo(o.X, o.Y); 
 
             win = false;
             turnoGiocatore = true;
@@ -518,6 +534,7 @@ namespace Wargame_vv2
             panel1.BackColor = Color.Transparent;
 
             GenerazioneSquadre();
+            GenerazioneOstacoli();
             StampaTabellone();
         }
 
@@ -527,16 +544,16 @@ namespace Wargame_vv2
             {
                 new Squadra(1, 8, Squadra.Type.Viking, tabellone),
                 new Squadra(2, 8, Squadra.Type.Viking, tabellone),
-                new Squadra(3, 8, Squadra.Type.Viking, tabellone),
-                new Squadra(4, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(5, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(6, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(7, 8, Squadra.Type.Gladiator, tabellone),
-                new Squadra(7, 7, Squadra.Type.Gladiator, tabellone),
-                new Squadra(8, 8, Squadra.Type.Gladiator, tabellone),
-                new Squadra(7, 6, Squadra.Type.Knight, tabellone),
-                new Squadra(6, 7, Squadra.Type.Knight, tabellone),
-                new Squadra(6, 6, Squadra.Type.Knight, tabellone)
+                new Squadra(1, 7, Squadra.Type.Viking, tabellone),
+                new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
+                new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
+                new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
+                new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
+                new Squadra(1, 1, Squadra.Type.Knight, tabellone),
+                new Squadra(2, 1, Squadra.Type.Knight, tabellone),
+                new Squadra(1, 2, Squadra.Type.Knight, tabellone)
             };
 
             foreach (Squadra s in squadre)
@@ -746,29 +763,35 @@ namespace Wargame_vv2
             else
             {
                 gioca = true;
-
                 pictureBox7.Visible = true;
 
                 secondiTrascorsi++;
-                
                 if (secondiTrascorsi == 60)
                 {
                     minutiTrascorsi++;
                     secondiTrascorsi = 0;
                 }
 
-                if (secondiTrascorsi <= 9 && minutiTrascorsi <= 9)
-                    label4.Text = $"0{minutiTrascorsi} : 0{secondiTrascorsi}";
-
-                if (secondiTrascorsi > 9 && minutiTrascorsi > 9)
-                    label4.Text = $"{minutiTrascorsi} : {secondiTrascorsi}";
-
-                if (secondiTrascorsi <= 9 && minutiTrascorsi > 9)
-                    label4.Text = $"{minutiTrascorsi} : 0{secondiTrascorsi}";
-
-                if (secondiTrascorsi > 9 && minutiTrascorsi <= 9)
-                    label4.Text = $"0{minutiTrascorsi} : {secondiTrascorsi}";
+                TimerAggiornato();
             }
+        }
+
+        private void ResetTimer()
+        {
+            minutiTrascorsi = 0;
+            secondiTrascorsi = 0;
+
+            TimerAggiornato();
+
+            if (timer1.Enabled)
+                timer1.Stop();
+
+            timer1.Start();
+        }
+
+        private void TimerAggiornato()
+        {
+            label4.Text = $"{minutiTrascorsi:D2} : {secondiTrascorsi:D2}";
         }
     }
 }

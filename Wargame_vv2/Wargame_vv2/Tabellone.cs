@@ -42,6 +42,11 @@ namespace Wargame_vv2
             ControllaCoordinate(x, y);
             tabellone[x, y] = null;
         }
+        public void RimuoviOstacolo(int x, int y)
+        {
+            ControllaCoordinate(x, y);
+            ostacoli[x, y] = null;
+        }
 
         public Squadra GetSquadra(int x, int y)
         {

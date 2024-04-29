@@ -946,6 +946,7 @@
             Name = "Form3";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form3";
+            FormClosing += Form3_FormClosing;
             Load += Form3_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);

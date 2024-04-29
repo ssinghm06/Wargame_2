@@ -1,6 +1,7 @@
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Media;
+using System.Net.Http.Headers;
 using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
@@ -18,10 +19,12 @@ namespace Wargame_vv2
         private HashSet<Squadra.Type> tipiDiSquadra = new HashSet<Squadra.Type>();
 
         private Form4 regole = new Form4();
+        private Form3 form3;
 
         private Squadra squadraSelezionata = null;
+        private Squadra squadraVinta;
+        private Squadra squadraPersa;
 
-        // mi serve per togliere la casella evidenziata --> unica soluzione che mi e venuta in mente
         private List<Image> immaginiMosse;
 
         public MessageCustomYesNo customMessageBox = new MessageCustomYesNo();
@@ -281,23 +284,14 @@ namespace Wargame_vv2
                                 invaso = true;
                                 SquadraSelezionata.ModCombattimento = false;
 
-                                //TODO: deve rimuovere la squadra che ha perso
-                                squadre.Remove(squadraCliccata);
-
-                                if (!squadre.Any(s => s.Tipo == squadraCliccata.Tipo))
-                                {
-                                    // Se sì, rimuove il tipo di squadra dalla lista tipiDiSquadra
-                                    tipiDiSquadra.Remove(squadraCliccata.Tipo);
-                                }
-
-                                Form3 form3 = new Form3(SquadraSelezionata, squadraCliccata);
+                                form3 = new Form3(SquadraSelezionata, squadraCliccata);
                                 form3.Show();
                                 this.Hide();
 
+                                form3.FormClosing += Form3_FormClosing;
                                 form3.FormClosed += Form3_FormClosed;
                             }
 
-                            //TODO: deve visualizzare la squadra che ha vinto
                             casellaCliccata.Tag = SquadraSelezionata;
                             caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = CaricaImmagine(SquadraSelezionata);
 
@@ -324,11 +318,29 @@ namespace Wargame_vv2
             }
         }
 
+        private void Form3_FormClosing(object? sender, FormClosingEventArgs e)
+        {
+            squadraVinta = form3.Winner();
+            squadraPersa = form3.Loser();
+        }
+
         private async void Form3_FormClosed(object? sender, FormClosedEventArgs e)
         {
             turnoGiocatore = true;
             invaso = false;
             this.Show();
+
+            squadre.Remove(squadraPersa);
+
+            if (!squadre.Any(s => s.Tipo == squadraPersa.Tipo))
+            {
+                // Se sì, rimuove il tipo di squadra dalla lista tipiDiSquadra
+                tipiDiSquadra.Remove(squadraPersa.Tipo);
+            }
+
+            squadraSelezionata = squadraVinta;
+            caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Tag = SquadraSelezionata;
+            caselle[SquadraSelezionata.X, SquadraSelezionata.Y].Image = CaricaImmagine(SquadraSelezionata);
 
             await Task.Delay(1000);
 
@@ -410,23 +422,15 @@ namespace Wargame_vv2
                             {
                                 squadraScelta.ModCombattimento = false;
 
-                                //TODO: deve rimuovere la squadra che ha perso
-                                squadre.Remove(squadraAvversaria);
-
-                                if (!squadre.Any(s => s.Tipo == squadraAvversaria.Tipo))
-                                {
-                                    tipiDiSquadra.Remove(squadraAvversaria.Tipo);
-                                }
-
                                 Form3 form3 = new Form3(squadraAvversaria, squadraScelta);
                                 form3.Show();
                                 this.Hide();
 
+                                form3.FormClosing += Form3_FormClosing;
                                 form3.FormClosed += Form3_FormClosed;
                                 //MessageBox.Show("ciao");
                             }
 
-                            //TODO: deve visualizzare la squadra che ha vinto
                             casellaScelta.Tag = squadraScelta;
                             casellaScelta.Image = CaricaImmagine(squadraScelta);
                         }

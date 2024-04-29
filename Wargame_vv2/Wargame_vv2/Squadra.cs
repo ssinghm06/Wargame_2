@@ -150,5 +150,10 @@ namespace Wargame_vv2
 
             return mosseValide;
         }
+
+        public override string ToString()
+        {
+            return $"{Tipo}";
+        }
     }
 }

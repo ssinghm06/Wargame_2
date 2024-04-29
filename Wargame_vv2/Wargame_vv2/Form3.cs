@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,6 +29,8 @@ namespace Wargame_vv2
         private bool chiusura = false;
 
         private bool giocatoreVinto = false;
+
+        public bool GiocatoreVinto { get { return giocatoreVinto; } }
 
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
@@ -103,6 +106,20 @@ namespace Wargame_vv2
             Mago1.FlatAppearance.BorderSize = 5;
             Mago2.FlatAppearance.BorderColor = Color.Black;
             Mago2.FlatAppearance.BorderSize = 5;
+        }
+
+        public Squadra Winner()
+        {
+            if (giocatoreVinto)
+                return squadraSelezionata;
+            return squadraAvversaria;
+        }
+
+        public Squadra Loser()
+        {
+            if (giocatoreVinto)
+                return squadraAvversaria;
+            return squadraSelezionata;
         }
 
         public void TriggerFormClosed()
@@ -552,22 +569,6 @@ namespace Wargame_vv2
             }
         }
 
-        public Squadra Winner()
-        {
-            if (giocatoreVinto)
-                return squadraSelezionata;
-            else
-                return squadraAvversaria;
-        }
-
-        public Squadra Loser()
-        {
-            if (giocatoreVinto)
-                return squadraAvversaria;
-            else
-                return squadraSelezionata;
-        }
-
         private void IsEndGame()
         {
             if (squadraSelezionata.Squad.All(p => p.Morto))
@@ -993,6 +994,11 @@ namespace Wargame_vv2
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
 
         }

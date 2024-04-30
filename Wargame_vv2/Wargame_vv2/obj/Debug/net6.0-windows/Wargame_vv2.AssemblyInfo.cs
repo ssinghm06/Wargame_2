@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wargame_vv2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f0526d38e4e6920ed93fbbb20e625cf12ff4486")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20271e982f32efc5511c61d9fcb285cdf6e2d195")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wargame_vv2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wargame_vv2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

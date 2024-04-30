@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\audioplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\audioplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +22,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form1.cs",
               "RelativeDocumentMoniker": "Wargame_vv2\\Form1.cs",
               "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form1.cs",
               "RelativeToolTip": "Wargame_vv2\\Form1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAKgCAAALAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-25T18:17:43.174Z",
               "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form4.cs",
+              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form4.cs",
+              "RelativeDocumentMoniker": "Wargame_vv2\\Form4.cs",
+              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form4.cs",
+              "RelativeToolTip": "Wargame_vv2\\Form4.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAMwEIAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-30T17:23:27.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AudioPlayer.cs",
+              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\AudioPlayer.cs",
+              "RelativeDocumentMoniker": "Wargame_vv2\\AudioPlayer.cs",
+              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\AudioPlayer.cs",
+              "RelativeToolTip": "Wargame_vv2\\AudioPlayer.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAYwDQAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-30T16:20:58.487Z",
               "EditorCaption": ""
             }
           ]

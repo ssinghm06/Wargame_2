@@ -55,12 +55,16 @@ namespace Wargame_vv2
                 pictureBox5.Image = Form1.CaricaImmagine("no-sound.png");
                 pictureBox6.Image = Form1.CaricaImmagine("off.png");
                 musica = false;
+
+                AudioPlayer.Mute();
             }
             else
             {
                 pictureBox5.Image = Form1.CaricaImmagine("sound.png");
                 pictureBox6.Image = Form1.CaricaImmagine("on.png");
                 musica = true;
+
+                AudioPlayer.Mute();
             }
         }
 

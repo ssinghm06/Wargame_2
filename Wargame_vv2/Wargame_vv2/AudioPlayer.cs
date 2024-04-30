@@ -11,6 +11,7 @@ namespace Wargame_vv2
     {
         private static SoundPlayer backSong;
         private static SoundPlayer suono;
+        private static bool mute = false;
 
         public static void CaricaAudioInLoop(string audio)
         {
@@ -39,7 +40,7 @@ namespace Wargame_vv2
 
         public static void PlayAudio()
         {
-            if (suono != null)
+            if (suono != null && mute != true)
             {
                 suono.Play();
             }
@@ -51,6 +52,14 @@ namespace Wargame_vv2
             {
                 suono.Stop();
             }
+        }
+
+        public static void Mute()
+        {
+            if (mute != true)
+                mute = true;
+            else
+                mute = false;
         }
     }
 }

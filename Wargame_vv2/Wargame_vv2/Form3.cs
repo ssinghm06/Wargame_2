@@ -13,9 +13,6 @@ namespace Wargame_vv2
 {
     public partial class Form3 : Form
     {
-        // mi serve un istanza di form1 perchè senno dovrei riscrivere alcuni metodi
-        // la soluzione migliore sarebbe quella di creare una classe per la gestione del gioco
-        // Form1 form1 = new Form1();
 
         private Squadra squadraSelezionata;
         private Squadra squadraAvversaria;
@@ -30,11 +27,20 @@ namespace Wargame_vv2
 
         private bool giocatoreVinto = false;
 
+        private Random random = new Random();
+
+        private Form5 regolerpg = new Form5();
+
         public bool GiocatoreVinto { get { return giocatoreVinto; } }
 
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+            this.BackgroundImage = Form1.CaricaImmagine("trial1.png");
 
             Guerriero1.BackgroundImage = Form1.CaricaImmagine("guerriero.png");
             Cavaliere1.BackgroundImage = Form1.CaricaImmagine("cavaliere.png");
@@ -47,6 +53,7 @@ namespace Wargame_vv2
             AttaccoBase.BackgroundImage = Form1.CaricaImmagine("baseAttack.png");
             AttaccoPesante.BackgroundImage = Form1.CaricaImmagine("heavyAttack.png");
             Difesa.BackgroundImage = Form1.CaricaImmagine("defense.png");
+            Settings.BackgroundImage = Form1.CaricaImmagine("settings.png");
 
             squadraSelezionata = squadraGiocatore;
             this.squadraAvversaria = squadraAvversaria;
@@ -83,6 +90,8 @@ namespace Wargame_vv2
             Difesa.BackgroundImageLayout = ImageLayout.Stretch;
             Difesa.FlatStyle = FlatStyle.Flat;
             Difesa.FlatAppearance.BorderSize = 0;
+            Settings.FlatStyle = FlatStyle.Flat;
+            Settings.FlatAppearance.BorderSize = 0;
 
             AttaccoBase.FlatAppearance.BorderColor = Color.Black;
             AttaccoBase.FlatAppearance.BorderSize = 5;
@@ -106,6 +115,24 @@ namespace Wargame_vv2
             Mago1.FlatAppearance.BorderSize = 5;
             Mago2.FlatAppearance.BorderColor = Color.Black;
             Mago2.FlatAppearance.BorderSize = 5;
+            Settings.FlatAppearance.BorderColor = Color.Black;
+            Settings.FlatAppearance.BorderSize = 5;
+
+            foreach (Personaggio p in squadraSelezionata.Squad)
+            {
+                p.Morto = false;
+                p.PuntiAzione = p.PuntiAzioneMassimi;
+                p.PuntiVita = p.PuntiVitaMassimi;
+            }
+
+            foreach (Personaggio p in squadraAvversaria.Squad)
+            {
+                p.Morto = false;
+                p.PuntiAzione = p.PuntiAzioneMassimi;
+                p.PuntiVita = p.PuntiVitaMassimi;
+            }
+
+            VerificaMorti();
         }
 
         public Squadra Winner()
@@ -122,11 +149,11 @@ namespace Wargame_vv2
             return squadraSelezionata;
         }
 
-        public void TriggerFormClosed()
-        {
-            FormClosedEventArgs e = new FormClosedEventArgs(CloseReason.None);
-            OnFormClosed(e);
-        }
+        //public void TriggerFormClosed()
+        //{
+        //    FormClosedEventArgs e = new FormClosedEventArgs(CloseReason.None);
+        //    OnFormClosed(e);
+        //}
 
         private void AbilitaPulsantiAvversari()
         {
@@ -135,7 +162,6 @@ namespace Wargame_vv2
                 if (!p.Morto)
                 {
                     AbilitaPulsantePersonaggioAvversario(p);
-
                 }
             }
         }
@@ -284,7 +310,6 @@ namespace Wargame_vv2
                 label9.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
                 label36.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
                 Arciere1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
-
             }
             else if (personaggio is Mago)
             {
@@ -388,7 +413,7 @@ namespace Wargame_vv2
 
         private void AlgoritmoBaseBot()
         {
-            Random random = new Random();
+            if (chiusura) return;
             int azione = random.Next(0, 3);
             int personaggioBotIndex = random.Next(0, squadraAvversaria.Squad.Count);
             int personaggioGiocatoreIndex = random.Next(0, squadraSelezionata.Squad.Count);
@@ -396,7 +421,7 @@ namespace Wargame_vv2
             Personaggio personaggioBot = squadraAvversaria.Squad[personaggioBotIndex];
             Personaggio personaggioGiocatore = squadraSelezionata.Squad[personaggioGiocatoreIndex];
 
-            if (!personaggioBot.Morto)
+            if (!personaggioBot.Morto && !personaggioGiocatore.Morto)
             {
                 if (personaggioBot is Mago)
                 {
@@ -411,6 +436,7 @@ namespace Wargame_vv2
                             MessageBox.Show($"Cura minore eseguita da: {personaggioBot.ToString()} su: {alleato.ToString()}");
                             VerificaMorti();
                             AggiornaStat();
+                            IsEndGame();
                         }
                         else
                         {
@@ -428,6 +454,7 @@ namespace Wargame_vv2
                             MessageBox.Show($"Cura maggiore eseguita da: {personaggioBot.ToString()} su: {alleato.ToString()}");
                             VerificaMorti();
                             AggiornaStat();
+                            IsEndGame();
                         }
                         else
                         {
@@ -450,6 +477,7 @@ namespace Wargame_vv2
                         MessageBox.Show($"Attacco base eseguito da: {personaggioBot.ToString()} a: {personaggioGiocatore.ToString()}");
                         VerificaMorti();
                         AggiornaStat();
+                        IsEndGame();
                     }
                     else if (azione == 1)
                     {
@@ -457,6 +485,7 @@ namespace Wargame_vv2
                         MessageBox.Show($"Attacco pesante eseguito da: {personaggioBot.ToString()} a: {personaggioGiocatore.ToString()}");
                         VerificaMorti();
                         AggiornaStat();
+                        IsEndGame();
                     }
                     else
                     {
@@ -464,6 +493,7 @@ namespace Wargame_vv2
                         MessageBox.Show($"Difesa eseguita da: {personaggioBot.ToString()}");
                         VerificaMorti();
                         AggiornaStat();
+                        IsEndGame();
                     }
                 }
             }
@@ -482,22 +512,46 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero2.Enabled = false;
-
+                        panel8.BackColor = Color.FromArgb(255, 128, 128);
+                        label33.BackColor = Color.RosyBrown;
+                        label32.BackColor = Color.RosyBrown;
+                        label15.BackColor = Color.RosyBrown;
+                        label43.BackColor = Color.RosyBrown;
+                        label14.BackColor = Color.RosyBrown;
+                        Guerriero2.BackColor = Color.FromArgb(255, 192, 192);
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere2.Enabled = false;
-
+                        panel7.BackColor = Color.FromArgb(255, 128, 128);
+                        label31.BackColor = Color.RosyBrown;
+                        label30.BackColor = Color.RosyBrown;
+                        label13.BackColor = Color.RosyBrown;
+                        label42.BackColor = Color.RosyBrown;
+                        label12.BackColor = Color.RosyBrown;
+                        Cavaliere2.BackColor = Color.FromArgb(255, 192, 192);
                     }
                     else if (p is Arciere)
                     {
                         Arciere2.Enabled = false;
-
+                        panel6.BackColor = Color.FromArgb(255, 128, 128);
+                        label29.BackColor = Color.RosyBrown;
+                        label28.BackColor = Color.RosyBrown;
+                        label11.BackColor = Color.RosyBrown;
+                        label41.BackColor = Color.RosyBrown;
+                        label10.BackColor = Color.RosyBrown;
+                        Arciere2.BackColor = Color.FromArgb(255, 192, 192);
                     }
                     else if (p is Mago)
                     {
                         Mago2.Enabled = false;
-
+                        panel5.BackColor = Color.FromArgb(255, 128, 128);
+                        label27.BackColor = Color.RosyBrown;
+                        label26.BackColor = Color.RosyBrown;
+                        label7.BackColor = Color.RosyBrown;
+                        label38.BackColor = Color.RosyBrown;
+                        label6.BackColor = Color.RosyBrown;
+                        Mago2.BackColor = Color.FromArgb(255, 192, 192);
                     }
                 }
                 else
@@ -505,18 +559,45 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero2.Enabled = true;
+                        panel8.BackColor = Color.Red;
+                        label33.BackColor = Color.IndianRed;
+                        label32.BackColor = Color.IndianRed;
+                        label15.BackColor = Color.IndianRed;
+                        label43.BackColor = Color.IndianRed;
+                        label14.BackColor = Color.IndianRed;
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere2.Enabled = true;
+                        panel7.BackColor = Color.Red;
+                        label31.BackColor = Color.IndianRed;
+                        label30.BackColor = Color.IndianRed;
+                        label13.BackColor = Color.IndianRed;
+                        label42.BackColor = Color.IndianRed;
+                        label12.BackColor = Color.IndianRed;
+                        Cavaliere2.BackColor = Color.FromArgb(255, 128, 128);
                     }
                     else if (p is Arciere)
                     {
                         Arciere2.Enabled = true;
+                        panel6.BackColor = Color.Red;
+                        label29.BackColor = Color.IndianRed;
+                        label28.BackColor = Color.IndianRed;
+                        label11.BackColor = Color.IndianRed;
+                        label41.BackColor = Color.IndianRed;
+                        label10.BackColor = Color.IndianRed;
+                        Arciere2.BackColor = Color.FromArgb(255, 128, 128);
                     }
                     else if (p is Mago)
                     {
                         Mago2.Enabled = true;
+                        panel5.BackColor = Color.Red;
+                        label27.BackColor = Color.IndianRed;
+                        label26.BackColor = Color.IndianRed;
+                        label7.BackColor = Color.IndianRed;
+                        label38.BackColor = Color.IndianRed;
+                        label6.BackColor = Color.IndianRed;
+                        Mago2.BackColor = Color.FromArgb(255, 128, 128);
                     }
                 }
             }
@@ -528,23 +609,46 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero1.Enabled = false;
-
+                        panel1.BackColor = Color.FromArgb(192, 255, 255);
+                        label2.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label3.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label18.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label19.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label34.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        Guerriero1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere1.Enabled = false;
-
-
+                        panel2.BackColor = Color.FromArgb(192, 255, 255);
+                        label5.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label4.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label21.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label20.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label35.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        Cavaliere1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
                     }
                     else if (p is Arciere)
                     {
                         Arciere1.Enabled = false;
-
+                        panel3.BackColor = Color.FromArgb(192, 255, 255);
+                        label23.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label22.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label8.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label9.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label36.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        Arciere1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
                     }
                     else if (p is Mago)
                     {
                         Mago1.Enabled = false;
-
+                        panel4.BackColor = Color.FromArgb(192, 255, 255);
+                        label25.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label24.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label39.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label40.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        label37.BackColor = Color.FromKnownColor(KnownColor.GradientInactiveCaption);
+                        Mago1.BackColor = Color.FromKnownColor(KnownColor.InactiveCaption);
                     }
                 }
                 else
@@ -552,18 +656,46 @@ namespace Wargame_vv2
                     if (p is Guerriero)
                     {
                         Guerriero1.Enabled = true;
+                        panel1.BackColor = Color.FromArgb(128, 255, 255);
+                        label2.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label3.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label18.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label19.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label34.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        Guerriero1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
                     }
                     else if (p is Cavaliere)
                     {
                         Cavaliere1.Enabled = true;
+                        panel2.BackColor = Color.FromArgb(128, 255, 255);
+                        label5.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label4.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label21.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label20.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label35.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        Cavaliere1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
                     }
                     else if (p is Arciere)
                     {
                         Arciere1.Enabled = true;
+                        panel3.BackColor = Color.FromArgb(128, 255, 255);
+                        label23.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label22.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label8.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label9.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label36.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        Arciere1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
                     }
                     else if (p is Mago)
                     {
                         Mago1.Enabled = true;
+                        panel4.BackColor = Color.FromArgb(128, 255, 255);
+                        label25.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label24.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label39.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label40.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        label37.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        Mago1.BackColor = Color.FromKnownColor(KnownColor.ActiveCaption);
                     }
                 }
             }
@@ -578,9 +710,14 @@ namespace Wargame_vv2
                     p.PuntiAzione = p.PuntiAzioneMassimi;
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
+                foreach (Personaggio p in squadraSelezionata.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
                 MessageBox.Show("Il bot ha vinto");
                 this.Close();
-                TriggerFormClosed();
+            //   TriggerFormClosed();
                 chiusura = true;
             }
             else if (squadraAvversaria.Squad.All(p => p.Morto))
@@ -590,10 +727,15 @@ namespace Wargame_vv2
                     p.PuntiAzione = p.PuntiAzioneMassimi;
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
+                foreach (Personaggio p in squadraAvversaria.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
-                TriggerFormClosed();
+              //  TriggerFormClosed();
                 chiusura = true;
             }
 
@@ -604,9 +746,14 @@ namespace Wargame_vv2
                     p.PuntiAzione = p.PuntiAzioneMassimi;
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
+                foreach (Personaggio p in squadraSelezionata.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
                 MessageBox.Show("Il bot ha vinto");
                 this.Close();
-                TriggerFormClosed();
+               // TriggerFormClosed();
                 chiusura = true;
             }
             else if (squadraAvversaria.Squad.Count(p => !p.Morto) == 1 && squadraAvversaria.Squad.Any(p => p is Mago && !p.Morto))
@@ -616,10 +763,15 @@ namespace Wargame_vv2
                     p.PuntiAzione = p.PuntiAzioneMassimi;
                     p.PuntiVita = p.PuntiVitaMassimi;
                 }
+                foreach (Personaggio p in squadraAvversaria.Squad)
+                {
+                    p.PuntiAzione = p.PuntiAzioneMassimi;
+                    p.PuntiVita = p.PuntiVitaMassimi;
+                }
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
-                TriggerFormClosed();
+               // TriggerFormClosed();
                 chiusura = true;
             }
         }
@@ -839,18 +991,18 @@ namespace Wargame_vv2
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
+                        DisabilitaPulsantiAvversari();
                         attaccoMago = false;
                         turno = false;
-                        AlgoritmoBaseBot();
                         VerificaMorti();
-                        CaricaPuntiAzione();
-                        VerificaFerito();
-                        DisabilitaPulsantiAvversari();
                         IsEndGame();
                         if (chiusura)
                         {
                             return;
                         }
+                        AlgoritmoBaseBot();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
                     }
                 }
                 else
@@ -863,17 +1015,17 @@ namespace Wargame_vv2
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
-                        turno = false;
-                        AlgoritmoBaseBot();
-                        VerificaMorti();
-                        CaricaPuntiAzione();
-                        VerificaFerito();
                         DisabilitaPulsantiAvversari();
+                        turno = false;
+                        VerificaMorti();
                         IsEndGame();
                         if (chiusura)
                         {
                             return;
                         }
+                        AlgoritmoBaseBot();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
                     }
                 }
             }
@@ -904,18 +1056,18 @@ namespace Wargame_vv2
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
+                        DisabilitaPulsantiAvversari();
                         attaccoMago = false;
                         turno = false;
-                        AlgoritmoBaseBot();
                         VerificaMorti();
-                        CaricaPuntiAzione();
-                        VerificaFerito();
-                        DisabilitaPulsantiAvversari();
                         IsEndGame();
                         if (chiusura)
                         {
                             return;
                         }
+                        AlgoritmoBaseBot();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
                     }
                 }
                 else
@@ -928,17 +1080,17 @@ namespace Wargame_vv2
                         AbilitaPulsantiGiocatore();
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
-                        turno = false;
-                        AlgoritmoBaseBot();
-                        VerificaMorti();
-                        CaricaPuntiAzione();
-                        VerificaFerito();
                         DisabilitaPulsantiAvversari();
+                        turno = false;
+                        VerificaMorti();
                         IsEndGame();
                         if (chiusura)
                         {
                             return;
                         }
+                        AlgoritmoBaseBot();
+                        CaricaPuntiAzione();
+                        VerificaFerito();
                     }
                 }
             }
@@ -964,6 +1116,7 @@ namespace Wargame_vv2
                     MessageBox.Show("Difesa attivata");
                     DopoDifesa();
                     turno = false;
+                    attaccoMago = false;
                     AlgoritmoBaseBot();
                     VerificaMorti();
                     CaricaPuntiAzione();
@@ -1001,6 +1154,16 @@ namespace Wargame_vv2
         private void Form3_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        private void IsRules()
+        {
+            regolerpg.TopMost = true;
+            regolerpg.Show();
+        }
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            IsRules();
         }
     }
 }

@@ -89,14 +89,10 @@
             label14 = new Label();
             label15 = new Label();
             label43 = new Label();
-            pictureBox2 = new PictureBox();
-            pictureBox3 = new PictureBox();
-            pictureBox4 = new PictureBox();
-            pictureBox5 = new PictureBox();
             label16 = new Label();
             label17 = new Label();
             label44 = new Label();
-            pictureBox6 = new PictureBox();
+            Settings = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -106,11 +102,6 @@
             panel6.SuspendLayout();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // Difesa
@@ -844,40 +835,6 @@
             label43.TabIndex = 28;
             label43.Text = "PA   =";
             // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.Location = new Point(497, -1);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(67, 887);
-            pictureBox2.TabIndex = 67;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Location = new Point(497, 833);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(1291, 53);
-            pictureBox3.TabIndex = 68;
-            pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.Location = new Point(1721, -1);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(67, 887);
-            pictureBox4.TabIndex = 69;
-            pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Location = new Point(497, -1);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(1291, 62);
-            pictureBox5.TabIndex = 70;
-            pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
-            // 
             // label16
             // 
             label16.AutoSize = true;
@@ -908,27 +865,26 @@
             label44.TabIndex = 73;
             label44.Text = "difesa";
             // 
-            // pictureBox6
+            // Settings
             // 
-            pictureBox6.Location = new Point(-1, 535);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(565, 62);
-            pictureBox6.TabIndex = 74;
-            pictureBox6.TabStop = false;
+            Settings.Location = new Point(191, 702);
+            Settings.Margin = new Padding(2);
+            Settings.Name = "Settings";
+            Settings.Size = new Size(96, 96);
+            Settings.TabIndex = 75;
+            Settings.UseVisualStyleBackColor = true;
+            Settings.Click += Settings_Click;
             // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1786, 886);
-            Controls.Add(pictureBox6);
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(1743, 861);
+            Controls.Add(Settings);
             Controls.Add(label44);
             Controls.Add(label17);
             Controls.Add(label16);
-            Controls.Add(pictureBox5);
-            Controls.Add(pictureBox4);
-            Controls.Add(pictureBox3);
-            Controls.Add(pictureBox2);
             Controls.Add(panel8);
             Controls.Add(panel7);
             Controls.Add(panel6);
@@ -945,7 +901,7 @@
             FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "Form3";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form3";
+            Text = "RPG battle";
             FormClosing += Form3_FormClosing;
             Load += Form3_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -965,11 +921,6 @@
             panel7.PerformLayout();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1037,13 +988,9 @@
         private Label label14;
         private Label label15;
         private Label label43;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox5;
         private Label label16;
         private Label label17;
         private Label label44;
-        private PictureBox pictureBox6;
+        private Button Settings;
     }
 }

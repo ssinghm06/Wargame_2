@@ -46,7 +46,7 @@ namespace Wargame_vv2
                     value = PuntiVitaMassimi;
                 }
 
-                if (value < 0)
+                if (value <= 0)
                 {
                     value = 0;
                     morto = true;

@@ -35,7 +35,6 @@ namespace Wargame_vv2
             pictureBox4.Image = Form1.CaricaImmagine("fight.png");
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.Image = Form1.CaricaImmagine("sound.png");
-
             pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox6.Image = Form1.CaricaImmagine("on.png");
         }

@@ -31,7 +31,7 @@ namespace Wargame_vv2
 
         public override void AttaccoPesante(Personaggio p)
         {
-            if (puntiAzione < 30)
+            if (puntiAzione < 25)
             {
                 throw new Exception("Punti azione insufficienti!");
             }

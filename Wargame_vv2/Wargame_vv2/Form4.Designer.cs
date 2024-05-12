@@ -38,12 +38,15 @@
             label3 = new Label();
             pictureBox6 = new PictureBox();
             label4 = new Label();
+            button1 = new Button();
+            pictureBox9 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -57,7 +60,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(12, 123);
+            pictureBox2.Location = new Point(12, 93);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(75, 75);
             pictureBox2.TabIndex = 4;
@@ -65,7 +68,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Location = new Point(12, 239);
+            pictureBox3.Location = new Point(12, 209);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(75, 75);
             pictureBox3.TabIndex = 5;
@@ -73,7 +76,7 @@
             // 
             // pictureBox4
             // 
-            pictureBox4.Location = new Point(12, 361);
+            pictureBox4.Location = new Point(12, 331);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(75, 75);
             pictureBox4.TabIndex = 6;
@@ -81,7 +84,7 @@
             // 
             // pictureBox5
             // 
-            pictureBox5.Location = new Point(12, 485);
+            pictureBox5.Location = new Point(12, 455);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(75, 75);
             pictureBox5.TabIndex = 7;
@@ -90,33 +93,33 @@
             // label1
             // 
             label1.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(106, 134);
+            label1.Location = new Point(106, 104);
             label1.Name = "label1";
             label1.Size = new Size(174, 59);
             label1.TabIndex = 8;
-            label1.Text = "Click on a troop \r\nfrom your team to move\r\n";
+            label1.Text = "Click on a troop from your team to move\r\n";
             // 
             // label2
             // 
             label2.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(106, 256);
+            label2.Location = new Point(106, 226);
             label2.Name = "label2";
-            label2.Size = new Size(197, 45);
+            label2.Size = new Size(183, 45);
             label2.TabIndex = 9;
-            label2.Text = "You can only move \r\nto highlighted spots\r\n\r\n";
+            label2.Text = "You can only move to highlighted spots";
             // 
             // label3
             // 
             label3.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(106, 370);
+            label3.Location = new Point(106, 340);
             label3.Name = "label3";
             label3.Size = new Size(174, 58);
             label3.TabIndex = 10;
-            label3.Text = "Invade an enemy \r\nsquare to engage a fight\r\n\r\n\r\n";
+            label3.Text = "Invade an enemy square to engage a fight";
             // 
             // pictureBox6
             // 
-            pictureBox6.Location = new Point(112, 498);
+            pictureBox6.Location = new Point(112, 468);
             pictureBox6.Name = "pictureBox6";
             pictureBox6.Size = new Size(150, 50);
             pictureBox6.TabIndex = 11;
@@ -126,18 +129,41 @@
             // label4
             // 
             label4.Font = new Font("Showcard Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(53, 610);
+            label4.Location = new Point(53, 644);
             label4.Name = "label4";
-            label4.Size = new Size(174, 58);
+            label4.Size = new Size(174, 98);
             label4.TabIndex = 12;
-            label4.Text = "now beat some ass up!\r\n\r\n\r\n\r\n";
+            label4.Text = "Now beat some ass up!";
             label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // button1
+            // 
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Location = new Point(53, 557);
+            button1.Name = "button1";
+            button1.Size = new Size(174, 73);
+            button1.TabIndex = 14;
+            button1.Text = "english";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // pictureBox9
+            // 
+            pictureBox9.Location = new Point(20, 426);
+            pictureBox9.Margin = new Padding(2);
+            pictureBox9.Name = "pictureBox9";
+            pictureBox9.Size = new Size(269, 12);
+            pictureBox9.TabIndex = 20;
+            pictureBox9.TabStop = false;
             // 
             // Form4
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(307, 760);
+            Controls.Add(pictureBox9);
+            Controls.Add(button1);
             Controls.Add(label4);
             Controls.Add(pictureBox6);
             Controls.Add(label3);
@@ -158,6 +184,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             ResumeLayout(false);
         }
 
@@ -173,5 +200,7 @@
         private Label label3;
         private PictureBox pictureBox6;
         private Label label4;
+        private Button button1;
+        private PictureBox pictureBox9;
     }
 }

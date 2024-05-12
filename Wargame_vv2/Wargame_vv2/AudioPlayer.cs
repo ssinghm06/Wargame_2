@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Wargame_vv2
 {
-    public class AudioPlayer
+    public static class AudioPlayer
     {
         private static SoundPlayer backSong;
         private static SoundPlayer suono;

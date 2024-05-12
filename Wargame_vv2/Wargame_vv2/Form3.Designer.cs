@@ -224,9 +224,9 @@
             label5.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label5.Location = new Point(37, 225);
             label5.Name = "label5";
-            label5.Size = new Size(61, 28);
+            label5.Size = new Size(55, 28);
             label5.TabIndex = 25;
-            label5.Text = "HP = ";
+            label5.Text = "PS = ";
             // 
             // label8
             // 
@@ -248,9 +248,9 @@
             label9.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label9.Location = new Point(25, 225);
             label9.Name = "label9";
-            label9.Size = new Size(61, 28);
+            label9.Size = new Size(55, 28);
             label9.TabIndex = 27;
-            label9.Text = "HP = ";
+            label9.Text = "PS = ";
             // 
             // label20
             // 
@@ -424,11 +424,12 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Showcard Gothic", 25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(73, 54);
+            label1.Location = new Point(69, 54);
             label1.Name = "label1";
             label1.Size = new Size(338, 52);
             label1.TabIndex = 55;
             label1.Text = "BATTAGLIA RPG";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
@@ -472,9 +473,9 @@
             label2.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(25, 228);
             label2.Name = "label2";
-            label2.Size = new Size(61, 28);
+            label2.Size = new Size(55, 28);
             label2.TabIndex = 23;
-            label2.Text = "HP = ";
+            label2.Text = "PS = ";
             // 
             // label19
             // 
@@ -615,9 +616,9 @@
             label39.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label39.Location = new Point(25, 223);
             label39.Name = "label39";
-            label39.Size = new Size(61, 28);
+            label39.Size = new Size(55, 28);
             label39.TabIndex = 27;
-            label39.Text = "HP = ";
+            label39.Text = "PS = ";
             // 
             // label40
             // 
@@ -666,9 +667,9 @@
             label7.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label7.Location = new Point(25, 223);
             label7.Name = "label7";
-            label7.Size = new Size(61, 28);
+            label7.Size = new Size(55, 28);
             label7.TabIndex = 27;
-            label7.Text = "HP = ";
+            label7.Text = "PS = ";
             // 
             // label38
             // 
@@ -717,9 +718,9 @@
             label11.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label11.Location = new Point(25, 223);
             label11.Name = "label11";
-            label11.Size = new Size(61, 28);
+            label11.Size = new Size(55, 28);
             label11.TabIndex = 27;
-            label11.Text = "HP = ";
+            label11.Text = "PS = ";
             // 
             // label41
             // 
@@ -768,9 +769,9 @@
             label13.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label13.Location = new Point(25, 223);
             label13.Name = "label13";
-            label13.Size = new Size(61, 28);
+            label13.Size = new Size(55, 28);
             label13.TabIndex = 27;
-            label13.Text = "HP = ";
+            label13.Text = "PS = ";
             // 
             // label42
             // 
@@ -819,9 +820,9 @@
             label15.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label15.Location = new Point(25, 223);
             label15.Name = "label15";
-            label15.Size = new Size(61, 28);
+            label15.Size = new Size(55, 28);
             label15.TabIndex = 27;
-            label15.Text = "HP = ";
+            label15.Text = "PS = ";
             // 
             // label43
             // 

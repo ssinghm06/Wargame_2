@@ -13,7 +13,6 @@ namespace Wargame_vv2
 {
     public partial class Form3 : Form
     {
-
         private Squadra squadraSelezionata;
         private Squadra squadraAvversaria;
 
@@ -30,8 +29,11 @@ namespace Wargame_vv2
         private Random random = new Random();
 
         private Form5 regolerpg = new Form5();
-
-        public bool GiocatoreVinto { get { return giocatoreVinto; } }
+        public Form5 Regolerpg 
+        {
+            get { return regolerpg; }
+        }
+        //public bool GiocatoreVinto { get { return giocatoreVinto; } }
 
         public Form3(Squadra squadraGiocatore, Squadra squadraAvversaria)
         {
@@ -41,6 +43,68 @@ namespace Wargame_vv2
 
             this.BackgroundImageLayout = ImageLayout.Stretch;
             this.BackgroundImage = Form1.CaricaImmagine("trial1.png");
+
+            if (Form4.Italiano)
+            {
+                label1.Text = "RPG BATTLE";
+                label16.Text = "Base Attack";
+                label17.Text = "Heavy Attack";
+                label44.Text = "Defend";
+
+                label37.Text = "Wizard1";
+                label34.Text = "Warrior1";
+                label36.Text = "Archer1";
+                label35.Text = "Knight1";
+
+                label14.Text = "Warrior2";
+                label6.Text = "Wizard2";
+                label12.Text = "Knight2";
+                label10.Text = "Archer2";
+
+                label39.Text = "HP = ";
+                label2.Text = "HP = ";
+                label9.Text = "HP = ";
+                label5.Text = "HP = ";
+                label15.Text = "HP = ";
+                label7.Text = "HP = ";
+                label13.Text = "HP = ";
+                label11.Text = "HP = ";
+
+                label40.Text = "AP = ";
+                label3.Text = "AP = ";
+                label8.Text = "AP = ";
+                label4.Text = "AP = ";
+                label43.Text = "AP = ";
+                label42.Text = "AP = ";
+                label38.Text = "AP = ";
+                label41.Text = "AP = ";
+            }
+            else
+            {
+                label1.Text = "BATTAGLIA RPG";
+                label16.Text = "Attacco Base";
+                label17.Text = "Attacco Pesante";
+                label44.Text = "Difesa";
+
+                label37.Text = "Mago1";
+                label34.Text = "Guerriero1";
+                label36.Text = "Arciere1";
+                label35.Text = "Cavaliere1";
+
+                label14.Text = "Guerriero2";
+                label6.Text = "Mago2";
+                label12.Text = "Cavaliere2";
+                label10.Text = "Arciere2";
+
+                label39.Text = "PS = ";
+                label2.Text = "PS = ";
+                label9.Text = "PS = ";
+                label5.Text = "PS = ";
+                label15.Text = "PS = ";
+                label7.Text = "PS = ";
+                label13.Text = "PS = ";
+                label11.Text = "PS = ";
+            }
 
             Guerriero1.BackgroundImage = Form1.CaricaImmagine("guerriero.png");
             Cavaliere1.BackgroundImage = Form1.CaricaImmagine("cavaliere.png");
@@ -53,6 +117,7 @@ namespace Wargame_vv2
             AttaccoBase.BackgroundImage = Form1.CaricaImmagine("baseAttack.png");
             AttaccoPesante.BackgroundImage = Form1.CaricaImmagine("heavyAttack.png");
             Difesa.BackgroundImage = Form1.CaricaImmagine("defense.png");
+
             Settings.BackgroundImage = Form1.CaricaImmagine("settings.png");
 
             squadraSelezionata = squadraGiocatore;
@@ -91,6 +156,7 @@ namespace Wargame_vv2
             Difesa.FlatStyle = FlatStyle.Flat;
             Difesa.FlatAppearance.BorderSize = 0;
             Settings.FlatStyle = FlatStyle.Flat;
+            Settings.BackgroundImageLayout = ImageLayout.Zoom;
             Settings.FlatAppearance.BorderSize = 0;
 
             AttaccoBase.FlatAppearance.BorderColor = Color.Black;
@@ -433,6 +499,7 @@ namespace Wargame_vv2
                         if (!alleato.Morto)
                         {
                             ((Mago)personaggioBot).AttaccoBase(alleato);
+
                             MessageBox.Show($"Cura minore eseguita da: {personaggioBot.ToString()} su: {alleato.ToString()}");
                             VerificaMorti();
                             AggiornaStat();
@@ -717,7 +784,7 @@ namespace Wargame_vv2
                 }
                 MessageBox.Show("Il bot ha vinto");
                 this.Close();
-            //   TriggerFormClosed();
+            //  TriggerFormClosed();
                 chiusura = true;
             }
             else if (squadraAvversaria.Squad.All(p => p.Morto))
@@ -735,7 +802,7 @@ namespace Wargame_vv2
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
-              //  TriggerFormClosed();
+            //  TriggerFormClosed();
                 chiusura = true;
             }
 
@@ -753,7 +820,7 @@ namespace Wargame_vv2
                 }
                 MessageBox.Show("Il bot ha vinto");
                 this.Close();
-               // TriggerFormClosed();
+            //  TriggerFormClosed();
                 chiusura = true;
             }
             else if (squadraAvversaria.Squad.Count(p => !p.Morto) == 1 && squadraAvversaria.Squad.Any(p => p is Mago && !p.Morto))
@@ -771,7 +838,7 @@ namespace Wargame_vv2
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
-               // TriggerFormClosed();
+            //  TriggerFormClosed();
                 chiusura = true;
             }
         }
@@ -1158,8 +1225,8 @@ namespace Wargame_vv2
 
         private void IsRules()
         {
-            regolerpg.TopMost = true;
-            regolerpg.Show();
+            Regolerpg.TopMost = true;
+            Regolerpg.Show();
         }
         private void Settings_Click(object sender, EventArgs e)
         {

@@ -109,14 +109,14 @@
             // 
             // label2
             // 
-            label2.AutoSize = true;
             label2.Font = new Font("Showcard Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = Color.DimGray;
-            label2.Location = new Point(255, 58);
+            label2.Location = new Point(45, 58);
             label2.Name = "label2";
-            label2.Size = new Size(236, 35);
+            label2.Size = new Size(650, 35);
             label2.TabIndex = 5;
             label2.Text = "- unavailable -";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
@@ -141,7 +141,7 @@
             // 
             // label3
             // 
-            label3.Font = new Font("Segoe Script", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Font = new Font("Segoe Script", 7.20000029F, FontStyle.Regular, GraphicsUnit.Point);
             label3.Location = new Point(748, 514);
             label3.Name = "label3";
             label3.Size = new Size(230, 190);
@@ -167,7 +167,7 @@
             // 
             // pictureBox5
             // 
-            pictureBox5.Location = new Point(889, 357);
+            pictureBox5.Location = new Point(901, 357);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(75, 75);
             pictureBox5.TabIndex = 0;

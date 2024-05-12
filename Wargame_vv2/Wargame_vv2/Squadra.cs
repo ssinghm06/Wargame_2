@@ -104,12 +104,6 @@ namespace Wargame_vv2
             tabellone.PosizionaSquadra(X, Y, this);
         }
 
-        public void Cura(int punti)
-        {
-            foreach (Personaggio p in Squad)
-                p.PuntiVita += punti;
-        }
-
         public bool InvadiSquadra(int x, int y)
         {
             Squadra s = tabellone.GetSquadra(x, y);

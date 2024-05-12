@@ -3,15 +3,19 @@ using System.Globalization;
 using System.Media;
 using System.Net.Http.Headers;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Policy;
 using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
 
 namespace Wargame_vv2
 {
     public partial class Form1 : Form
-
     {
+        private static Form1 form1;
+        public static Form1 Fform1 { get { return form1; } }
+
         private Tabellone tabellone;
         private PictureBox[,] caselle;
         private List<Squadra> squadre;
@@ -55,6 +59,8 @@ namespace Wargame_vv2
 
             this.BackColor = Color.CadetBlue;
             //this.BackgroundImage = CaricaImmagine("sfondo.png");
+
+            form1 = this;
 
             // un po di grafica
             button1.BackColor = Color.OldLace;
@@ -111,6 +117,42 @@ namespace Wargame_vv2
                     ostacoli.Add(nuovoOstacolo);
                     i++;
                 }
+            }
+        }
+
+        public static void CambiaLingua(Form1 form)
+        {
+            form.CambiaTesto();
+        }
+
+        private void CambiaTesto()
+        {
+            if (gioca)
+            {
+                if (Form4.Italiano)
+                    label2.Text = "turno del vichingo!";
+                else
+                    label2.Text = "viking's turn!";
+            }
+            else
+            {
+                if (Form4.Italiano)
+                    label2.Text = "- non disponibile -";
+                else
+                    label2.Text = "- unavailable -";
+            }
+
+            if (Form4.Italiano)
+            {
+                button1.Text = "gioca";
+                button2.Text = "regole";
+                label3.Text = "In un mondo sconvolto da un'anomalia temporale, legioni storiche combattono per determinare la goat, mentre un'invasione aliena minaccia l'umanità. Con il destino dell'umanità in bilico, le legioni si uniscono per salvare il mondo.";
+            }
+            else
+            {
+                button1.Text = "play";
+                button2.Text = "rules";
+                label3.Text = "In a world disrupted by a temporal anomaly, historical legions battle to determine the greatest of all time, as an alien invasion threatens humanity. With the fate of mankind hanging in the balance, the legions unite to repel the alien assault and save the world.";
             }
         }
 
@@ -210,6 +252,8 @@ namespace Wargame_vv2
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            timer1.Stop();
+
             pictureBox6.Enabled = false;
 
             customMessageBox = CustomMessageBox();
@@ -219,7 +263,10 @@ namespace Wargame_vv2
             if (risposta == DialogResult.Yes)
                 Application.Exit();
             else
+            {
                 pictureBox6.Enabled = true;
+                timer1.Start();
+            }
         }
 
         // creo un metodo per gestire il click su una casella
@@ -287,6 +334,7 @@ namespace Wargame_vv2
                                 form3 = new Form3(SquadraSelezionata, squadraCliccata);
                                 form3.Show();
                                 this.Hide();
+                                regole.Hide();
 
                                 form3.FormClosing += Form3_FormClosing;
                                 form3.FormClosed += Form3_FormClosed;
@@ -308,8 +356,11 @@ namespace Wargame_vv2
                                 }
 
                                 await Task.Delay(1000);
-                                label2.Text = "VIKING'S TURN!";
                                 label2.ForeColor = Color.MediumBlue;
+                                if (Form4.Italiano)
+                                    label2.Text = "viking's turn!";
+                                else
+                                    label2.Text = "turno del vichingo!";
                                 turnoGiocatore = true;
                             }
                         }
@@ -320,6 +371,7 @@ namespace Wargame_vv2
 
         private void Form3_FormClosing(object? sender, FormClosingEventArgs e)
         {
+            form3.Regolerpg.Close();
             squadraVinta = form3.Winner();
             squadraPersa = form3.Loser();
         }
@@ -384,8 +436,12 @@ namespace Wargame_vv2
 
             if (turno <= 3 && squadreDelTipo.Count > 0)
             {
-                label2.Text = tipoSquadra.ToString() + "'S TURN!";
                 label2.ForeColor = Color.Red;
+                
+                if (Form4.Italiano)
+                    label2.Text = tipoSquadra.ToString() + "'S TURN!";
+                else
+                    label2.Text = "turno del " + tipoSquadra.ToString() + "!";
 
                 // sceglie casualmente una delle squadre
                 Random r = new Random();
@@ -422,9 +478,10 @@ namespace Wargame_vv2
                             {
                                 squadraScelta.ModCombattimento = false;
 
-                                Form3 form3 = new Form3(squadraAvversaria, squadraScelta);
+                                form3 = new Form3(squadraAvversaria, squadraScelta);
                                 form3.Show();
                                 this.Hide();
+                                regole.Hide();
 
                                 form3.FormClosing += Form3_FormClosing;
                                 form3.FormClosed += Form3_FormClosed;
@@ -540,24 +597,29 @@ namespace Wargame_vv2
             GenerazioneSquadre();
             GenerazioneOstacoli();
             StampaTabellone();
+
+            AudioPlayer.CaricaAudio("board.wav");
+            AudioPlayer.PlayAudio();
         }
 
         private void GenerazioneSquadre()
         {
             squadre = new List<Squadra>()
             {
+                //new Squadra(1, 8, Squadra.Type.Viking, tabellone),
+                //new Squadra(2, 8, Squadra.Type.Viking, tabellone),
+                //new Squadra(1, 7, Squadra.Type.Viking, tabellone),
+                //new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
+                //new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
+                //new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
+                //new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
+                //new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
+                //new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
+                //new Squadra(1, 1, Squadra.Type.Knight, tabellone),
+                //new Squadra(2, 1, Squadra.Type.Knight, tabellone),
+                //new Squadra(1, 2, Squadra.Type.Knight, tabellone)
                 new Squadra(1, 8, Squadra.Type.Viking, tabellone),
-                new Squadra(2, 8, Squadra.Type.Viking, tabellone),
-                new Squadra(1, 7, Squadra.Type.Viking, tabellone),
-                new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
-                new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
-                new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
-                new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
-                new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
-                new Squadra(1, 1, Squadra.Type.Knight, tabellone),
-                new Squadra(2, 1, Squadra.Type.Knight, tabellone),
-                new Squadra(1, 2, Squadra.Type.Knight, tabellone)
+                new Squadra(2, 8, Squadra.Type.Shogun, tabellone),
             };
 
             foreach (Squadra s in squadre)
@@ -666,7 +728,10 @@ namespace Wargame_vv2
 
         public MessageCustomYesNo CustomMessageBox()
         {
-            customMessageBox.Message = "wanna quit?";
+            if (Form4.Italiano)
+                customMessageBox.Message = "wanna quit?";
+            else
+                customMessageBox.Message = "vuoi abbandonare?";
             customMessageBox.YesImage = CaricaImmagine("yes.png");
             customMessageBox.NoImage = CaricaImmagine("no.png");
             customMessageBox.closeImage = CaricaImmagine("delete-cross.png");
@@ -676,10 +741,20 @@ namespace Wargame_vv2
 
         public ResultBox ResultMessageBox()
         {
-            if (win)
-                resultBox.Message = "YOU WON!";
+            if (Form4.Italiano)
+            {
+                if (win)
+                    resultBox.Message = "YOU WON!";
+                else
+                    resultBox.Message = "YOU LOST!";
+            }
             else
-                resultBox.Message = "YOU LOST!";
+            {
+                if (win)
+                    resultBox.Message = "HAI VINTO!";
+                else
+                    resultBox.Message = "HAI PERSO!";
+            }
 
             resultBox.ReplayImage = CaricaImmagine("replay.png");
             resultBox.ExitImage = CaricaImmagine("exit.png");
@@ -751,10 +826,17 @@ namespace Wargame_vv2
                 pictureBox6.Enabled = false;
                 pictureBox6.Visible = false;
 
-                label4.Text = "fight!";
-
-                label2.Text = "VIKING'S TURN!";
                 label2.ForeColor = Color.MediumBlue;
+                if (Form4.Italiano)
+                {
+                    label2.Text = "Viking's turn!";
+                    label4.Text = "fight!";
+                }
+                else
+                {
+                    label2.Text = "turno del vichingo!";
+                    label4.Text = "spacca!";
+                }
             }
 
             if (cont > -1)

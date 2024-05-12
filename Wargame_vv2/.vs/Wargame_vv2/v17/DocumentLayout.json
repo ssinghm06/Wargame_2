@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|c:\\users\\manmo\\onedrive\\desktop\\wargame\\wargame_vv2\\wargame_vv2\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B395791E-4FFC-4577-84D4-E1FC1D67BD69}|Wargame_vv2\\Wargame_vv2.csproj|solutionrelative:wargame_vv2\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,59 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Form5.cs",
-              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form5.cs",
-              "RelativeDocumentMoniker": "Wargame_vv2\\Form5.cs",
-              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form5.cs",
-              "RelativeToolTip": "Wargame_vv2\\Form5.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-09T09:09:20.911Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form5.cs [Progettazione]",
-              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form5.cs",
-              "RelativeDocumentMoniker": "Wargame_vv2\\Form5.cs",
-              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form5.cs [Progettazione]",
-              "RelativeToolTip": "Wargame_vv2\\Form5.cs [Progettazione]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-09T09:00:53.537Z",
-              "IsPinned": true,
-              "EditorCaption": " [Progettazione]"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form3.cs",
-              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form3.cs",
-              "RelativeDocumentMoniker": "Wargame_vv2\\Form3.cs",
-              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form3.cs",
-              "RelativeToolTip": "Wargame_vv2\\Form3.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAAYwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-11T14:59:26.558Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "Form3.cs [Progettazione]",
               "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form3.cs",
               "RelativeDocumentMoniker": "Wargame_vv2\\Form3.cs",
               "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form3.cs [Progettazione]",
               "RelativeToolTip": "Wargame_vv2\\Form3.cs [Progettazione]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-09T08:38:20.281Z",
+              "WhenOpened": "2024-05-12T14:15:17.249Z",
               "EditorCaption": " [Progettazione]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form3.cs",
+              "DocumentMoniker": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form3.cs",
+              "RelativeDocumentMoniker": "Wargame_vv2\\Form3.cs",
+              "ToolTip": "C:\\Users\\manmo\\OneDrive\\Desktop\\Wargame\\Wargame_vv2\\Wargame_vv2\\Form3.cs",
+              "RelativeToolTip": "Wargame_vv2\\Form3.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAE8AAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-12T14:14:44.558Z",
+              "EditorCaption": ""
             }
           ]
         }

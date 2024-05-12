@@ -19,7 +19,7 @@ namespace Wargame_vv2
             this.BackColor = Color.OldLace;
 
             this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(1170, 180);
+            this.Location = new Point(88, 122);
 
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.Image = Form1.CaricaImmagine("regole1.png");

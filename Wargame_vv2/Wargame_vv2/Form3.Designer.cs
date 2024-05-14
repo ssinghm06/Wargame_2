@@ -868,10 +868,10 @@
             // 
             // Settings
             // 
-            Settings.Location = new Point(191, 702);
+            Settings.Location = new Point(178, 706);
             Settings.Margin = new Padding(2);
             Settings.Name = "Settings";
-            Settings.Size = new Size(96, 96);
+            Settings.Size = new Size(122, 112);
             Settings.TabIndex = 75;
             Settings.UseVisualStyleBackColor = true;
             Settings.Click += Settings_Click;

@@ -441,7 +441,14 @@ namespace Wargame_vv2
                 if (Form4.Italiano)
                     label2.Text = tipoSquadra.ToString() + "'S TURN!";
                 else
-                    label2.Text = "turno del " + tipoSquadra.ToString() + "!";
+                {
+                    if (tipoSquadra == Squadra.Type.Gladiator)
+                        label2.Text = "turno del gladiatore!";
+                    else if (tipoSquadra == Squadra.Type.Knight)
+                        label2.Text = "turno del cavaliere!";
+                    else
+                        label2.Text = "turno del " + tipoSquadra.ToString() + "!";
+                }
 
                 // sceglie casualmente una delle squadre
                 Random r = new Random();
@@ -606,20 +613,20 @@ namespace Wargame_vv2
         {
             squadre = new List<Squadra>()
             {
-                //new Squadra(1, 8, Squadra.Type.Viking, tabellone),
-                //new Squadra(2, 8, Squadra.Type.Viking, tabellone),
-                //new Squadra(1, 7, Squadra.Type.Viking, tabellone),
-                //new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
-                //new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
-                //new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
-                //new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
-                //new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
-                //new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
-                //new Squadra(1, 1, Squadra.Type.Knight, tabellone),
-                //new Squadra(2, 1, Squadra.Type.Knight, tabellone),
-                //new Squadra(1, 2, Squadra.Type.Knight, tabellone)
                 new Squadra(1, 8, Squadra.Type.Viking, tabellone),
-                new Squadra(2, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(2, 8, Squadra.Type.Viking, tabellone),
+                new Squadra(1, 7, Squadra.Type.Viking, tabellone),
+                new Squadra(8, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(7, 8, Squadra.Type.Shogun, tabellone),
+                new Squadra(8, 7, Squadra.Type.Shogun, tabellone),
+                new Squadra(7, 1, Squadra.Type.Gladiator, tabellone),
+                new Squadra(8, 1, Squadra.Type.Gladiator, tabellone),
+                new Squadra(8, 2, Squadra.Type.Gladiator, tabellone),
+                new Squadra(1, 1, Squadra.Type.Knight, tabellone),
+                new Squadra(2, 1, Squadra.Type.Knight, tabellone),
+                new Squadra(1, 2, Squadra.Type.Knight, tabellone)
+                //new Squadra(1, 8, Squadra.Type.Viking, tabellone),
+                //new Squadra(2, 8, Squadra.Type.Shogun, tabellone),
             };
 
             foreach (Squadra s in squadre)

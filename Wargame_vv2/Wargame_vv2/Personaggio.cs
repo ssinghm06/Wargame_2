@@ -50,6 +50,7 @@ namespace Wargame_vv2
                 {
                     value = 0;
                     morto = true;
+                    puntiAzione = 0;
                 }
                 puntiVita = value;
             }

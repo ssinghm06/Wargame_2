@@ -20,7 +20,7 @@ namespace Wargame_vv2
         private Personaggio personaggioAvversarioScelto;
 
         private bool attaccoMago = false;
-        private bool turno = true;
+        //private bool turno = true;
 
         private bool chiusura = false;
 
@@ -118,7 +118,9 @@ namespace Wargame_vv2
             AttaccoPesante.BackgroundImage = Form1.CaricaImmagine("heavyAttack.png");
             Difesa.BackgroundImage = Form1.CaricaImmagine("defense.png");
 
-            Settings.BackgroundImage = Form1.CaricaImmagine("settings.png");
+            //Settings.BackgroundImage = Form1.CaricaImmagine("settings.png");
+            Settings.BackgroundImageLayout = ImageLayout.Stretch;
+            Settings.Image = Form1.CaricaImmagine("settings.gif");
 
             squadraSelezionata = squadraGiocatore;
             this.squadraAvversaria = squadraAvversaria;
@@ -479,7 +481,7 @@ namespace Wargame_vv2
 
         private void AlgoritmoBaseBot()
         {
-            if (chiusura) return;
+            //if (chiusura) return;
             int azione = random.Next(0, 3);
             int personaggioBotIndex = random.Next(0, squadraAvversaria.Squad.Count);
             int personaggioGiocatoreIndex = random.Next(0, squadraSelezionata.Squad.Count);
@@ -772,16 +774,6 @@ namespace Wargame_vv2
         {
             if (squadraSelezionata.Squad.All(p => p.Morto))
             {
-                foreach (Personaggio p in squadraAvversaria.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
-                foreach (Personaggio p in squadraSelezionata.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
                 MessageBox.Show("Il bot ha vinto");
                 this.Close();
             //  TriggerFormClosed();
@@ -789,16 +781,6 @@ namespace Wargame_vv2
             }
             else if (squadraAvversaria.Squad.All(p => p.Morto))
             {
-                foreach (Personaggio p in squadraSelezionata.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
-                foreach (Personaggio p in squadraAvversaria.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
@@ -808,16 +790,6 @@ namespace Wargame_vv2
 
             else if (squadraSelezionata.Squad.Count(p => !p.Morto) == 1 && squadraSelezionata.Squad.Any(p => p is Mago && !p.Morto))
             {
-                foreach (Personaggio p in squadraAvversaria.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
-                foreach (Personaggio p in squadraSelezionata.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
                 MessageBox.Show("Il bot ha vinto");
                 this.Close();
             //  TriggerFormClosed();
@@ -825,16 +797,6 @@ namespace Wargame_vv2
             }
             else if (squadraAvversaria.Squad.Count(p => !p.Morto) == 1 && squadraAvversaria.Squad.Any(p => p is Mago && !p.Morto))
             {
-                foreach (Personaggio p in squadraSelezionata.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
-                foreach (Personaggio p in squadraAvversaria.Squad)
-                {
-                    p.PuntiAzione = p.PuntiAzioneMassimi;
-                    p.PuntiVita = p.PuntiVitaMassimi;
-                }
                 MessageBox.Show("Il giocatore ha vinto!");
                 giocatoreVinto = true;
                 this.Close();
@@ -868,11 +830,17 @@ namespace Wargame_vv2
         {
             foreach (Personaggio p in squadraAvversaria.Squad)
             {
-                p.PuntiAzione += 5;
+                if (p.Morto == false)
+                {
+                    p.PuntiAzione += 5;
+                }
             }
             foreach (Personaggio p in squadraSelezionata.Squad)
             {
-                p.PuntiAzione += 5;
+                if (p.Morto == false)
+                {
+                    p.PuntiAzione += 5;
+                }
             }
 
         }
@@ -955,6 +923,8 @@ namespace Wargame_vv2
 
         private void Guerriero1_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
@@ -971,6 +941,8 @@ namespace Wargame_vv2
 
         private void Cavaliere1_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
@@ -987,6 +959,8 @@ namespace Wargame_vv2
 
         private void Arciere1_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
@@ -1003,6 +977,8 @@ namespace Wargame_vv2
 
         private void Mago1_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             if (attaccoMago)
             {
                 GestionePuslantiCuraMago();
@@ -1018,6 +994,8 @@ namespace Wargame_vv2
 
         private void Guerriero2_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             personaggioAvversarioScelto = squadraAvversaria.Squad[0];
             AbilitaPulsantiAttacco();
             DisattivaDifesaeGrafica();
@@ -1025,6 +1003,8 @@ namespace Wargame_vv2
 
         private void Cavaliere2_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             personaggioAvversarioScelto = squadraAvversaria.Squad[1];
             AbilitaPulsantiAttacco();
             DisattivaDifesaeGrafica();
@@ -1032,6 +1012,8 @@ namespace Wargame_vv2
 
         private void Arciere2_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             personaggioAvversarioScelto = squadraAvversaria.Squad[2];
             AbilitaPulsantiAttacco();
             DisattivaDifesaeGrafica();
@@ -1039,6 +1021,8 @@ namespace Wargame_vv2
 
         private void Mago2_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("move.wav");
+            AudioPlayer.PlayAudio();
             personaggioAvversarioScelto = squadraAvversaria.Squad[3];
             AbilitaPulsantiAttacco();
             DisattivaDifesaeGrafica();
@@ -1060,7 +1044,7 @@ namespace Wargame_vv2
                         DisattivaDifesaeGrafica();
                         DisabilitaPulsantiAvversari();
                         attaccoMago = false;
-                        turno = false;
+                        //turno = false;
                         VerificaMorti();
                         IsEndGame();
                         if (chiusura)
@@ -1083,7 +1067,7 @@ namespace Wargame_vv2
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
                         DisabilitaPulsantiAvversari();
-                        turno = false;
+                        //turno = false;
                         VerificaMorti();
                         IsEndGame();
                         if (chiusura)
@@ -1099,10 +1083,11 @@ namespace Wargame_vv2
 
             catch (Exception ex)
             {
-                if (turno == false)
-                {
-                    MessageBox.Show($"Errore: {ex.Message}");
-                }
+                //if (turno == false)
+                //{
+                //    MessageBox.Show($"Errore: {ex.Message}");
+                //}
+                MessageBox.Show($"Errore: {ex.Message}");
                 AbilitaPulsantiGiocatore();
                 DisabilitaPulsantiAvversari();
                 DisabilitaPulsantiAttacco();
@@ -1125,7 +1110,7 @@ namespace Wargame_vv2
                         DisattivaDifesaeGrafica();
                         DisabilitaPulsantiAvversari();
                         attaccoMago = false;
-                        turno = false;
+                        //turno = false;
                         VerificaMorti();
                         IsEndGame();
                         if (chiusura)
@@ -1148,7 +1133,7 @@ namespace Wargame_vv2
                         DisabilitaPulsantiAttacco();
                         DisattivaDifesaeGrafica();
                         DisabilitaPulsantiAvversari();
-                        turno = false;
+                        //turno = false;
                         VerificaMorti();
                         IsEndGame();
                         if (chiusura)
@@ -1163,10 +1148,11 @@ namespace Wargame_vv2
             }
             catch (Exception ex)
             {
-                if (turno == false)
-                {
-                    MessageBox.Show($"Errore: {ex.Message}");
-                }
+                //if (turno == false)
+                //{
+                //    MessageBox.Show($"Errore: {ex.Message}");
+                //}
+                MessageBox.Show($"Errore: {ex.Message}");
                 AbilitaPulsantiGiocatore();
                 DisabilitaPulsantiAvversari();
                 DisabilitaPulsantiAttacco();
@@ -1175,6 +1161,8 @@ namespace Wargame_vv2
 
         private void Difesa_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("difendi.wav");
+            AudioPlayer.PlayAudio();
             try
             {
                 if (personaggioScelto != null)
@@ -1182,7 +1170,7 @@ namespace Wargame_vv2
                     personaggioScelto.AttivaDifesa();
                     MessageBox.Show("Difesa attivata");
                     DopoDifesa();
-                    turno = false;
+                    //turno = false;
                     attaccoMago = false;
                     AlgoritmoBaseBot();
                     VerificaMorti();
@@ -1193,10 +1181,11 @@ namespace Wargame_vv2
             }
             catch (Exception ex)
             {
-                if (turno == false)
-                {
-                    MessageBox.Show($"Errore: {ex.Message}");
-                }
+                //if (turno == false)
+                //{
+                //    MessageBox.Show($"Errore: {ex.Message}");
+                //}
+                MessageBox.Show($"Errore: {ex.Message}");
                 AbilitaPulsantiGiocatore();
                 DisabilitaPulsantiAvversari();
                 DisabilitaPulsantiAttacco();
@@ -1230,6 +1219,8 @@ namespace Wargame_vv2
         }
         private void Settings_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("settingsClick.wav");
+            AudioPlayer.PlayAudio();
             IsRules();
         }
     }

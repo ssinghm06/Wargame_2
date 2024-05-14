@@ -104,7 +104,6 @@
             // 
             // label2
             // 
-            label2.AutoSize = true;
             label2.Font = new Font("Showcard Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(300, 195);
             label2.Margin = new Padding(2, 0, 2, 0);
@@ -164,7 +163,6 @@
             // 
             // label5
             // 
-            label5.AutoSize = true;
             label5.Font = new Font("Showcard Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label5.Location = new Point(300, 351);
             label5.Margin = new Padding(2, 0, 2, 0);
@@ -254,7 +252,6 @@
             // 
             // label9
             // 
-            label9.AutoSize = true;
             label9.Font = new Font("Showcard Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label9.Location = new Point(771, 153);
             label9.Margin = new Padding(2, 0, 2, 0);
@@ -381,9 +378,9 @@
             label16.Location = new Point(1323, 196);
             label16.Margin = new Padding(2, 0, 2, 0);
             label16.Name = "label16";
-            label16.Size = new Size(268, 63);
+            label16.Size = new Size(264, 63);
             label16.TabIndex = 31;
-            label16.Text = "HP: 700\r\nAttacco base: 100 HP | 10 PA\r\nAttacco pesante: 300 HP | 25 PA";
+            label16.Text = "PS: 700\r\nAttacco base: 100 PS | 10 PA\r\nAttacco pesante: 300 PS | 25 PA";
             // 
             // label17
             // 
@@ -414,9 +411,9 @@
             label19.Location = new Point(1323, 363);
             label19.Margin = new Padding(2, 0, 2, 0);
             label19.Name = "label19";
-            label19.Size = new Size(263, 63);
+            label19.Size = new Size(259, 63);
             label19.TabIndex = 33;
-            label19.Text = "HP: 950\r\nAttacco base: 70 HP | 12 PA\r\nAttacco pesante: 125 HP | 22 PA";
+            label19.Text = "PS: 950\r\nAttacco base: 70 PS | 12 PA\r\nAttacco pesante: 125 PS | 22 PA";
             // 
             // label20
             // 
@@ -436,9 +433,9 @@
             label21.Location = new Point(1323, 530);
             label21.Margin = new Padding(2, 0, 2, 0);
             label21.Name = "label21";
-            label21.Size = new Size(267, 63);
+            label21.Size = new Size(263, 63);
             label21.TabIndex = 35;
-            label21.Text = "HP: 400\r\nAttacco base: 75 HP | 5 PA\r\nAttacco pesante: 100 HP | 10 PA";
+            label21.Text = "PS: 400\r\nAttacco base: 75 PS | 5 PA\r\nAttacco pesante: 100 PS | 10 PA";
             // 
             // label22
             // 
@@ -458,9 +455,9 @@
             label23.Location = new Point(1323, 699);
             label23.Margin = new Padding(2, 0, 2, 0);
             label23.Name = "label23";
-            label23.Size = new Size(269, 63);
+            label23.Size = new Size(256, 63);
             label23.TabIndex = 37;
-            label23.Text = "HP: 1200\r\nCura minore: 200 HP | 15 PA\r\nAttacco pesante: 500 HP | 25 PA";
+            label23.Text = "PS: 1200\r\nCura minore: 200 PS | 15 PA\r\nCura maggiore: 500 PS | 25 PA";
             // 
             // pictureBox15
             // 

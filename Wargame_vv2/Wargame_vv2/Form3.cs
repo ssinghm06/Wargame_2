@@ -1030,6 +1030,8 @@ namespace Wargame_vv2
 
         private void AttaccoBase_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("win.wav");
+            AudioPlayer.PlayAudio();
             try
             {
                 if (attaccoMago)
@@ -1096,6 +1098,8 @@ namespace Wargame_vv2
 
         private void AttaccoPesante_Click(object sender, EventArgs e)
         {
+            AudioPlayer.CaricaAudio("win.wav");
+            AudioPlayer.PlayAudio();
             try
             {
                 if (attaccoMago)
@@ -1161,7 +1165,7 @@ namespace Wargame_vv2
 
         private void Difesa_Click(object sender, EventArgs e)
         {
-            AudioPlayer.CaricaAudio("difendi.wav");
+            AudioPlayer.CaricaAudio("invadi.wav");
             AudioPlayer.PlayAudio();
             try
             {
